@@ -1,0 +1,701 @@
+/* ═══ ASCENTA STUDIO — one atmosphere, product-grade precision ════════════
+   The hero's world (sky, crystal, iridescent light) governs the WHOLE page:
+   one light gradient, iris/volt glows drifting down the scroll, glass panes
+   and 1px refraction rings for anything elevated. Below the hero the voice
+   is Geist + Geist Mono — engineering-grade type, dense sections, hairline
+   structure. Fraunces speaks only in the hero. Laws honored: transform+
+   opacity animations only; content-visibility below the fold; media
+   reserves space; one smoothing chain (Lenis); backdrop-filter kept small
+   over live video. */
+
+:root{
+  --sky:#E9F1FB;
+  --mist:#F1FAF5;
+  --ink:#0B1322;
+  --ink-soft:#3E4B63;
+  --volt:#3D4DFF;
+  --iris:#7A5CFF;
+  --line:rgba(11,19,34,.10);
+  --serif:"Fraunces",Georgia,serif;
+  --sans:"Geist",system-ui,sans-serif;
+  --mono:"Geist Mono",ui-monospace,"SF Mono",Consolas,monospace;
+  --expo:cubic-bezier(.16,1,.3,1);
+  --w:min(1240px,calc(100% - 2.8rem));
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:auto;scroll-padding-top:120px}
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+
+/* one atmosphere: the hero's sky continues down the page, with soft
+   iridescent glows echoing the crystal A */
+body{
+  font-family:var(--sans);
+  color:var(--ink);
+  background:linear-gradient(178deg,var(--sky) 0%,#EDF4F9 46%,var(--mist) 100%);
+  -webkit-font-smoothing:antialiased;
+  overflow-x:clip;
+}
+
+/* ── atmosphere — the hero's iris light lives BEHIND the whole page and
+   drifts upward with the scroll at three different depths (pure transform,
+   scroll-driven on the compositor — zero JS, zero main-thread work). This
+   is what makes the page feel like one continuous airspace. ───────────── */
+.atmo{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:clip}
+.atmo i{position:absolute;display:block;border-radius:50%}
+.atmo .g1{width:58vw;height:46vh;right:-12vw;top:4vh;
+  background:radial-gradient(closest-side,rgba(122,92,255,.17),transparent 72%)}
+.atmo .g2{width:52vw;height:42vh;left:-11vw;top:36vh;
+  background:radial-gradient(closest-side,rgba(61,77,255,.14),transparent 72%)}
+.atmo .g3{width:56vw;height:44vh;right:-9vw;top:70vh;
+  background:radial-gradient(closest-side,rgba(122,92,255,.12),transparent 72%)}
+@supports (animation-timeline: scroll()){
+  .atmo .g1{animation:driftA linear both;animation-timeline:scroll()}
+  .atmo .g2{animation:driftB linear both;animation-timeline:scroll()}
+  .atmo .g3{animation:driftC linear both;animation-timeline:scroll()}
+}
+@keyframes driftA{from{transform:translateY(4vh)}to{transform:translateY(-30vh) scale(1.25)}}
+@keyframes driftB{from{transform:translateY(12vh)}to{transform:translateY(-44vh) scale(1.15)}}
+@keyframes driftC{from{transform:translateY(28vh) scale(.9)}to{transform:translateY(-56vh) scale(1.2)}}
+::selection{background:var(--volt);color:#fff}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:3px solid var(--volt);outline-offset:3px;border-radius:6px}
+
+/* ── nav — floating crystal capsule ──────────────────────────────────── */
+.nav{
+  position:fixed;top:1.15rem;left:50%;z-index:40;
+  transform:translateX(-50%);
+  display:flex;align-items:center;gap:1.4rem;
+  padding:.42rem .42rem .42rem 1.05rem;
+  background:linear-gradient(120deg,rgba(255,255,255,.84),rgba(255,255,255,.52) 42%,rgba(255,255,255,.70));
+  backdrop-filter:blur(14px) saturate(1.6);
+  -webkit-backdrop-filter:blur(14px) saturate(1.6);
+  border-radius:999px;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.95),
+    inset 0 -1px 1px rgba(255,255,255,.35),
+    0 2px 6px rgba(11,19,34,.05),
+    0 18px 50px rgba(11,19,34,.14);
+  white-space:nowrap;
+}
+/* 1px refraction ring — white sheen breaking into an iris glint */
+.nav::before{
+  content:"";position:absolute;inset:0;border-radius:999px;padding:1px;
+  background:linear-gradient(115deg,
+    rgba(255,255,255,.95),rgba(255,255,255,.30) 30%,
+    rgba(122,92,255,.38) 55%,rgba(61,77,255,.22) 70%,rgba(255,255,255,.75));
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;
+  pointer-events:none;
+}
+.nav-brand{display:flex;align-items:center}
+.nav-brand img{height:24px;width:auto;display:block}
+.nav-links{display:flex;gap:1.35rem;font-size:.9rem;font-weight:500;letter-spacing:-.005em;color:var(--ink-soft)}
+.nav-links a{position:relative;padding:.35rem 0;transition:color .25s}
+.nav-links a::after{
+  content:"";position:absolute;left:0;right:0;bottom:0;height:2px;border-radius:2px;
+  background:linear-gradient(90deg,var(--volt),var(--iris));
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .35s var(--expo);
+}
+.nav-links a:hover{color:var(--ink)}
+.nav-links a:hover::after{transform:scaleX(1)}
+
+/* ── buttons — solid ink; the gradient is reserved for accents ───────── */
+.btn{
+  display:inline-block;position:relative;
+  background:var(--ink);
+  color:#fff;font-weight:500;font-size:.97rem;letter-spacing:-.005em;
+  padding:.95rem 1.9rem;border-radius:999px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 10px 28px rgba(11,19,34,.22);
+  transition:transform .3s var(--expo),box-shadow .3s var(--expo);
+}
+.btn:hover{transform:translateY(-2px);box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 16px 36px rgba(11,19,34,.28)}
+.btn:active{transform:translateY(0)}
+.btn-small{padding:.56rem 1.25rem;font-size:.86rem}
+.btn-ghost{
+  background:rgba(255,255,255,.55);color:var(--ink);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.9),inset 0 0 0 1px rgba(11,19,34,.10);
+}
+.btn-ghost:hover{box-shadow:inset 0 1px 0 rgba(255,255,255,.9),inset 0 0 0 1px rgba(11,19,34,.16),0 10px 24px rgba(11,19,34,.10)}
+
+/* ── hero — untouched world: copy left, the bird owns the rest ───────── */
+.hero{
+  position:relative;min-height:100svh;
+  display:flex;align-items:center;
+  overflow:clip;
+}
+.hero-media{position:absolute;inset:0;z-index:0;
+  /* default poster so the hero paints even without JS (main.js swaps it
+     per device class before first paint when scripting is available) */
+  --hero-poster:url("assets/hero_poster_desktop_v2.webp")}
+@media (max-width:700px){.hero-media{--hero-poster:url("assets/hero_poster_mobile.webp")}}
+/* The poster carries the first paint AND MOVES from millisecond zero: a slow
+   transform-only drift (guaranteed 60fps, no decoder involved). The video
+   fades in over it once measurably smooth. */
+.hero-media::before{
+  content:"";position:absolute;inset:0;
+  background:var(--hero-poster) center/cover no-repeat;
+  animation:heroDrift 22s cubic-bezier(.2,.6,.4,1) forwards;
+}
+@keyframes heroDrift{from{transform:scale(1)}to{transform:scale(1.075)}}
+.hero-media video{
+  position:relative;
+  width:100%;height:100%;object-fit:cover;object-position:66% center;display:block;
+  opacity:0;transition:opacity .9s ease;
+}
+.hero-media video.on{opacity:1}
+@media (max-width:700px){.hero-media video{object-position:center}}
+.hero-copy{
+  position:relative;z-index:2;
+  width:100%;
+  padding-left:clamp(2rem,6vw,8rem);
+  padding-right:1.4rem;
+}
+.hero-copy>*{max-width:32rem}
+.hero-copy .sub{max-width:28.5rem}
+/* the video dissolves into the page's sky — no hard edge into the next scene */
+.hero::after{
+  content:"";position:absolute;left:0;right:0;bottom:0;height:24vh;z-index:1;
+  background:linear-gradient(180deg,rgba(233,241,251,0) 0%,rgba(234,242,251,.55) 55%,#EAF2FB 96%);
+  pointer-events:none;
+}
+.hero h1{
+  font-family:var(--serif);font-weight:430;
+  font-size:clamp(2.5rem,4.6vw,4.1rem);
+  line-height:1.05;letter-spacing:-.015em;
+  margin:.9rem 0 1.2rem;
+}
+.hero h1 em{font-style:italic;font-weight:340}
+.hero .line{display:block;overflow:clip}
+.eyebrow{
+  font-size:.95rem;font-weight:500;letter-spacing:-.005em;
+  color:var(--ink-soft);
+}
+.sub{font-size:1.12rem;line-height:1.65;color:var(--ink-soft)}
+.sub strong{color:var(--ink);font-weight:600}
+.cta-row{display:flex;gap:.9rem;flex-wrap:wrap;margin-top:1.7rem}
+.scroll-hint{
+  position:absolute;z-index:2;right:2.2rem;bottom:2.1rem;
+  font-size:.7rem;letter-spacing:.34em;text-transform:uppercase;color:var(--ink-soft);
+}
+
+/* hero load choreography — transform/opacity only.
+   Gated behind .js (set by an inline <head> script): without JavaScript —
+   crawlers, review bots, no-JS browsers — every element is fully visible
+   and the page reads as plain, complete HTML. */
+.js .rise{opacity:0;transform:translateY(26px);transition:opacity .9s var(--expo),transform .9s var(--expo)}
+.js body.ready .rise{opacity:1;transform:none}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.26s}.d4{transition-delay:.36s}
+
+/* ── scaffolding ─────────────────────────────────────────────────────── */
+main section{width:var(--w);margin:0 auto}
+/* NOTE: content-visibility:auto was removed deliberately. Chromium renders
+   c-v:auto sections as BLANK in full-page (captureBeyondViewport) screenshots
+   — exactly how automated site reviewers (e.g. AWS Activate) capture pages —
+   making Process/Pricing/FAQ/Contact appear missing. The page is one screen
+   of DOM; the paint saving was negligible. Do not reintroduce. */
+
+/* section rails — hairline, mono index, register, live meta.
+   The hairline DRAWS itself across the page as the section enters. */
+.rail{
+  position:relative;
+  display:flex;align-items:baseline;gap:1.1rem;
+  padding-top:.8rem;margin-bottom:1.5rem;
+  font-family:var(--mono);font-size:.78rem;font-weight:500;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--ink-soft);
+}
+.rail::before{
+  content:"";position:absolute;top:0;left:0;right:0;height:1px;
+  background:var(--line);transform-origin:left;
+}
+@supports (animation-timeline: view()){
+  .rail::before{
+    animation:railDraw linear both;
+    animation-timeline:view();
+    animation-range:entry 0% entry 45%;
+  }
+}
+@keyframes railDraw{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.idx{color:var(--volt)}
+.rail-r{margin-left:auto;text-align:right}
+.contact .rail-r{text-transform:none}
+
+/* the display voice below the hero: Geist, tight and confident */
+.work-head h2,.sec-head h2,.about h2,.pricing h2,.faq h2,.contact h2,
+.work-head h1,.about h1,.pricing h1,.contact h1{
+  font-weight:600;letter-spacing:-.03em;
+  font-size:clamp(1.7rem,2.7vw,2.5rem);line-height:1.08;
+}
+.sec-note{color:var(--ink-soft);font-size:.92rem;margin-top:.6rem}
+
+/* scroll reveals — transform/opacity only; .js-gated like .rise above */
+.js .reveal{opacity:0;transform:translateY(34px);transition:opacity 1s var(--expo),transform 1s var(--expo)}
+.js .reveal.in{opacity:1;transform:none}
+.reveal.d2{transition-delay:.12s}.reveal.d3{transition-delay:.22s}
+
+/* ── work — the flagship build, near-full-bleed with overlaid credit ─── */
+.work{padding:5rem 0 4rem}
+main section.work{width:100%;max-width:none}
+.work-head{width:var(--w);margin:0 auto 2rem}
+.piece{
+  display:block;cursor:pointer;
+  width:min(1560px,calc(100% - 3rem));margin:0 auto;
+  border-radius:12px;
+}
+/* two builds stack; without this they touch and read as one tall panel */
+.piece+.piece{margin-top:3rem}
+.screen{
+  position:relative;overflow:clip;border-radius:12px;
+  /* 16:9 exactly — the preview video is 1920×1080, so the live site maps
+     1:1 onto the frame with zero side-crop; the still crops off its bottom */
+  aspect-ratio:16/9;
+  background:#0d1018;
+  box-shadow:
+    0 2px 8px rgba(11,19,34,.10),
+    0 34px 90px rgba(11,19,34,.22);
+  transition:box-shadow .6s var(--expo);
+}
+/* the still settles into place as it enters — compositor-only, no JS */
+@supports (animation-timeline: view()){
+  .screen{
+    animation:pieceIn linear both;
+    animation-timeline:view();
+    animation-range:entry 0% entry 60%;
+  }
+}
+@keyframes pieceIn{from{transform:scale(.94) translateY(28px)}to{transform:none}}
+/* iridescent 1px bezel — same refraction language as the nav capsule */
+.screen::after{
+  content:"";position:absolute;inset:0;border-radius:12px;padding:1px;z-index:2;
+  background:linear-gradient(125deg,
+    rgba(255,255,255,.85),rgba(255,255,255,.25) 28%,
+    rgba(122,92,255,.35) 55%,rgba(61,77,255,.2) 72%,rgba(255,255,255,.6));
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;
+  pointer-events:none;
+}
+.piece:hover .screen,.piece:focus-visible .screen{
+  box-shadow:
+    0 2px 8px rgba(11,19,34,.10),
+    0 48px 110px rgba(11,19,34,.28);
+}
+.screen img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
+.screen .preview{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;display:block;
+  opacity:0;transition:opacity .55s var(--expo);
+}
+.piece.playing .preview{opacity:1}
+.chip{
+  position:absolute;top:1.1rem;right:1.2rem;z-index:3;
+  font-family:var(--mono);
+  font-size:.72rem;font-weight:500;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--ink);
+  padding:.5rem .9rem;border-radius:999px;
+  background:rgba(255,255,255,.88);
+  box-shadow:inset 0 1px 0 #fff,0 4px 14px rgba(11,19,34,.18);
+  opacity:0;transform:translateY(6px);
+  transition:opacity .4s var(--expo),transform .4s var(--expo);
+}
+.piece.playing .chip{opacity:1;transform:none}
+/* credit overlaid on the still, like a film title card */
+.piece-meta{
+  position:absolute;left:1.3rem;bottom:1.3rem;z-index:3;
+  display:flex;align-items:baseline;gap:.85rem;
+  padding:.7rem 1.15rem;border-radius:999px;
+  background:rgba(8,13,25,.58);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.16);
+}
+.piece-meta h3{font-weight:500;font-size:.94rem;letter-spacing:-.005em;color:#fff}
+.piece-type{
+  font-family:var(--mono);
+  font-size:.72rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;
+  color:rgba(255,255,255,.78);
+}
+/* EL UNICO CAMINO DESDE LA PORTADA HASTA UNA OBRA (2026-08-16). Hasta hoy las cuatro
+   tarjetas decian "Live preview" y no llevaban a ningun sitio: 183 visitas en once dias
+   sobre una pagina que invita a "See the work" y no tenia ni un enlace a una obra.
+   Va DENTRO del rotulo y no envolviendo la tarjeta entera a proposito: en movil el primer
+   toque sobre la tarjeta tiene que seguir reproduciendo el video ("Tap to browse the site"),
+   y un <a> alrededor se comeria ese gesto. Ver `main.js`, donde el toque sobre este enlace
+   se excluye del reproductor. */
+.piece-open{
+  font-family:var(--mono);
+  font-size:.72rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;
+  color:#fff;text-decoration:none;white-space:nowrap;
+  padding-left:.85rem;
+  border-left:1px solid rgba(255,255,255,.22);
+  opacity:.82;transition:opacity .3s var(--expo);
+}
+.piece-open:hover,.piece-open:focus-visible{opacity:1;text-decoration:underline}
+
+/* ── studio — the promise leads, dense two-column copy under it ──────── */
+.about{padding:0 0 4.5rem;position:relative}
+.about h1,.about h2{max-width:52rem;position:relative;z-index:1}
+/* the crystal branch from the hero's world grows in from the screen edge —
+   the companion's perch beside the promise */
+.perch-branch{
+  position:absolute;z-index:0;
+  transform-origin:94% 55%;
+  top:2.2rem;
+  right:calc((100% - 100vw)/2);
+  width:clamp(360px,30vw,580px);height:auto;
+  /* the crystal is near-white: without darkening it vanishes into the sky */
+  filter:brightness(.72) contrast(1.3) saturate(1.5)
+         drop-shadow(0 10px 18px rgba(11,19,34,.28));
+  pointer-events:none;
+}
+@media (max-width:1100px){
+  .perch-branch{top:-64px;width:min(40vw,340px)}
+}
+/* the promise fills in word by word — faint ink turning solid (.js-gated:
+   static render shows the line solid) */
+.js .about h1 .w,.js .about h2 .w{opacity:.13;transition:opacity .5s linear;transition-delay:calc(.25s + var(--i)*45ms)}
+.js .about h1.in .w,.js .about h2.in .w{opacity:1}
+.about-copy{
+  display:grid;grid-template-columns:1fr 1fr;gap:3rem;
+  margin-top:1.6rem;
+}
+.about-copy p{color:var(--ink-soft);line-height:1.7;font-size:1rem;max-width:34rem}
+.about-copy strong{color:var(--ink);font-weight:600}
+
+/* ── process — three columns split by hairlines, ghost numerals ──────── */
+.process{padding:0 0 4.5rem}
+.process .sec-head{margin-bottom:2rem}
+.steps{list-style:none;display:grid;grid-template-columns:repeat(3,1fr)}
+.steps li{padding:.4rem 1.9rem .6rem;border-left:1px solid var(--line)}
+.steps li:first-child{padding-left:.2rem;border-left:0}
+.step-n{
+  display:block;margin-bottom:1rem;
+  font-family:var(--mono);font-weight:400;font-size:2rem;line-height:1;
+  letter-spacing:-.02em;color:rgba(11,19,34,.22);
+}
+.steps h3{font-size:1.05rem;font-weight:600;margin-bottom:.5rem;letter-spacing:-.015em}
+.steps p{color:var(--ink-soft);line-height:1.6;font-size:.95rem;max-width:26rem}
+.step-t{
+  display:block;margin-top:1.1rem;
+  font-family:var(--mono);font-size:.72rem;font-weight:500;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);
+}
+
+/* ── pricing — hairline list + one glass panel ───────────────────────── */
+.pricing{padding-bottom:4.5rem}
+.pricing-grid{
+  display:grid;grid-template-columns:1.15fr .85fr;gap:3rem;align-items:start;
+}
+.pricing h1,.pricing h2{margin-bottom:1.5rem}
+.incl{list-style:none}
+.incl li{
+  padding:.85rem .15rem;border-top:1px solid var(--line);
+  color:var(--ink-soft);font-size:.97rem;
+}
+.incl li:last-child{border-bottom:1px solid var(--line)}
+.incl li strong{color:var(--ink);font-weight:600}
+/* ── los dos tramos de precio (2026-08-30) ─────────────────────────────────
+   El `sticky` estaba en `.price-panel` cuando solo habia una tarjeta. Con dos, cada una se
+   pegaria por su cuenta y acabarian una encima de la otra al bajar. Sube al contenedor: las
+   dos se mueven juntas y su posicion relativa no cambia — que es justo lo que necesita el
+   posadero del pajaro, anclado al borde superior de la PRIMERA. */
+.price-stack{position:sticky;top:110px;display:grid;gap:1rem}
+.price-tag{
+  font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-soft);margin-bottom:.9rem;
+}
+/* La segunda tarjeta pesa menos a proposito: la primera es la que le toca a casi todo el que
+   llega, y dos tarjetas con el mismo peso obligan a elegir a alguien que solo queria un
+   numero. */
+.price-alt{
+  background:linear-gradient(150deg,rgba(255,255,255,.72),rgba(255,255,255,.60));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.8),0 14px 40px rgba(11,19,34,.07);
+  padding:1.7rem 2rem 1.8rem;
+}
+.price-alt .price-big{font-size:2.4rem}
+.price-alt::before{opacity:.55}
+.price-foot{color:var(--ink-soft);font-size:.9rem;line-height:1.6;padding:.2rem .3rem 0}
+.price-panel{
+  position:relative;
+  border-radius:18px;
+  padding:2.1rem 2rem 2rem;
+  background:linear-gradient(150deg,rgba(255,255,255,.96),rgba(255,255,255,.90));
+  backdrop-filter:blur(10px) saturate(1.5);
+  -webkit-backdrop-filter:blur(10px) saturate(1.5);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.95),
+    0 30px 80px rgba(11,19,34,.14);
+}
+/* iridescent 1px ring — the crystal's edge */
+.price-panel::before,.contact-form::before{
+  content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;
+  background:linear-gradient(130deg,
+    rgba(255,255,255,.95),rgba(255,255,255,.35) 30%,
+    rgba(122,92,255,.40) 55%,rgba(61,77,255,.25) 72%,rgba(255,255,255,.7));
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;
+  pointer-events:none;
+}
+.price-line{display:flex;align-items:baseline;gap:.7rem;flex-wrap:wrap}
+.price-big{
+  font-weight:600;font-size:3.2rem;letter-spacing:-.04em;line-height:1;
+  color:var(--ink);
+}
+.price-plus{color:var(--ink-soft);font-size:.95rem}
+.price-mo{font-weight:600;font-size:1.1rem;margin-top:.7rem}
+.price-note{color:var(--ink-soft);font-size:.93rem;line-height:1.6;margin:1.1rem 0 1.5rem}
+.price-panel .btn{width:100%;text-align:center}
+
+/* ── faq — hairline accordion, native details ────────────────────────── */
+.faq{padding-bottom:4.5rem}
+.faq .sec-head{margin-bottom:1.5rem;max-width:44rem}
+.faq-list details{border-top:1px solid var(--line)}
+.faq-list details:last-child{border-bottom:1px solid var(--line)}
+.faq-list summary{
+  list-style:none;cursor:pointer;position:relative;
+  display:flex;align-items:center;gap:1.2rem;
+  padding:1.15rem 3rem 1.15rem .15rem;
+  font-weight:500;font-size:.99rem;letter-spacing:-.015em;
+  transition:color .25s;
+}
+.faq-list summary::-webkit-details-marker{display:none}
+.faq-list summary:hover{color:var(--volt)}
+.faq-x{
+  position:absolute;right:.4rem;top:50%;width:14px;height:14px;
+  transform:translateY(-50%);
+}
+.faq-x::before,.faq-x::after{
+  content:"";position:absolute;left:0;top:6px;width:14px;height:2px;border-radius:2px;
+  background:var(--ink);
+  transition:transform .35s var(--expo);
+}
+.faq-x::after{transform:rotate(90deg)}
+details[open] .faq-x::after{transform:rotate(0deg)}
+.faq-list details p{
+  color:var(--ink-soft);line-height:1.65;font-size:.95rem;
+  padding:0 3rem 1.3rem .15rem;max-width:34rem;
+}
+
+/* ── contact — glass form in the same crystal language ───────────────── */
+.contact{padding-bottom:6rem;text-align:center}
+.contact .rail{text-align:left}
+.contact h1,.contact h2{margin-bottom:.7rem}
+.contact>p{color:var(--ink-soft);font-size:1rem;margin-bottom:2rem}
+.contact-form{
+  width:min(560px,100%);margin:0 auto;text-align:left;
+  position:relative;border-radius:22px;
+  padding:2.4rem 2.3rem 2.2rem;
+  background:linear-gradient(150deg,rgba(255,255,255,.96),rgba(255,255,255,.90));
+  backdrop-filter:blur(10px) saturate(1.5);
+  -webkit-backdrop-filter:blur(10px) saturate(1.5);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.95),
+    0 30px 80px rgba(11,19,34,.14);
+}
+.field{margin-bottom:1.4rem}
+.field label{
+  display:block;font-family:var(--mono);
+  font-size:.72rem;font-weight:500;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--ink-soft);margin-bottom:.5rem;
+}
+.field input,.field textarea{
+  width:100%;font:inherit;font-size:1rem;color:var(--ink);
+  background:transparent;border:0;border-bottom:1px solid rgba(11,19,34,.18);
+  padding:.55rem .1rem .6rem;border-radius:0;
+  transition:border-color .3s;resize:vertical;
+}
+.field input::placeholder,.field textarea::placeholder{color:rgba(74,88,113,.5)}
+.field input:focus,.field textarea:focus{outline:none;border-bottom-color:var(--volt)}
+.field input:focus-visible,.field textarea:focus-visible{outline:none}
+.btn-form{width:100%;border:0;cursor:pointer;font-family:var(--sans);margin-top:.4rem}
+.btn-form:disabled{opacity:.6;cursor:default}
+/* honeypot — off-screen, never shown, never reached by tab order;
+   real visitors leave it empty, bots that autofill every field don't */
+.field-hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.form-status{
+  min-height:1.3em;margin-top:.9rem;text-align:center;
+  font-size:.9rem;font-weight:500;
+}
+.form-status.ok{color:#1a7f37}
+.form-status.err{color:#c0392b}
+.form-alt{
+  margin-top:1.3rem;text-align:center;
+  font-size:.9rem;color:var(--ink-soft);
+}
+.form-alt a{
+  color:var(--ink);font-weight:500;text-decoration:underline;
+  text-underline-offset:3px;text-decoration-color:var(--iris);
+}
+
+/* ── footer ──────────────────────────────────────────────────────────── */
+.foot{
+  border-top:1px solid var(--line);
+  width:var(--w);margin:0 auto;
+  padding:2.6rem 0 1.8rem;
+}
+.foot-grid{
+  display:grid;grid-template-columns:1.6fr 1fr 1fr 1.2fr;gap:2.2rem;
+  padding-bottom:2rem;
+}
+.foot-brand img{height:26px;width:auto;display:block;margin-bottom:1rem}
+.foot-brand p{color:var(--ink-soft);font-size:.93rem;line-height:1.65;max-width:24rem}
+.foot-col{display:flex;flex-direction:column;gap:.55rem;font-size:.93rem}
+.foot-col h3{
+  font-family:var(--mono);
+  font-size:.72rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--ink-soft);margin-bottom:.5rem;
+}
+.foot-col a{color:var(--ink-soft);transition:color .25s;width:fit-content}
+.foot-col a:hover{color:var(--ink)}
+.foot-col p{color:var(--ink-soft);line-height:1.6}
+.foot-bottom{
+  border-top:1px solid var(--line);
+  padding-top:1.6rem;
+  display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;
+  color:var(--ink-soft);font-size:.84rem;
+}
+
+/* ── legal pages ─────────────────────────────────────────────────────── */
+.legal-main{
+  width:min(760px,calc(100% - 2.8rem));margin:0 auto;
+  padding:9.5rem 0 6.5rem;
+}
+.legal-main h1{
+  font-weight:600;letter-spacing:-.03em;
+  font-size:clamp(1.9rem,3.6vw,2.6rem);margin:.6rem 0 .5rem;
+}
+.legal-date{color:var(--ink-soft);font-size:.9rem;margin-bottom:2.4rem}
+.legal-main h2{
+  font-weight:600;letter-spacing:-.02em;
+  font-size:1.2rem;margin:2.1rem 0 .6rem;
+}
+.legal-main p,.legal-main li{color:var(--ink-soft);line-height:1.75;font-size:1rem}
+.legal-main p{margin-bottom:1rem}
+.legal-main ul{margin:0 0 1rem 1.2rem}
+.legal-main a{color:var(--volt);text-decoration:underline;text-underline-offset:3px}
+.legal-main strong{color:var(--ink)}
+
+/* ── responsive ──────────────────────────────────────────────────────── */
+@media (max-width:900px){
+  .nav-links{display:none}
+  .nav{gap:1rem}
+  .about-copy{grid-template-columns:1fr;gap:1rem}
+  .pricing-grid{grid-template-columns:1fr;gap:2.4rem}
+  .price-stack{position:static}
+  .steps{grid-template-columns:1fr}
+  .steps li{border-left:0;border-top:1px solid var(--line);padding:1.4rem .2rem 1.5rem}
+  .steps li:first-child{border-top:0;padding-left:.2rem}
+  .step-n{font-size:1.7rem;margin-bottom:.8rem}
+  .foot-grid{grid-template-columns:1fr 1fr}
+  .foot-brand{grid-column:1 / -1}
+  .piece-meta{justify-content:flex-start}
+}
+@media (max-width:700px){
+  .hero{align-items:flex-end}
+  /* centered copy low in the frame, inside a dense sky veil — the bird
+     and the A own the middle of the screen. Mobile shows LESS copy:
+     headline, one line, one button. */
+  .hero-copy{padding:0 1.3rem 5.5vh;text-align:center}
+  .hero-copy>*{max-width:100%;margin-inline:auto}
+  .hero-copy .sub{max-width:24rem}
+  .hero h1{font-size:2.1rem}
+  /* 28-sep: en un iPhone (390x664) esta linea caia encima de la pata brillante de la A y no
+     se leia; en un Pixel (412x839) no, porque la pantalla es mas alta. Repite lo que dice la
+     .sub de debajo, asi que en movil sobra (titular, una linea, un boton). */
+  .hero .eyebrow{display:none}
+  .sub-more{display:none}
+  .hero .btn-ghost{display:none}
+  .cta-row{justify-content:center;margin-top:1.2rem}
+  .hero::after{
+    height:44vh;
+    background:linear-gradient(180deg,rgba(233,241,251,0) 0%,rgba(236,243,251,.85) 50%,#EAF2FB 100%);
+  }
+  .scroll-hint{display:none}
+  .work{padding:4.5rem 0 3.2rem}
+  .work-head{margin-bottom:1.4rem}
+  /* touch: the preview autoplays in view — the hover note doesn't apply */
+  .sec-note{display:none}
+  /* near-full-bleed still; one compact credit row, film-credit sized */
+  .piece{width:calc(100% - 1.6rem)}
+  .piece+.piece{margin-top:1.6rem}
+  .screen{border-radius:10px}
+  .screen::after{border-radius:10px}
+  .piece-meta{left:.75rem;bottom:.75rem;gap:.55rem;padding:.42rem .85rem}
+  .piece-meta h3{font-size:.8rem}
+  .piece-type{font-size:.52rem}
+  /* En un movil el rotulo no da para tres cosas: el tipo de negocio se cae y se queda lo
+     que importa — el nombre y la puerta de entrada a la obra. La puerta nunca se esconde:
+     es el unico camino que hay desde la portada hasta una web terminada. */
+  .piece-type{display:none}
+  .piece-open{font-size:.58rem;padding-left:.55rem}
+  .chip{top:.7rem;right:.75rem;padding:.38rem .7rem;font-size:.52rem}
+  .about{padding-bottom:3.2rem}
+  .perch-branch{top:-52px;width:min(62vw,300px)}
+  .process{padding-bottom:3.2rem}
+  .pricing{padding-bottom:3.2rem}
+  .faq{padding-bottom:3.2rem}
+  .contact{padding-bottom:4.5rem}
+  .contact-form{padding:1.9rem 1.4rem 1.7rem}
+  .rail{gap:.8rem}
+  .rail-r{display:none}
+  .foot-grid{grid-template-columns:1fr;gap:2rem}
+}
+/* phones held sideways — a real class of device, not a broken desktop */
+@media (max-height:520px) and (min-width:640px) and (orientation:landscape){
+  .nav{top:.6rem;padding:.34rem .34rem .34rem .9rem}
+  .nav-brand img{height:20px}
+  .hero-copy{padding-left:clamp(1.4rem,5vw,3.5rem)}
+  .eyebrow{font-size:.6rem}
+  .hero h1{font-size:clamp(1.6rem,9vh,2.2rem);margin:.5rem 0 .7rem}
+  .hero-copy .sub{font-size:.95rem;max-width:24rem}
+  .sub-more{display:none}
+  .btn{padding:.68rem 1.35rem;font-size:.88rem}
+  .btn-small{padding:.5rem 1.1rem;font-size:.8rem}
+  .cta-row{margin-top:1rem}
+  .scroll-hint{display:none}
+  .hero::after{height:30vh}
+  .work{padding:3.2rem 0 2.8rem}
+  .work-head{margin-bottom:1.3rem}
+  .sec-note{display:none}
+  .piece{width:calc(100% - 2.4rem)}
+  .piece+.piece{margin-top:1.6rem}
+  .piece-meta{left:.8rem;bottom:.8rem;padding:.42rem .85rem}
+  .piece-meta h3{font-size:.8rem}
+  .piece-type{font-size:.52rem}
+  .piece-open{font-size:.58rem;padding-left:.55rem}
+  .chip{top:.7rem;right:.8rem;padding:.38rem .7rem;font-size:.52rem}
+  .about{padding-bottom:2.8rem}
+  .process,.pricing,.faq{padding-bottom:2.8rem}
+  .contact{padding-bottom:3.2rem}
+}
+
+/* ── the companion — the hero's hummingbird, tiny, riding the scroll.
+   DOCUMENT-anchored, not fixed: when perched its transform is a constant
+   document coordinate, so the native compositor scrolls it in perfect sync
+   with the content — a fixed element repositioned from JS scrollY always
+   trembles on iOS (async compositor scroll vs rAF sampling). ── */
+.bird{
+  position:absolute;left:0;top:0;z-index:30;
+  pointer-events:none;display:none;
+  will-change:transform;
+  filter:drop-shadow(0 4px 8px rgba(11,19,34,.18));
+}
+.bird.on{display:block}
+.bird canvas{display:block;width:100%;height:100%}
+/* contact shadow under the feet — barely there, fades in with the landing */
+.bird .shadow{
+  position:absolute;left:50%;top:100%;width:46%;height:9%;
+  background:radial-gradient(closest-side,rgba(11,19,34,.30),transparent 72%);
+  transform:translate(-50%,-50%);
+  opacity:0;transition:opacity .45s ease;
+  pointer-events:none;
+}
+.bird.sitting .shadow{opacity:1}
+
+/* ── reduced motion ──────────────────────────────────────────────────── */
+@media (prefers-reduced-motion:reduce){
+  .rise,.reveal,.js .rise,.js .reveal{opacity:1;transform:none;transition:none}
+  .btn,.screen{transition:none}
+  .hero-media::before{animation:none}
+  .screen,.atmo i,.rail::before{animation:none}
+  .about h1 .w,.about h2 .w{opacity:1;transition:none}
+}

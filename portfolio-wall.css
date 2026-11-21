@@ -1,0 +1,62 @@
+/* The work itself fills the page, using the homepage's curved gallery. */
+.studio-home .portfolio-link{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:11px 18px;border:1.5px solid var(--ink);border-radius:999px;color:var(--ink);font-size:14px;font-weight:600;white-space:nowrap;transition:background .2s,color .2s,transform .2s}
+.studio-home .portfolio-link:hover{background:var(--ink);color:var(--paper)}
+.studio-home .portfolio-link:active{transform:scale(.97)}
+body.portfolio-wall .nav{background:var(--paper);border-color:var(--line)}
+.portfolio-wall .work{padding-top:106px}
+.portfolio-wall .work-heading{padding-bottom:8px;align-items:center}
+.portfolio-wall .work-heading h1{font-size:clamp(32px,4vw,60px);font-weight:700;letter-spacing:-.03em;line-height:1.05;margin:0}
+.portfolio-wall .work-heading>p{font-size:15px;padding:0}
+.portfolio-wall .project-caption{grid-template-columns:1fr auto}
+.portfolio-wall .project-category{font-size:13px}
+.portfolio-wall .project h3{font-size:clamp(30px,3vw,48px)}
+.portfolio-wall .project-visit{grid-row:1/3}
+.portfolio-wall .work-end{padding-bottom:32px}
+.portfolio-wall .work-controls{gap:20px}
+.portfolio-wall .project-switcher{position:relative;flex-wrap:nowrap;overflow-x:auto;overscroll-behavior-x:contain;max-width:100%;scrollbar-width:thin;scrollbar-color:var(--line) transparent;min-width:0;padding:5px 2px}
+.portfolio-wall .project-switcher button{flex:none;white-space:nowrap;min-height:44px}
+.portfolio-wall .work-instruction{white-space:nowrap;font-size:12px}
+.portfolio-wall .project-image img{transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+@media(hover:hover){.portfolio-wall:not(.gallery-drum) .project-image:hover img{transform:scale(1.025)}}
+@media(min-width:901px){
+ .portfolio-wall.gallery-drum .work-controls{padding-inline:var(--gutter)}
+ .portfolio-wall.gallery-drum .project-switcher{flex:1}
+}
+@media(max-width:900px){
+ .portfolio-wall .work-heading{display:block;padding-bottom:8px}
+ .portfolio-wall .work-heading>p{margin-top:10px}
+ .portfolio-wall .project{flex-basis:86vw}
+ .portfolio-wall .project-track{padding-inline:7vw;scroll-padding-inline:7vw;gap:6px;padding-top:30px}
+ .portfolio-wall .project-image{aspect-ratio:1.28}
+ .portfolio-wall .project-caption{min-height:120px;column-gap:12px;padding-top:22px}
+ .portfolio-wall .project-visit{font-size:12px;padding:12px}
+ .portfolio-wall .work-controls{align-items:stretch;padding-top:4px;gap:12px}
+ .portfolio-wall .project-switcher{width:100%}
+ .portfolio-wall .work-instruction{padding-top:4px}
+ .portfolio-wall .work-end{padding-top:28px;font-size:12px}
+}
+@media(max-width:700px){.portfolio-wall .work{padding-top:94px}.portfolio-wall .project h3{font-size:30px}}
+@media(prefers-reduced-motion:reduce){
+ .portfolio-wall .project-track{display:grid;grid-template-columns:1fr 1fr;padding:30px var(--gutter);gap:40px 24px;overflow:visible}
+ .portfolio-wall .project-image{transform:none!important;aspect-ratio:1.6}
+ .portfolio-wall .project-caption{opacity:1!important}
+ .portfolio-wall .work-controls{display:none}
+}
+@media(max-width:700px) and (prefers-reduced-motion:reduce){.portfolio-wall .project-track{grid-template-columns:1fr}}
+
+.portfolio-wall .project h3{grid-row:2}
+.portfolio-wall .project-category{grid-row:1}
+.portfolio-wall .project-visit{grid-column:2;grid-row:1/3}
+@media(min-width:901px) and (min-height:600px){
+ .portfolio-wall.gallery-drum .work{padding-top:78px}
+ .portfolio-wall.gallery-drum .work-head{position:sticky;top:78px;height:90px;z-index:3;background:var(--paper)}
+ .portfolio-wall.gallery-drum .work-heading{height:90px;padding-bottom:0}
+ .portfolio-wall.gallery-drum .work-stage{top:168px;height:calc(100svh - 168px)}
+}
+
+/* Desktop opens directly on the enlarged work; the nav already names the page. */
+@media(min-width:901px) and (min-height:600px){
+ .portfolio-wall.gallery-drum .work-head{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+ .portfolio-wall.gallery-drum .work-stage{top:78px;height:calc(100svh - 78px)}
+ .portfolio-wall.gallery-drum .work-controls{padding-bottom:16px}
+}

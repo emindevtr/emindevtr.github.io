@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head><link rel="icon" type="image/png" href="/assets/emindev-logo.png?v=2"><script src="/i18n/tr-studio.js"></script><script src="/i18n/i18n.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="google-site-verification" content="50LWdDyhU-q1if3Q7qNXfzoDrYqyk-2cvJ7lJL3R6lU">
+
+<!-- GENERADO por tools/build_brands.py desde tools/plantillas/portada_base.html. No se edita
+     a mano: se cambia el generador y se vuelve a correr. Portada: dice lo mismo que /brands (Alex, 24-sep), sin pixel de Meta.
+     Sin clientes, sin web gratis por adelantado (se paga el alta para empezar, Alex 6-oct), sin devolucion, plazo "4 days". -->
+<title>Website Design Portfolio | Emin Dev</title>
+<meta name="description" content="Live websites and online stores by Emin Dev, from fashion and footwear to skincare, fragrance and watches.">
+<link rel="canonical" href="/work">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Emin Dev">
+<meta property="og:title" content="Website Design Portfolio | Emin Dev">
+<meta property="og:description" content="Live websites and online stores by Emin Dev, from fashion and footwear to skincare, fragrance and watches.">
+<meta property="og:url" content="/work">
+<meta property="og:image" content="/assets/hero_poster_desktop_v2.webp">
+<meta name="twitter:card" content="summary_large_image">
+<!-- FUENTES PROPIAS, NO DE GOOGLE (2026-08-14). Aqui habia dos `preconnect` y una hoja de
+     estilos de `fonts.googleapis.com`, que bloquea el render y a su vez pide los .woff2 a
+     `fonts.gstatic.com`: DOS origenes de terceros, cada uno con su DNS + TCP + TLS, metidos
+     delante del primer pintado. Medido lo que costaba: la pagina descargaba TODO en 1,1 s y
+     no pintaba nada hasta los 3,3 s. No era peso, era el camino critico.
+     `fonts.css` lo genera `tools/fetch_fonts.py` y sale de esta misma conexion, ya abierta.
+     Son los MISMOS 198 KB de fuentes que servia Google (deduplicadas por contenido: las
+     variables comparten fichero), pero sin estrenar dos conexiones para conseguirlos. -->
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/Geist-a147f99cd5.woff2" crossorigin>
+<link rel="stylesheet" href="fonts.css?v=1">
+<!-- El manifest del pajaro, pedido durante el PARSEO. Va detras de los posters a
+     proposito: el poster es el LCP y no se le adelanta nadie. Pero `bird.js` es
+     `defer`, o sea que no ejecuta hasta que se ha parseado todo el HTML, y para
+     entonces `main.js` ya ha armado el hero: los 153 bytes que deciden si hay
+     pajaro salian a la cola detras de 7 MB de video. Medido el 16-ago en
+     produccion: llegaba en el segundo 367. Aqui sale antes de que exista el
+     primer <video> de la pagina. -->
+<link rel="stylesheet" href="styles.css?v=45">
+<link rel="stylesheet" href="brands.css?v=7">
+<link rel="stylesheet" href="conversion.css?v=3">
+<style>
+        #content-pricing { padding: 5rem max(5vw, 20px); }
+        #content-pricing table { width:100%; border-collapse:collapse; margin:1.2rem 0; }
+        #content-pricing th, #content-pricing td { padding: .8rem; text-align:left; border-bottom:1px solid #ddd; vertical-align:top; }
+        #content-pricing td:last-child { white-space:nowrap; }
+        #content-pricing p { max-width:65ch; line-height:1.6; margin-top:1rem; }
+        #content-pricing h3 { margin-top:1rem; }
+        @media(max-width:700px) { #content-pricing .pricing-grid { display:block; } #content-pricing .pricing-grid > div + div { margin-top:2rem; } }
+        </style><link rel="stylesheet" href="/quote.css?v=3"><link rel="preload" href="/assets/fonts/archivo-var.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="/studio-editorial.css?v=14"><link rel="stylesheet" href="/portfolio-wall.css?v=2"><link rel="stylesheet" href="/privacy-choices.css?v=2"><link rel="stylesheet" href="/island-nav.css?v=2"><link rel="stylesheet" href="/portfolio-grid.css?v=1"><script type="application/ld+json" id="portfolio-ld">{"@context": "https://schema.org", "@type": "CollectionPage", "@id": "/work#page", "url": "/work", "name": "Website Design Portfolio | Emin Dev", "description": "Live websites and online stores by Emin Dev, from fashion and footwear to skincare, fragrance and watches.", "isPartOf": {"@id": "/#website"}, "publisher": {"@id": "/#org"}, "mainEntity": {"@type": "ItemList", "numberOfItems": 20, "itemListElement": [{"@type": "ListItem", "position": 1, "name": "SARP FOOTWEAR, footwear concept store", "url": "https://sarp-footwear.netlify.app/", "image": "/assets/work_sarp-footwear_2264.webp?v=2"}, {"@type": "ListItem", "position": 2, "name": "ZeroThread, fashion concept", "url": "https://zerothread.netlify.app/", "image": "/assets/work_zerothread_2264.webp?v=2"}, {"@type": "ListItem", "position": 3, "name": "SOLSTICE PARFUMS, fragrance store concept", "url": "https://solstice-parfums.netlify.app/", "image": "/assets/work_basalte_2264.webp?v=2"}, {"@type": "ListItem", "position": 4, "name": "VERNIS, nail polish store concept", "url": "/vernis/", "image": "/assets/work_vernis_2264.webp"}, {"@type": "ListItem", "position": 5, "name": "BioDermix, skincare concept", "url": "https://biodermix.netlify.app/", "image": "/assets/work_pivoine_2264.webp?v=2"}, {"@type": "ListItem", "position": 6, "name": "Ámbar, skincare concept", "url": "/ambar/", "image": "/assets/work_ambar_2264.webp"}, {"@type": "ListItem", "position": 7, "name": "NACRE, fragrance concept", "url": "/nacre/", "image": "/assets/work_nacre_2264.webp?v=2"}, {"@type": "ListItem", "position": 8, "name": "Lavanda, skincare concept", "url": "/lavanda/", "image": "/assets/work_lavanda_2264.webp"}, {"@type": "ListItem", "position": 9, "name": "PLUIE, fragrance store concept", "url": "/pluie/", "image": "/assets/work_pluie_2264.webp"}, {"@type": "ListItem", "position": 10, "name": "Higo, fragrance store concept", "url": "/higo/", "image": "/assets/work_higo_2264.webp"}, {"@type": "ListItem", "position": 11, "name": "CLAIR, skincare concept", "url": "/clair/", "image": "/assets/work_clair_2264.webp"}, {"@type": "ListItem", "position": 12, "name": "VESPER, fragrance store concept", "url": "/vesper/", "image": "/assets/work_vesper_2264.webp"}, {"@type": "ListItem", "position": 13, "name": "Rouge No. 1, lipstick concept", "url": "/rouge/", "image": "/assets/work_rouge_2264.webp"}, {"@type": "ListItem", "position": 14, "name": "ÉPINE, watch brand concept", "url": "/epine/", "image": "/assets/work_epine_2264.webp"}, {"@type": "ListItem", "position": 15, "name": "Nival, skincare concept", "url": "/nival/", "image": "/assets/work_nival_2264.webp"}, {"@type": "ListItem", "position": 16, "name": "Aera, skincare store concept", "url": "/soft/", "image": "/assets/work_soft_2264.webp"}, {"@type": "ListItem", "position": 17, "name": "Opal, jewelry store concept", "url": "/opal/", "image": "/assets/work_opal_2264.webp"}, {"@type": "ListItem", "position": 18, "name": "Kapsel, room builder concept", "url": "/kapsel/", "image": "/assets/work_kapsel_2264.webp"}, {"@type": "ListItem", "position": 19, "name": "Blackline, car detailing concept", "url": "/blackline/", "image": "/assets/work_blackline_2264.webp"}, {"@type": "ListItem", "position": 20, "name": "KERB, skateboard store concept", "url": "/kerb/", "image": "/assets/work_kerb_2264.webp"}]}}</script><link rel="stylesheet" href="/logo.css"></head>
+<body class="brands studio-home portfolio-wall portfolio-grid">
+
+
+
+<nav class="nav" aria-label="Main">
+      <a class="nav-brand" href="/" aria-label="Emin Dev home"><img src="assets/emindev-logo.png" alt="Emin Dev" width="91" height="91"></a>
+      <div class="nav-links"><a href="/work" aria-current="page">Portfolio</a><a href="/website-services">Services</a><a href="/about">About</a></div>
+      <a class="nav-contact" href="/contact">Request a quote <span aria-hidden="true">↗</span></a>
+      <details class="nav-menu"><summary>Menu <span aria-hidden="true">+</span></summary><div class="nav-menu-panel"><a href="/#work">Selected work</a><a href="/website-services">Services</a><a href="/work" aria-current="page">Portfolio</a><a href="/about">About</a><a href="/contact">Contact</a></div></details>
+    </nav>
+
+<a class="skip-link" href="#main">Skip to content</a><main id="main"><section class="folio" aria-labelledby="work-title">
+      <header class="folio-head"><h1 id="work-title">Portfolio.</h1><p>Open a website. Explore it for yourself.</p></header>
+      <div class="folio-bar"><div class="folio-filter" role="group" aria-label="Filter websites by industry"><span class="folio-pill" aria-hidden="true"></span><button type="button" data-kind="all" aria-pressed="true">All<sup>5</sup></button><button type="button" data-kind="skincare" aria-pressed="false">Skincare<sup>1</sup></button><button type="button" data-kind="fragrance" aria-pressed="false">Fragrance<sup>2</sup></button><button type="button" data-kind="fashion" aria-pressed="false">Fashion & beauty<sup>2</sup></button></div></div>
+      <div class="folio-grid"><article class="piece project folio-card" data-project="sarp-footwear" data-kind="fashion">
+      <a class="folio-link" href="https://sarp-footwear.netlify.app/" target="_blank" rel="noopener"><span class="folio-shot"><img src="assets/work_sarp-footwear_1200.webp?v=2" srcset="assets/work_sarp-footwear_640.webp?v=2 640w, assets/work_sarp-footwear_1200.webp?v=2 1200w, assets/work_sarp-footwear_2264.webp?v=2 2264w" sizes="(max-width: 700px) 94vw, (max-width: 1180px) 47vw, 32vw" alt="SARP FOOTWEAR footwear displayed on illuminated glass shelves against a continuous stone wall" width="2264" height="1415" loading="eager" fetchpriority="high" decoding="async"><span class="folio-url" aria-hidden="true">/sarp-footwear</span></span>
+      <span class="folio-meta"><span class="folio-idx" aria-hidden="true">01</span><span class="folio-text"><h2 class="folio-title">SARP FOOTWEAR<span class="sr-only"> (opens in a new tab)</span></h2><span class="folio-cat">Footwear concept store</span></span><span class="folio-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></span></a></article><article class="piece project folio-card" data-project="zerothread" data-kind="fashion">
+      <a class="folio-link" href="https://zerothread.netlify.app/" target="_blank" rel="noopener"><span class="folio-shot"><img src="assets/work_zerothread_1200.webp?v=2" srcset="assets/work_zerothread_640.webp?v=2 640w, assets/work_zerothread_1200.webp?v=2 1200w, assets/work_zerothread_2264.webp?v=2 2264w" sizes="(max-width: 700px) 94vw, (max-width: 1180px) 47vw, 32vw" alt="ZeroThread embroidered blue jacket in a mineral-blue atelier" width="2264" height="1415" loading="eager" decoding="async"><span class="folio-url" aria-hidden="true">/zerothread</span></span>
+      <span class="folio-meta"><span class="folio-idx" aria-hidden="true">02</span><span class="folio-text"><h2 class="folio-title">ZeroThread<span class="sr-only"> (opens in a new tab)</span></h2><span class="folio-cat">Fashion concept</span></span><span class="folio-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></span></a></article><article class="piece project folio-card" data-project="basalte" data-kind="fragrance">
+      <a class="folio-link" href="https://solstice-parfums.netlify.app/" target="_blank" rel="noopener"><span class="folio-shot"><img src="assets/work_basalte_1200.webp?v=2" srcset="assets/work_basalte_640.webp?v=2 640w, assets/work_basalte_1200.webp?v=2 1200w, assets/work_basalte_2264.webp?v=2 2264w" sizes="(max-width: 700px) 94vw, (max-width: 1180px) 47vw, 32vw" alt="SOLSTICE PARFUMS — five perfume bottles, each lit in its own niche of a dark basalt wall above black water" width="2264" height="1415" loading="eager" decoding="async"><span class="folio-url" aria-hidden="true">/basalte</span></span>
+      <span class="folio-meta"><span class="folio-idx" aria-hidden="true">03</span><span class="folio-text"><h2 class="folio-title">SOLSTICE PARFUMS<span class="sr-only"> (opens in a new tab)</span></h2><span class="folio-cat">Fragrance store concept</span></span><span class="folio-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></span></a></article><article class="piece project folio-card" data-project="pivoine" data-kind="skincare">
+      <a class="folio-link" href="https://biodermix.netlify.app/" target="_blank" rel="noopener"><span class="folio-shot"><img src="assets/work_pivoine_1200.webp?v=2" srcset="assets/work_pivoine_640.webp?v=2 640w, assets/work_pivoine_1200.webp?v=2 1200w, assets/work_pivoine_2264.webp?v=2 2264w" sizes="(max-width: 700px) 94vw, (max-width: 1180px) 47vw, 32vw" alt="BioDermix — a crystal cream jar with a plum lacquer cap inside an opening pink peony" width="2264" height="1415" loading="lazy" decoding="async"><span class="folio-url" aria-hidden="true">/pivoine</span></span>
+      <span class="folio-meta"><span class="folio-idx" aria-hidden="true">04</span><span class="folio-text"><h2 class="folio-title">BioDermix<span class="sr-only"> (opens in a new tab)</span></h2><span class="folio-cat">Skincare concept</span></span><span class="folio-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></span></a></article><article class="piece project folio-card" data-project="nacre" data-kind="fragrance">
+      <a class="folio-link" href="/nacre/" target="_blank" rel="noopener"><span class="folio-shot"><img src="assets/work_nacre_1200.webp?v=2" srcset="assets/work_nacre_640.webp?v=2 640w, assets/work_nacre_1200.webp?v=2 1200w, assets/work_nacre_2264.webp?v=2 2264w" sizes="(max-width: 700px) 94vw, (max-width: 1180px) 47vw, 32vw" alt="NACRE — a pearl-capped perfume bottle beneath the sea, held inside a glass bubble" width="2264" height="1415" loading="lazy" decoding="async"><span class="folio-url" aria-hidden="true">/nacre</span></span>
+      <span class="folio-meta"><span class="folio-idx" aria-hidden="true">05</span><span class="folio-text"><h2 class="folio-title">NACRE<span class="sr-only"> (opens in a new tab)</span></h2><span class="folio-cat">Fragrance concept</span></span><span class="folio-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></span></a></article></div></section></main>
+
+<footer class="foot">
+  <section class="newsletter" id="newsletter" aria-labelledby="newsletterTitle">
+    <div class="newsletter-copy"><h2 id="newsletterTitle">Studio newsletter</h2>
+      <p>New websites from the studio, studio news and occasional offers. No more than once a month.</p></div>
+    <form class="newsletter-form" action="/newsletter" method="post">
+      <div class="newsletter-row"><label class="sr-only" for="newsletterEmail">Email address</label><input id="newsletterEmail" name="email" type="email" autocomplete="email" inputmode="email" placeholder="you@example.com" required maxlength="254"><button type="submit">Subscribe</button></div>
+      <div class="newsletter-trap" aria-hidden="true"><label for="newsletterCompany">Company</label><input id="newsletterCompany" name="company" type="text" tabindex="-1" autocomplete="off"></div>
+      <p class="newsletter-legal">We'll email you to confirm. Unsubscribe anytime. <a href="/privacy#newsletter">Privacy policy</a></p>
+      <p class="newsletter-status" role="status" aria-live="polite"></p>
+    </form>
+  </section>
+  <div class="foot-grid">
+    <div class="foot-brand">
+          <img src="assets/emindev-logo.png" alt="Emin Dev" width="91" height="91">
+          <p>Custom websites and online stores for businesses of every kind. Design, technical maintenance and content services, with clear scope and project quotes.</p>
+    </div>
+    <nav class="foot-col" aria-label="Studio">
+          <h3>Studio</h3><a href="/content-services">Content updates</a>
+          <a href="/work">Work</a>
+          <a href="/about">About</a>
+          <a href="/website-services#store">Online stores</a>
+          <a href="/#pricing">How it works</a>
+          <a href="/website-services#faq">FAQ</a>
+          <a href="/#contact">Request a quote</a>
+        </nav>
+    <nav class="foot-col" aria-label="Legal">
+      <h3>Legal</h3><a href="#cookies">Cookie settings</a>
+      <a href="/terms">Terms of Service</a>
+      <a href="/privacy">Privacy Policy</a>
+    </nav>
+    <div class="foot-col">
+      <h3>Contact</h3>
+      <a href="mailto:oeminsisman@gmail.com?subject=Website%20project%20enquiry">oeminsisman@gmail.com</a>
+      <a href="https://www.instagram.com/developedbyemin" target="_blank" rel="noopener">developedbyemin</a>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <p>© 2026 Emin Dev — a service of La Factoria LLC. All rights reserved.</p>
+    <p>Independent studio. Working worldwide.</p>
+  </div>
+</footer>
+
+
+
+<!-- ⚠️ AL EDITAR main.js HAY QUE SUBIR ESTE NUMERO. El servidor manda
+     `Cache-Control: public, max-age=604800` (7 dias) para el .js, asi que la URL
+     la URL versionada se queda pegada una semana en el navegador del visitante Y en el borde
+     del CDN. Medido el 2026-08-14: se desplego un main.js nuevo, el origen servia el
+     correcto (md5 identico) y PageSpeed seguia ejecutando el viejo. index.html NO se
+     cachea (solo ETag), asi que cambiar este numero es lo unico que llega a todo el mundo
+     en el acto. Lo mismo vale para styles.css?v= y bird.js?v=. -->
+
+
+<!-- EL CONTADOR DE VISITAS, OTRA VEZ EN PIE (2026-09-06). Esta es la portada de la agencia:
+     por aqui entra quien viene de Instagram y de la firma del correo, y es el denominador de
+     la pregunta "de los que ven la portada, ¿cuantos abren una obra?".
+
+     Llevaba desde el 23-ago sin contar nada. El contador de antes escribia en un fichero del
+     disco de Hostinger y `automation/visitas.py` lo leia por FTP; las dos mitades murieron con
+     el alojamiento el 28-ago. Ahora la cuenta la lleva `functions/cnt.js`, que corre en el
+     propio Cloudflare Pages. Ni IP, ni cookie, ni nada de quien entra: solo se suma uno a un
+     numero del dia, con la etiqueta `k=s` para no mezclarse con la web de los correos. -->
+
+<script src="/contact-form.js?v=6" defer></script>
+<script src="/journey.js?v=1" defer></script>
+<script src="/consent.js?v=3" defer></script>
+
+
+<script src="/navigation.js?v=2" defer></script><script src="/newsletter-form.js?v=1" defer></script>
+<script src="/studio-editorial.js?v=12" defer></script><script src="/portfolio-grid.js?v=1" defer></script>
+</body>
+</html>
