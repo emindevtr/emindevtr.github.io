@@ -33,7 +33,6 @@
      Three art-directed masters (Law 6): 9:16 portrait, 16:9 desktop, 21:9
      ultra (capped at 3840px — the universal hardware-decode ceiling; 4420
      and even 4096 can fall back to software decode = visible stutter). ── */
-  /* local copy: hero video removed, so this whole block is skipped */
   if (document.getElementById("heroVideo")) {
   var video = document.getElementById("heroVideo");
   var media = video.parentElement;
@@ -41,8 +40,6 @@
 
   function chooseSrc() {
     var m = mqMobile.matches;
-    var u = matchMedia("(min-aspect-ratio: 21/10)").matches &&
-            (innerWidth * (devicePixelRatio || 1)) >= 3000;
     /* FICHERO NUEVO, no `?v=` (2026-08-14). El master de movil paso de 1080x1938 a
        540x970: 1,37 MB en vez de 4,05 — 66% menos, con SSIM 0,986 contra el original.
        Recodificar a 1080 no servia de nada (a CRF 24 salia MAS grande que el original: ya
@@ -73,15 +70,14 @@
     /* móvil SIN av1 a propósito: medido, el AV1 salía un 152% del H.264 —
        más grande. Ver build_hero_av1.py. `av1: null` ⇒ elegirFichero()
        devuelve el H.264 sin ni siquiera preguntar. */
-    return m ? { poster: "assets/hero_poster_mobile.webp",
-                 src:    "assets/hero_mobile_540.mp4",
-                 av1:    null,                           w: 540,  h: 970,  br: 500000 }
-         : u ? { poster: "assets/hero_poster_ultra.webp",
-                 src:    "assets/hero_ultra_loop.mp4?v=4",
-                 av1:    "assets/hero_ultra_av1.mp4",    w: 3840, h: 1630, br: 5000000 }
-             : { poster: "assets/hero_poster_desktop_v2.webp",
-                 src:    "assets/hero_desktop_loop.mp4?v=2",
-                 av1:    "assets/hero_desktop_av1.mp4",  w: 2560, h: 1426, br: 4600000 };
+    /* 2026-11-22: the hummingbird/A loop became the white rabbit -> Emin Dev E loop.
+       One 16:9 master only (1920x1080), so ultra screens reuse the desktop files. */
+    return m ? { poster: "assets/hero_rabbit_poster_mobile.jpg",
+                 src:    "assets/hero_rabbit_mobile.mp4",
+                 av1:    null,                                 w: 540,  h: 970,  br: 900000 }
+             : { poster: "assets/hero_rabbit_poster_desktop.jpg",
+                 src:    "assets/hero_rabbit_desktop.mp4",
+                 av1:    "assets/hero_rabbit_desktop_av1.mp4", w: 1920, h: 1080, br: 3000000 };
   }
 
   /* ── AV1 CUANDO EL NAVEGADOR GARANTIZA QUE VA FLUIDO (2026-08-15) ──

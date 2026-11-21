@@ -129,8 +129,8 @@ a{color:inherit;text-decoration:none}
 .hero-media{position:absolute;inset:0;z-index:0;
   /* default poster so the hero paints even without JS (main.js swaps it
      per device class before first paint when scripting is available) */
-  --hero-poster:url("assets/hero_poster_desktop_v2.webp")}
-@media (max-width:700px){.hero-media{--hero-poster:url("assets/hero_poster_mobile.webp")}}
+  --hero-poster:url("assets/hero_rabbit_poster_desktop.jpg")}
+@media (max-width:700px){.hero-media{--hero-poster:url("assets/hero_rabbit_poster_mobile.jpg")}}
 /* The poster carries the first paint AND MOVES from millisecond zero: a slow
    transform-only drift (guaranteed 60fps, no decoder involved). The video
    fades in over it once measurably smooth. */
