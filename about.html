@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head><link rel="icon" type="image/png" href="/assets/emindev-logo.png?v=2"><script src="/i18n/tr-studio.js"></script><script src="/i18n/i18n.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="google-site-verification" content="50LWdDyhU-q1if3Q7qNXfzoDrYqyk-2cvJ7lJL3R6lU">
+
+<!-- /about (1-nov-2026): hecha a mano sobre /work; no la genera ningun script. Antes ponia: GENERADO por tools/build_brands.py desde tools/plantillas/portada_base.html. No se edita
+     a mano: se cambia el generador y se vuelve a correr. Portada: dice lo mismo que /brands (Alex, 24-sep), sin pixel de Meta.
+     Sin clientes, sin web gratis por adelantado (se paga el alta para empezar, Alex 6-oct), sin devolucion, plazo "4 days". -->
+<title>About Emin Dev | Web Design Studio</title>
+<meta name="description" content="Emin Dev, led by founder Alex, builds custom websites, online stores and animated web experiences. A service of La Factoria LLC, Delaware, USA.">
+<link rel="canonical" href="/about">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Emin Dev">
+<meta property="og:title" content="About | Emin Dev">
+<meta property="og:description" content="Emin Dev, led by founder Alex, builds custom websites, online stores and animated web experiences. A service of La Factoria LLC, Delaware, USA.">
+<meta property="og:url" content="/about">
+<meta property="og:image" content="/assets/hero_poster_desktop_v2.webp">
+<meta name="twitter:card" content="summary_large_image">
+<!-- FUENTES PROPIAS, NO DE GOOGLE (2026-08-14). Aqui habia dos `preconnect` y una hoja de
+     estilos de `fonts.googleapis.com`, que bloquea el render y a su vez pide los .woff2 a
+     `fonts.gstatic.com`: DOS origenes de terceros, cada uno con su DNS + TCP + TLS, metidos
+     delante del primer pintado. Medido lo que costaba: la pagina descargaba TODO en 1,1 s y
+     no pintaba nada hasta los 3,3 s. No era peso, era el camino critico.
+     `fonts.css` lo genera `tools/fetch_fonts.py` y sale de esta misma conexion, ya abierta.
+     Son los MISMOS 198 KB de fuentes que servia Google (deduplicadas por contenido: las
+     variables comparten fichero), pero sin estrenar dos conexiones para conseguirlos. -->
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/Geist-a147f99cd5.woff2" crossorigin>
+<link rel="stylesheet" href="fonts.css?v=1">
+<!-- El manifest del pajaro, pedido durante el PARSEO. Va detras de los posters a
+     proposito: el poster es el LCP y no se le adelanta nadie. Pero `bird.js` es
+     `defer`, o sea que no ejecuta hasta que se ha parseado todo el HTML, y para
+     entonces `main.js` ya ha armado el hero: los 153 bytes que deciden si hay
+     pajaro salian a la cola detras de 7 MB de video. Medido el 16-ago en
+     produccion: llegaba en el segundo 367. Aqui sale antes de que exista el
+     primer <video> de la pagina. -->
+<link rel="stylesheet" href="styles.css?v=45">
+<link rel="stylesheet" href="brands.css?v=7">
+<link rel="stylesheet" href="conversion.css?v=3">
+<style>
+        #content-pricing { padding: 5rem max(5vw, 20px); }
+        #content-pricing table { width:100%; border-collapse:collapse; margin:1.2rem 0; }
+        #content-pricing th, #content-pricing td { padding: .8rem; text-align:left; border-bottom:1px solid #ddd; vertical-align:top; }
+        #content-pricing td:last-child { white-space:nowrap; }
+        #content-pricing p { max-width:65ch; line-height:1.6; margin-top:1rem; }
+        #content-pricing h3 { margin-top:1rem; }
+        /* 18-nov, Alex: la foto un 25 % mas pequena (420 -> 315 px; en el movil, 75 % del ancho). */
+        .studio-home.about-page .ab-photo { max-width:315px; background:#fff; justify-self:center; }
+        @media(max-width:700px) { .studio-home.about-page .ab-photo { max-width:75%; justify-self:start; } }
+        @media(max-width:700px) { #content-pricing .pricing-grid { display:block; } #content-pricing .pricing-grid > div + div { margin-top:2rem; } }
+        </style><link rel="stylesheet" href="/quote.css?v=3"><link rel="preload" href="/assets/fonts/archivo-var.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="/studio-editorial.css?v=13"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "AboutPage", "url": "/about", "name": "About Emin Dev", "description": "Emin Dev designs and builds custom websites, online stores and animated web experiences for businesses of every kind. A service of La Factoria LLC, registered in Delaware, USA.", "mainEntity": {"@type": "ProfessionalService", "name": "Emin Dev", "legalName": "La Factoria LLC", "url": "/", "email": "oeminsisman@gmail.com", "address": {"@type": "PostalAddress", "streetAddress": "8 The Green, Ste B", "addressLocality": "Dover", "addressRegion": "DE", "postalCode": "19901", "addressCountry": "US"}, "founder": {"@type": "Person", "name": "Alex", "jobTitle": "Founder", "image": "/assets/about_alex_white_880.webp", "worksFor": {"@id": "/#org"}}, "@id": "/#org", "alternateName": "Emin Dev", "logo": "/assets/emindev-logo.png", "sameAs": ["https://www.instagram.com/developedbyemin"]}, "isPartOf": {"@id": "/#website"}}</script>
+<link rel="stylesheet" href="/privacy-choices.css?v=2"><link rel="stylesheet" href="/island-nav.css?v=2"><link rel="stylesheet" href="/logo.css"></head>
+<body class="brands studio-home about-page">
+
+
+
+<nav class="nav" aria-label="Main">
+      <a class="nav-brand" href="/" aria-label="Emin Dev home"><img src="assets/emindev-logo.png" alt="Emin Dev" width="91" height="91"></a>
+      <div class="nav-links"><a href="/work">Portfolio</a><a href="/website-services">Services</a><a href="/about" aria-current="page">About</a></div>
+      <a class="nav-contact" href="/contact">Request a quote <span aria-hidden="true">↗</span></a>
+      <details class="nav-menu"><summary>Menu <span aria-hidden="true">+</span></summary><div class="nav-menu-panel"><a href="/#work">Selected work</a><a href="/website-services">Services</a><a href="/work">Portfolio</a><a href="/about" aria-current="page">About</a><a href="/contact">Contact</a></div></details>
+    </nav>
+
+<a class="skip-link" href="#main">Skip to content</a><main id="main" class="ab">
+    <section class="ab-hero" aria-labelledby="about-title">
+      <p class="section-label">About Emin Dev</p>
+      <h1 id="about-title">Web design and development, from the first brief to launch.</h1>
+      <p class="ab-lede">Emin Dev designs and builds custom websites, online stores and animated web experiences for businesses of every kind. Each project is designed around the brand, built for desktop and mobile, and agreed in writing before work begins.</p>
+      <div class="ab-actions"><a class="ab-cta" href="/contact">Request a quote <span aria-hidden="true">↗</span></a><a class="ab-link" href="/work">See the portfolio <span aria-hidden="true">↗</span></a></div>
+    </section>
+
+    <section class="ab-block" aria-labelledby="ab-what">
+      <div class="ab-head"><p class="section-label">What we do</p><h2 id="ab-what" data-enter>Four services, one studio.</h2></div>
+      <div class="ab-grid ab-grid-4">
+        <article><span>01</span><h3>Websites</h3><p>Business sites, portfolios and landing pages that present what you do and turn visitors into enquiries.</p></article>
+        <article><span>02</span><h3>Online stores</h3><p>Product pages, collections, cart and checkout, set up with the payment provider that works in your country.</p></article>
+        <article><span>03</span><h3>Animated sections</h3><p>Scroll animations and product reveals, built into a new site or added to the one you already have.</p></article>
+        <article><span>04</span><h3>Content updates</h3><p>New products, prices, photos and news added after launch, quoted separately from technical maintenance.</p></article>
+      </div>
+    </section>
+
+    <section class="ab-block ab-tint" aria-labelledby="ab-how">
+      <div class="ab-head"><p class="section-label">How we work</p><h2 id="ab-how" data-enter>Clear terms at every step.</h2></div>
+      <div class="ab-grid ab-grid-4">
+        <article><h3>One point of contact</h3><p>The founder leads every project personally. You speak with the person responsible for your website, not an account manager.</p></article>
+        <article><h3>Everything in writing</h3><p>Before payment you receive the scope, the total price, the timeline and any ongoing costs. Once accepted, the price doesn't change for the agreed work.</p></article>
+        <article><h3>Your approval before launch</h3><p>You review the website, request the agreed changes and approve it before it goes live.</p></article>
+        <article><h3>The site is yours</h3><p>Once the project fee is paid, the design and the code belong to you. You can take your site with you at any time.</p></article>
+      </div>
+      <p class="ab-price">You get the exact price in writing before you pay.</p>
+    </section>
+
+    <section class="ab-founder" aria-labelledby="ab-founder">
+      <figure class="ab-photo"><img src="assets/about_alex_white_880.webp" srcset="assets/about_alex_white_630.webp 630w, assets/about_alex_white_880.webp 880w, assets/about_alex_white_1320.webp 1320w" sizes="(max-width: 700px) 75vw, 315px" alt="Alex, founder of Emin Dev" width="880" height="1100" loading="lazy" decoding="async"></figure>
+      <div class="ab-founder-copy"><p class="section-label">The founder</p><h2 id="ab-founder" data-enter>Alex, founder of Emin Dev.</h2>
+        <p>Alex leads every Emin Dev project from the first conversation to launch day and works remotely with businesses in any country. Working with a focused studio means direct answers, quick decisions and one person accountable for the result.</p>
+        <a class="ab-link" href="mailto:oeminsisman@gmail.com">oeminsisman@gmail.com <span aria-hidden="true">↗</span></a></div>
+    </section>
+
+    <section class="ab-block ab-company" aria-labelledby="ab-company">
+      <div class="ab-head"><p class="section-label">Company details</p><h2 id="ab-company" data-enter>A registered US company.</h2></div>
+      <dl class="ab-facts">
+        <div><dt>Legal entity</dt><dd>La Factoria LLC</dd></div>
+        <div><dt>Registered in</dt><dd>Delaware, United States</dd></div>
+        <div><dt>Address</dt><dd>8 The Green, Ste B, Dover, DE 19901, USA</dd></div>
+        <div><dt>Service area</dt><dd>Worldwide, working remotely</dd></div>
+        <div><dt>Payments</dt><dd>By card through Stripe, with an invoice from the company</dd></div>
+        <div><dt>Email</dt><dd><a href="mailto:oeminsisman@gmail.com">oeminsisman@gmail.com</a></dd></div>
+      </dl>
+    </section>
+
+    <section class="ab-close" aria-labelledby="ab-close">
+      <h2 id="ab-close" data-enter>Tell us what you're building.</h2>
+      <p>Describe your business and what the website should do. We'll reply by email with the next step.</p>
+      <a class="ab-cta" href="/contact">Request a quote <span aria-hidden="true">↗</span></a>
+    </section>
+  </main>
+<footer class="foot">
+  <section class="newsletter" id="newsletter" aria-labelledby="newsletterTitle">
+    <div class="newsletter-copy"><h2 id="newsletterTitle">Studio newsletter</h2>
+      <p>New websites from the studio, studio news and occasional offers. No more than once a month.</p></div>
+    <form class="newsletter-form" action="/newsletter" method="post">
+      <div class="newsletter-row"><label class="sr-only" for="newsletterEmail">Email address</label><input id="newsletterEmail" name="email" type="email" autocomplete="email" inputmode="email" placeholder="you@example.com" required maxlength="254"><button type="submit">Subscribe</button></div>
+      <div class="newsletter-trap" aria-hidden="true"><label for="newsletterCompany">Company</label><input id="newsletterCompany" name="company" type="text" tabindex="-1" autocomplete="off"></div>
+      <p class="newsletter-legal">We'll email you to confirm. Unsubscribe anytime. <a href="/privacy#newsletter">Privacy policy</a></p>
+      <p class="newsletter-status" role="status" aria-live="polite"></p>
+    </form>
+  </section>
+  <div class="foot-grid">
+    <div class="foot-brand">
+          <img src="assets/emindev-logo.png" alt="Emin Dev" width="91" height="91">
+          <p>Custom websites and online stores for businesses of every kind. Design, technical maintenance and content services, with clear scope and project quotes.</p>
+    </div>
+    <nav class="foot-col" aria-label="Studio">
+          <h3>Studio</h3><a href="/content-services">Content updates</a>
+          <a href="/work">Work</a>
+          <a href="/about">About</a>
+          <a href="/website-services#store">Online stores</a>
+          <a href="/#pricing">How it works</a>
+          <a href="/website-services#faq">FAQ</a>
+          <a href="/#contact">Request a quote</a>
+        </nav>
+    <nav class="foot-col" aria-label="Legal">
+      <h3>Legal</h3><a href="#cookies">Cookie settings</a>
+      <a href="/terms">Terms of Service</a>
+      <a href="/privacy">Privacy Policy</a>
+    </nav>
+    <div class="foot-col">
+      <h3>Contact</h3>
+      <a href="mailto:oeminsisman@gmail.com?subject=Website%20project%20enquiry">oeminsisman@gmail.com</a>
+      <a href="https://www.instagram.com/developedbyemin" target="_blank" rel="noopener">developedbyemin</a>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <p>© 2026 Emin Dev — a service of La Factoria LLC. All rights reserved.</p>
+    <p>Independent studio. Working worldwide.</p>
+  </div>
+</footer>
+
+
+<!-- ⚠️ AL EDITAR main.js HAY QUE SUBIR ESTE NUMERO. El servidor manda
+     `Cache-Control: public, max-age=604800` (7 dias) para el .js, asi que la URL
+     la URL versionada se queda pegada una semana en el navegador del visitante Y en el borde
+     del CDN. Medido el 2026-08-14: se desplego un main.js nuevo, el origen servia el
+     correcto (md5 identico) y PageSpeed seguia ejecutando el viejo. index.html NO se
+     cachea (solo ETag), asi que cambiar este numero es lo unico que llega a todo el mundo
+     en el acto. Lo mismo vale para styles.css?v= y bird.js?v=. -->
+
+
+<!-- EL CONTADOR DE VISITAS, OTRA VEZ EN PIE (2026-09-06). Esta es la portada de la agencia:
+     por aqui entra quien viene de Instagram y de la firma del correo, y es el denominador de
+     la pregunta "de los que ven la portada, ¿cuantos abren una obra?".
+
+     Llevaba desde el 23-ago sin contar nada. El contador de antes escribia en un fichero del
+     disco de Hostinger y `automation/visitas.py` lo leia por FTP; las dos mitades murieron con
+     el alojamiento el 28-ago. Ahora la cuenta la lleva `functions/cnt.js`, que corre en el
+     propio Cloudflare Pages. Ni IP, ni cookie, ni nada de quien entra: solo se suma uno a un
+     numero del dia, con la etiqueta `k=s` para no mezclarse con la web de los correos. -->
+
+<script src="/contact-form.js?v=6" defer></script>
+<script src="/journey.js?v=1" defer></script>
+<script src="/consent.js?v=3" defer></script>
+
+
+<script src="/navigation.js?v=2" defer></script><script src="/studio-editorial.js?v=8" defer></script><script src="/newsletter-form.js?v=1" defer></script>
+
+</body>
+</html>
