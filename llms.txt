@@ -13,10 +13,10 @@ Key facts:
 ## Services
 
 - [Website services](/website-services): Custom websites, online stores and animated sections for businesses of every kind.
-- [Portfolio](/work): The studio's complete collection of live design showcases.
-- [About the studio](/about): Osman Emin, freelance developer, and how projects are agreed.
+- [Portfolio](/work): The complete collection of live design showcases.
+- [About](/about): Osman Emin, freelance developer, and how projects are agreed.
 
-- [Skincare Brand Website Design: Live Examples](/skincare-brand-website-design): Skincare website examples you can open, from a studio that builds them by hand: product films, ingredient pages and checkout. Quote before you pay.
+- [Skincare Brand Website Design: Live Examples](/skincare-brand-website-design): Skincare website examples you can open, from a freelance developer who builds them by hand: product films, ingredient pages and checkout. Quote before you pay.
 - [Perfume & Fragrance Brand Website Design](/fragrance-brand-website-design): Websites for perfume brands: scent notes, bottle close-ups and checkout on your own site. Open two live fragrance concepts. Quote before you pay.
 - [Clothing Brand Website Design: Live Examples](/clothing-brand-website-design): Clothing and fashion brand websites with sizes, colors, drops and pieces you can turn around. Open two live fashion concepts. Quote before you pay.
 - [Watch & Jewelry Website Design: Live Examples](/watch-jewelry-brand-website-design): Watch and jewelry brand websites that show the craft up close: dials, metals, gifting and checkout. Open a live watch concept. Quote before you pay.
@@ -30,7 +30,7 @@ Key facts:
 
 ## Live work
 
-Concept brands designed and built end to end by the studio (the brands are invented; the sites are live):
+Concept brands designed and built end to end by Osman Emin (the brands are invented; the sites are live):
 
 - [SARP FOOTWEAR](https://sarp-footwear.netlify.app/): footwear store concept.
 - [ZeroThread](https://zerothread.netlify.app/): fashion concept.
