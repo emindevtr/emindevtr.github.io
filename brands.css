@@ -1,0 +1,132 @@
+/* ═══ /brands — lo que la portada no tiene (23-sep-2026, segunda version) ═══════════════════
+   /brands es la portada (tools/build_brands.py la genera desde index.html) y esta hoja va
+   DETRAS de styles.css: solo añade las tres piezas nuevas y no redefine nada de la portada.
+     · la seccion del pago (#store): el checkout con la tarjeta en 3D, en dos capturas
+     · la oferta fundacional, dentro de la pila de precios
+     · el desplegable del plan y el "(optional)" del formulario
+   Y la legibilidad medida con APCA, solo en esta pagina (body.brands): el gris y las etiquetas
+   de 11 px de la portada no pasan el umbral por cuerpo y peso (regla de Alex: por debajo de
+   14 px no hay tinta que valga). La portada no se toca desde aqui.
+   Biblia web: nada se anima fuera de transform y opacity, y las dos capturas van con
+   width/height y loading="lazy" (CLS 0). */
+
+/* ── el pago ─────────────────────────────────────────────────────────────────────────────── */
+.sells{padding:0 0 4.5rem}
+.sells-grid{display:grid;grid-template-columns:1fr 1.12fr;gap:3.2rem;align-items:center;margin-top:1.4rem}
+.sells-copy h2{margin-bottom:1.2rem;max-width:30rem}
+.sells-copy p{color:var(--ink-soft);line-height:1.7;font-size:1rem;max-width:32rem;margin-bottom:.9rem}
+.sells-copy .btn{margin-top:.8rem}
+.sells-note{font-family:var(--mono);font-size:.875rem;font-weight:500;letter-spacing:.04em;margin-top:.9rem}
+.sells-shots{position:relative;padding-bottom:14%}
+/* height:auto es obligatorio: styles.css no lo pone y sin el las capturas salen ESTIRADAS
+   (veto de Alex: nunca estirar ni estrechar una imagen) */
+.sells-shots img{display:block;height:auto;border-radius:16px;box-shadow:0 30px 80px rgba(11,19,34,.22)}
+.shot-a{width:88%}
+.shot-b{position:absolute;right:0;bottom:0;width:58%;outline:1px solid rgba(255,255,255,.55)}
+
+/* ── formulario ─────────────────────────────────────────────────────────────────────────── */
+.field select{
+  width:100%;font:inherit;font-size:1rem;color:var(--ink);background:transparent;border:0;
+  border-bottom:1px solid rgba(11,19,34,.18);padding:.55rem 1.6rem .6rem .1rem;border-radius:0;
+  -webkit-appearance:none;appearance:none;cursor:pointer;transition:border-color .3s;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%230B1322' stroke-width='1.5'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right .2rem center;background-size:12px 8px;
+}
+.field select:focus{outline:none;border-bottom-color:var(--volt)}
+.field .opt{text-transform:none;letter-spacing:.02em;font-weight:500}
+.contact p a{color:var(--indigo,#141A6E);border-bottom:1px solid rgba(20,26,110,.35)}
+
+@media (max-width:900px){
+  .sells-grid{grid-template-columns:1fr;gap:2.2rem}
+}
+
+/* ── LEGIBILIDAD, MEDIDA CON APCA (solo en /brands) ──────────────────────────────────────────
+   Mismos valores que se midieron en la primera version de la pagina: gris #27303F (Lc >= 90
+   sobre el cielo) y etiquetas mono a 14 px/500 en un indigo que da Lc 92. Solo lo que no
+   llegaba; el resto de la portada queda como esta. */
+body.brands{--ink-soft:#27303F;--indigo:#141A6E}
+.brands .rail,.brands .price-tag,.brands .step-t,.brands .field label,.brands .sec-note,
+.brands .chip,.brands .piece-type{font-size:.875rem;font-weight:500}
+.brands .rail .idx,.brands .eyebrow{color:var(--indigo)}
+.brands .step-n{color:rgba(11,19,34,.55)}
+.brands .about-copy p,.brands .steps p,.brands .incl li,.brands .faq-list details p,
+.brands .price-note,.brands .price-foot,.brands .price-plus{font-size:1.0625rem}
+.brands .form-alt,.brands .form-status{font-size:.9375rem;font-weight:500}
+.brands .foot{font-weight:500}
+
+/* segunda pasada de APCA sobre la portada entera (23-sep): lo heredado que no llegaba.
+   Las manchas de color del fondo (.atmo) bajan el contraste donde caen, asi que las etiquetas
+   van en tinta y el gris baja un punto mas. Los rotulos de las tarjetas en movil median 9-13 px. */
+body.brands{--ink-soft:#1F2735}
+.brands .rail,.brands .scroll-hint,.brands .foot-col h3{color:var(--ink);font-size:.875rem;font-weight:500}
+.brands .scroll-hint{letter-spacing:.2em}
+.brands .sec-note{font-size:1rem;font-weight:500}
+.brands .step-n{color:rgba(11,19,34,.72)}
+.brands .chip{font-size:.875rem;letter-spacing:.12em}
+.brands .piece-meta{background:rgba(8,13,25,.74)}
+.brands .piece-open,.brands .piece-type{font-size:.875rem;letter-spacing:.1em;opacity:1}
+.brands .foot-col,.brands .foot-brand p{font-size:1rem;font-weight:500}
+.brands .foot-bottom{font-size:.875rem;font-weight:500}
+@media (max-width:700px){
+  .brands .piece-meta h3{font-size:.9375rem}
+  .brands .piece-open{font-size:.875rem;padding-left:.55rem}
+  .brands .chip{font-size:.875rem;padding:.4rem .75rem}
+}
+
+/* tercera pasada (23-sep): los que quedaban rozando el umbral. En APCA subir el cuerpo baja lo
+   que se exige (17/400 pide 85, 18/400 pide 80; 14/500 pide 90, 15/500 pide 85), y las manchas
+   de la atmosfera se suavizan donde caian sobre texto. */
+.brands .about-copy p,.brands .steps p,.brands .incl li,.brands .faq-list details p,.brands .price-note,
+.brands .sells-copy p,.brands .contact>p{font-size:1.125rem}
+.brands .rail,.brands .scroll-hint,.brands .foot-col h3,.brands .price-tag,.brands .step-t,
+.brands .field label,.brands .sells-note{font-size:.9375rem}
+.brands .btn-small{font-size:.9375rem}
+.brands .atmo{opacity:.55}
+/* el subtitulo del hero terminaba ENCIMA de la A azul oscura cuando el colibri se convierte en
+   ella ("Live in" ilegible, medido a 1440x900 en tres momentos del video). La A empieza hacia
+   x=430: el texto se corta antes. */
+@media (min-width:701px){.brands .hero-copy .sub{max-width:19.5rem}}
+.brands .chip{background:#fff}
+
+/* En un telefono no se enseña una obra que en un telefono no se abre (26-sep-2026): Meridian,
+   Maison Roux y Noema rebotan a su preview ("built for a big screen"). La condicion es la MISMA
+   que la de la verja movil (tools/gate_snippet.html), asi que se ocultan justo donde el enlace
+   rebotaria y en ningun otro sitio. La clase la pone tools/build_brands.py. */
+.n-movil{display:none}
+@media (pointer:coarse) and (max-width:900px){
+  .piece.solo-pantalla-grande{display:none}
+  .n-grande{display:none}
+  .n-movil{display:inline}
+}
+
+/* El pie lleva una quinta columna desde el 26-sep: "Websites for", las paginas de busqueda
+   (automation/seo_paginas.py). Con la rejilla de cuatro de styles.css la quinta caia sola en
+   una fila nueva. Por debajo de 900 px manda la de styles.css (dos columnas, luego una). */
+@media (min-width:901px){
+  .brands .foot-grid{grid-template-columns:1.4fr .9fr 1.1fr .9fr 1.2fr}
+}
+
+/* Las tarjetas de precio solo llevan el precio desde el 26-sep (tools/build_brands.py): el parrafo
+   de debajo daba el hueco hasta el boton con su margen, y sin el el boton se pegaba a la cuota. */
+.brands .price-mo{margin-bottom:1.5rem}
+
+/* 29-sep: la frase que quita el miedo, debajo de los botones del hero, y el boton del chat de
+   Instagram encima del formulario (tools/build_brands.py explica el porque). 15 px y 500 de peso:
+   por debajo de 14 px no hay tinta que pase APCA. */
+.cta-note{margin-top:.9rem;font-size:.94rem;font-weight:500;color:var(--ink)}
+.contact-ig{margin:-.6rem 0 1.8rem}
+.contact .contact-ig a.btn{color:#fff;border-bottom:0}
+/* En escritorio la A del colibri empieza a ~370 px a esa altura: la frase va en dos lineas. */
+@media (min-width:701px){.brands .cta-note{max-width:15rem}}
+@media (max-width:700px){
+  .cta-note{text-align:center;margin-top:.8rem}
+}
+
+/* 29-sep (acuerdo con Codex): "Message us" solo en el movil, al lado de "Start your site"; en
+   escritorio sigue "See the work" (styles.css oculta .btn-ghost del hero por debajo de 700 px). */
+.brands .hero .btn-dm{display:none}
+@media (max-width:700px){
+  .brands .hero .btn-dm{display:inline-block}
+  .brands .hero .cta-row{gap:.6rem}
+  .brands .hero .cta-row .btn{padding:.85rem 1.25rem}
+}

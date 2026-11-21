@@ -1,0 +1,138 @@
+/* Island menu (navigation.js). 15-nov-2026, Alex: the mobile header and the "Menu +" dropdown
+   looked bad. One dark glass sheet grows out of the menu button; on phones it fills the screen and
+   the header turns into its top bar. Only transform, opacity and clip-path animate. */
+:root{--inav-ease:cubic-bezier(.16,1,.3,1);--inav-iris:cubic-bezier(.76,0,.24,1);--inav-bg:#0a100f;--inav-fg:#eef2ee;--inav-blue:#2f62ff;--inav-soft:#9fb5ff}
+.inav-on .nav-menu{display:none!important}
+
+/* ── the button ─────────────────────────────────────────────────────── */
+.inav-trigger{appearance:none;-webkit-appearance:none;border:0;margin:0;background:transparent;color:#0d1513;font:inherit;font-size:.9rem;font-weight:600;letter-spacing:-.01em;cursor:pointer;display:inline-flex;align-items:center;gap:.6rem;height:44px;padding:0 .95rem;border-radius:999px;position:relative;z-index:1;flex:none;-webkit-tap-highlight-color:transparent;transition:background .3s,color .3s,transform .2s}
+.inav-trigger:hover{background:rgba(255,255,255,.92)}
+.inav-trigger:active{transform:scale(.94)}
+.inav-trigger:focus-visible{outline:2px solid var(--inav-blue);outline-offset:3px}
+.inav-icon{position:relative;display:block;width:18px;height:12px}
+.inav-icon i{position:absolute;right:0;height:1.8px;border-radius:2px;background:currentColor;transition:transform .55s var(--inav-ease),top .35s var(--inav-ease),width .35s var(--inav-ease)}
+.inav-icon i:first-child{top:2px;width:18px}
+.inav-icon i:last-child{top:8px;width:11px}
+.inav-trigger:hover .inav-icon i:last-child{width:18px}
+.inav-trigger[aria-expanded="true"] .inav-icon i{width:18px;top:5px}
+.inav-trigger[aria-expanded="true"] .inav-icon i:first-child{transform:rotate(45deg)}
+.inav-trigger[aria-expanded="true"] .inav-icon i:last-child{transform:rotate(-45deg)}
+.inav-on .studio-home .nav-menu,.inav-on .studio-home .inav-trigger{display:none}
+
+/* ── phones and tablets: a floating glass header ───────────────────── */
+@media (max-width:900px){
+ .inav-on .studio-home .inav-trigger{display:inline-flex}
+ .inav-on .studio-home .nav,.inav-on .studio-home.portfolio-wall .nav{top:max(10px,env(safe-area-inset-top));left:10px;right:10px;width:auto;height:58px;padding:0 7px 0 18px;gap:8px;border:1px solid rgba(20,33,31,.08);border-radius:999px;background:rgba(248,249,246,.74);backdrop-filter:blur(18px) saturate(1.6);-webkit-backdrop-filter:blur(18px) saturate(1.6);box-shadow:0 1px 0 rgba(255,255,255,.7) inset,0 12px 34px rgba(10,20,18,.12);transition:background .35s,border-color .35s,box-shadow .35s}
+ .inav-on .studio-home .nav.scrolled{background:rgba(248,249,246,.86)}
+ .inav-on .studio-home .nav-brand{display:inline-flex;align-items:center;justify-content:center;min-width:44px;min-height:44px}
+ .inav-on .studio-home .nav-brand img{height:24px}
+ .inav-on .studio-home .nav-contact{min-height:44px;padding:0 15px;font-size:12.5px;gap:7px;letter-spacing:-.005em;transition:opacity .3s,background .2s}
+ .inav-on .studio-home .nav-contact span{transition:transform .3s var(--inav-ease)}
+ .inav-on .studio-home .nav-contact:active span{transform:translate(2px,-2px)}
+ .inav-trigger{width:44px;padding:0;justify-content:center;background:rgba(20,33,31,.07)}
+ .inav-trigger:hover{background:rgba(20,33,31,.12)}
+ .inav-word{display:none}
+ .inav-on .brands .nav>.btn{transition:opacity .3s}
+ /* 15-nov: logo (28x24) y boton (37 px) bajaban del minimo de 44 px para el dedo. */
+ .inav-on .brands .nav>.nav-brand{display:inline-flex;align-items:center;justify-content:center;min-width:44px;min-height:44px}
+ .inav-on .brands .nav>.btn{display:inline-flex;align-items:center;min-height:44px}
+}
+
+/* While the sheet is open on a phone, the header becomes its top bar. */
+.inav-open.inav-full .nav{background:transparent!important;border-color:transparent!important;box-shadow:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+.inav-open.inav-full .nav::before{opacity:0}
+.inav-open.inav-full .nav-contact,.inav-open.inav-full .nav>.btn{opacity:0;pointer-events:none}
+.inav-open.inav-full .inav-trigger{color:#fff;background:rgba(255,255,255,.1)}
+.inav-open,.inav-open body{overflow:hidden}
+
+/* ── the sheet ──────────────────────────────────────────────────────── */
+.inav-scrim{position:fixed;inset:0;z-index:38;background:rgba(5,9,8,.42);opacity:0;transition:opacity .5s}
+.inav-open .inav-scrim{opacity:1}
+.inav-sheet{position:fixed;inset:0;z-index:39;color:var(--inav-fg);background:var(--inav-bg);font-family:var(--sans,"Archivo","Geist",system-ui,sans-serif);clip-path:circle(0px at var(--ox,100%) var(--oy,0px));transition:clip-path .58s var(--inav-iris),opacity .3s;overflow:hidden;-webkit-font-smoothing:antialiased}
+.inav-sheet.is-open{clip-path:circle(var(--r,150vmax) at var(--ox,100%) var(--oy,0px));transition:clip-path .7s var(--inav-iris)}
+.inav-sheet::before{content:"";position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(rgba(255,255,255,.075) 1px,transparent 1.3px);background-size:22px 22px;-webkit-mask-image:linear-gradient(180deg,#000,transparent 55%);mask-image:linear-gradient(180deg,#000,transparent 55%)}
+.inav-glow{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.inav-glow::before,.inav-glow::after{content:"";position:absolute;border-radius:50%}
+.inav-glow::before{width:120vmax;height:120vmax;right:-60vmax;top:-70vmax;background:radial-gradient(closest-side,rgba(47,98,255,.42),rgba(47,98,255,.12) 55%,transparent);animation:inav-drift 14s ease-in-out infinite alternate}
+.inav-glow::after{width:90vmax;height:90vmax;left:-50vmax;bottom:-55vmax;background:radial-gradient(closest-side,rgba(122,92,255,.26),transparent 70%);animation:inav-drift 18s ease-in-out -6s infinite alternate-reverse}
+@keyframes inav-drift{to{transform:translate3d(-6vmax,7vmax,0) scale(1.08)}}
+
+.inav-body{position:relative;height:100%;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;display:flex;flex-direction:column;padding:calc(max(10px,env(safe-area-inset-top)) + 84px) 22px calc(env(safe-area-inset-bottom) + 22px);transition:transform .45s var(--inav-ease)}
+.inav-kicker{display:flex;align-items:center;gap:10px;margin:0 0 10px 6px;font:500 11px/1 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;letter-spacing:.16em;text-transform:uppercase;color:rgba(238,242,238,.5);opacity:0;transform:translateY(8px);transition:opacity .5s .12s,transform .7s var(--inav-ease) .12s}
+.inav-kicker span{width:7px;height:7px;border-radius:50%;background:var(--inav-blue);box-shadow:0 0 0 0 rgba(47,98,255,.7);animation:inav-pulse 2.4s infinite}
+@keyframes inav-pulse{70%{box-shadow:0 0 0 8px rgba(47,98,255,0)}100%{box-shadow:0 0 0 0 rgba(47,98,255,0)}}
+.is-open .inav-kicker{opacity:1;transform:none}
+
+.inav-links{display:flex;flex-direction:column}
+.inav-row{position:relative;isolation:isolate;display:grid;grid-template-columns:30px 1fr 40px;align-items:center;gap:8px;padding:15px 6px;border-radius:18px;color:var(--inav-fg);text-decoration:none;-webkit-tap-highlight-color:transparent;outline:none}
+.inav-row::before{content:"";position:absolute;inset:0;z-index:-1;border-radius:18px;background:radial-gradient(240px circle at var(--mx,50%) var(--my,50%),rgba(47,98,255,.38),rgba(122,92,255,.14) 45%,transparent 72%);opacity:0;transition:opacity .4s}
+.inav-row::after{content:"";position:absolute;left:6px;right:6px;bottom:0;height:1px;background:linear-gradient(90deg,rgba(255,255,255,.16),rgba(255,255,255,.05));transform:scaleX(0);transform-origin:left;transition:transform .8s var(--inav-ease) calc(var(--i) * 55ms + 180ms)}
+.is-open .inav-row::after{transform:scaleX(1)}
+.inav-row:hover::before,.inav-row.is-lit::before,.inav-row:focus-visible::before{opacity:1}
+.inav-idx{font:500 11px/1 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;letter-spacing:.06em;color:var(--inav-soft);opacity:0;transition:opacity .5s calc(var(--i) * 55ms + 240ms)}
+.is-open .inav-idx{opacity:.85}
+.inav-label{display:block;overflow:hidden;padding-bottom:.06em;font-size:clamp(30px,8.6vw,42px);font-weight:600;line-height:1.06;letter-spacing:-.035em}
+.inav-label>span{display:block;transform:translateY(108%);transition:transform .85s var(--inav-ease) calc(var(--i) * 55ms + 130ms)}
+.is-open .inav-label>span{transform:none}
+.inav-row[aria-current="page"] .inav-label{color:var(--inav-soft)}
+.inav-row[aria-current="page"] .inav-idx::after{content:"";display:inline-block;width:5px;height:5px;margin-left:5px;border-radius:50%;background:var(--inav-soft);vertical-align:2px}
+.inav-arrow{justify-self:end;display:grid;place-items:center;width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.16);color:var(--inav-fg);opacity:0;transform:scale(.6);transition:opacity .5s calc(var(--i) * 55ms + 260ms),transform .6s var(--inav-ease) calc(var(--i) * 55ms + 260ms),background .3s,border-color .3s}
+.inav-arrow svg{width:17px;height:17px;transition:transform .45s var(--inav-ease)}
+.is-open .inav-arrow{opacity:1;transform:none}
+.inav-row:hover .inav-arrow,.inav-row.is-lit .inav-arrow,.inav-row:focus-visible .inav-arrow{background:var(--inav-blue);border-color:var(--inav-blue);transition-delay:0s}
+.inav-row:hover .inav-arrow svg,.inav-row.is-lit .inav-arrow svg,.inav-row:focus-visible .inav-arrow svg{transform:rotate(-45deg)}
+
+.inav-work{margin:26px 0 26px}
+.inav-work-head{display:flex;align-items:baseline;justify-content:space-between;padding:0 6px;font:500 11px/1 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;letter-spacing:.14em;text-transform:uppercase;color:rgba(238,242,238,.5);opacity:0;transition:opacity .5s .4s}
+.is-open .inav-work-head{opacity:1}
+.inav-work-head a{font:600 13px/1 var(--sans,"Archivo","Geist",system-ui,sans-serif);letter-spacing:0;text-transform:none;color:var(--inav-fg);text-decoration:none;padding:8px 0}
+.inav-work-head a span{display:inline-block;transition:transform .35s var(--inav-ease)}
+.inav-work-head a:hover span{transform:translateX(4px)}
+.inav-strip{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding:0 22px;margin:12px -22px 0;padding:2px 22px 8px;scrollbar-width:none;overscroll-behavior-x:contain}
+.inav-strip::-webkit-scrollbar{display:none}
+.inav-shot{flex:none;width:min(64vw,260px);scroll-snap-align:start;color:var(--inav-fg);text-decoration:none;opacity:0;transform:translate3d(46px,0,0) rotateY(-18deg);transform-origin:left center;transition:opacity .6s calc(var(--j) * 60ms + 380ms),transform .9s var(--inav-ease) calc(var(--j) * 60ms + 380ms)}
+.is-open .inav-shot{opacity:1;transform:none}
+.inav-img{display:block;aspect-ratio:1.6;overflow:hidden;border-radius:12px;background:#17201e;border:1px solid rgba(255,255,255,.1);box-shadow:0 10px 26px rgba(0,0,0,.35)}
+.inav-img img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .7s var(--inav-ease)}
+.inav-shot:hover .inav-img img,.inav-shot:focus-visible .inav-img img{transform:scale(1.07)}
+.inav-shot:focus-visible{outline:2px solid var(--inav-blue);outline-offset:4px;border-radius:12px}
+.inav-t{display:block;margin-top:9px;padding-left:2px;font-size:12px;font-weight:600;letter-spacing:.03em}
+
+.inav-cta{position:relative;isolation:isolate;overflow:hidden;margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:64px;padding:0 9px 0 26px;border-radius:999px;background:var(--inav-fg);color:#0a100f;text-decoration:none;font-size:17px;font-weight:650;letter-spacing:-.015em;opacity:0;transform:translateY(16px);transition:opacity .6s .45s,transform .9s var(--inav-ease) .45s,color .35s;-webkit-tap-highlight-color:transparent}
+.is-open .inav-cta{opacity:1;transform:none}
+.inav-cta::before{content:"";position:absolute;z-index:-1;left:var(--mx,85%);top:var(--my,50%);width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:var(--inav-blue);transform:scale(0);transition:transform .7s var(--inav-ease)}
+.inav-cta:hover::before,.inav-cta.is-lit::before,.inav-cta:focus-visible::before{transform:scale(70)}
+.inav-cta:hover,.inav-cta.is-lit,.inav-cta:focus-visible{color:#fff;outline:none}
+.inav-cta::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(105deg,transparent 38%,rgba(47,98,255,.22) 50%,transparent 62%);transform:translateX(-110%);animation:inav-shine 4.2s var(--inav-iris) 1.4s infinite}
+@keyframes inav-shine{0%{transform:translateX(-110%)}38%,100%{transform:translateX(110%)}}
+.inav-cta-ic{position:relative;display:block;flex:none;width:46px;height:46px;border-radius:50%;background:#0a100f;color:#fff;overflow:hidden;transition:background .35s}
+.inav-cta-ic svg{position:absolute;left:50%;top:50%;width:18px;height:18px;margin:-9px 0 0 -9px;transition:transform .5s var(--inav-ease)}
+.inav-cta-ic svg+svg{transform:translate(-30px,30px)}
+.inav-cta:hover .inav-cta-ic,.inav-cta.is-lit .inav-cta-ic{background:#fff;color:var(--inav-blue)}
+.inav-cta:hover .inav-cta-ic svg:first-child,.inav-cta.is-lit .inav-cta-ic svg:first-child{transform:translate(30px,-30px)}
+.inav-cta:hover .inav-cta-ic svg+svg,.inav-cta.is-lit .inav-cta-ic svg+svg{transform:none}
+
+/* Leaving: everything goes at once, no stagger. */
+.inav-sheet:not(.is-open) *{transition-delay:0s!important}
+
+/* ── wide screens: a panel that opens from the button ───────────────── */
+.inav-sheet.is-panel{inset:auto;width:min(420px,calc(100vw - 24px));max-height:calc(100dvh - 110px);border-radius:26px;border:1px solid rgba(255,255,255,.08);box-shadow:0 30px 80px rgba(5,12,24,.32)}
+.is-panel .inav-body{height:auto;max-height:calc(100dvh - 110px);padding:20px 16px 16px}
+.is-panel .inav-label{font-size:25px;letter-spacing:-.025em}
+.is-panel .inav-row{padding:11px 8px;grid-template-columns:28px 1fr 34px}
+.is-panel .inav-arrow{width:34px;height:34px}
+.is-panel .inav-work{margin:18px 0 0}
+.is-panel .inav-strip{margin:10px -16px 0;padding:2px 16px 6px;scroll-padding:0 16px}
+.is-panel .inav-shot{width:140px}
+.is-panel .inav-cta{margin-top:18px;min-height:56px;font-size:15.5px}
+.is-panel .inav-cta-ic{width:40px;height:40px}
+.inav-open:not(.inav-full) .inav-scrim{background:rgba(5,9,8,.16)}
+.inav-open:not(.inav-full),.inav-open:not(.inav-full) body{overflow:auto}
+
+.inav-sheet .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+@media (prefers-reduced-motion:reduce){
+ .inav-sheet,.inav-sheet.is-open{clip-path:none;transition:opacity .2s}
+ .inav-sheet:not(.is-open){opacity:0}
+ .inav-sheet *,.inav-sheet *::before,.inav-sheet *::after{transition-duration:.01s!important;transition-delay:0s!important;animation:none!important}
+}

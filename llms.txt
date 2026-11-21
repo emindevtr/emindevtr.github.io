@@ -1,0 +1,111 @@
+# Emin Dev
+
+> Custom websites, online stores and animated hero sections. Each project is quoted individually based on its design, content and functionality. Scope, total price and timeline are agreed before work begins.
+
+Key facts:
+- Brand websites from USD 1,200. Online stores from USD 2,500. You get the exact price in writing before you pay. Once accepted, that price won't change for the agreed work. We'll quote any extra requests before starting them.
+- We'll list hosting, domain, maintenance and third-party costs separately in your quote. You'll see which recurring costs are required and which services are optional before you pay.
+- We'll agree a realistic schedule after checking your scope and materials, before you pay. You'll review the work and approve it before launch.
+- Accepted agreements keep their agreed terms.
+- How the sites are built: designed and coded by hand, fast on a phone. Many use product films that play as you scroll, products you can turn around in 3D, and animated hero sections. Every portfolio piece below is live and can be opened.
+- Contact: /contact | Instagram @developedbyemin
+
+## Services
+
+- [Website services](/website-services): Custom websites, online stores and animated sections for businesses of every kind.
+- [Portfolio](/work): The studio's complete collection of live design showcases.
+- [About the studio](/about): Alex, La Factoria LLC and how projects are agreed.
+
+- [Skincare Brand Website Design: Live Examples](/skincare-brand-website-design): Skincare website examples you can open, from a studio that builds them by hand: product films, ingredient pages and checkout. Quote before you pay.
+- [Perfume & Fragrance Brand Website Design](/fragrance-brand-website-design): Websites for perfume brands: scent notes, bottle close-ups and checkout on your own site. Open two live fragrance concepts. Quote before you pay.
+- [Clothing Brand Website Design: Live Examples](/clothing-brand-website-design): Clothing and fashion brand websites with sizes, colors, drops and pieces you can turn around. Open two live fashion concepts. Quote before you pay.
+- [Watch & Jewelry Website Design: Live Examples](/watch-jewelry-brand-website-design): Watch and jewelry brand websites that show the craft up close: dials, metals, gifting and checkout. Open a live watch concept. Quote before you pay.
+- [Product Launch Website Design: Live Examples](/product-launch-website-design): Launch websites that explain a new product as you scroll: product film, specs, pre-orders and checkout. Open live launch concepts. Quote before you pay.
+- [Boutique Hotel Website Design](/boutique-hotel-website-design): Custom websites for boutique hotels, cabins and small stays, connected to the booking calendar you already use. Quote agreed before you pay.
+- [Custom Ecommerce Website Design for Small Brands](/ecommerce-website-design): Custom ecommerce website design for small brands: Stripe or Shopify checkout, hand-coded, fast on a phone. Scope and price agreed before you pay.
+
+## Guides
+
+- [How Much Does a Website Cost? A 2026 Guide for Brands](/website-cost-for-product-brands): Custom website pricing in 2026: what affects your project quote, what the agreed fee covers, and how to plan for hosting, maintenance and other ongoing costs.
+
+## Live work
+
+Concept brands designed and built end to end by the studio (the brands are invented; the sites are live):
+
+- [SARP FOOTWEAR](https://sarp-footwear.netlify.app/): footwear store concept.
+- [ZeroThread](https://zerothread.netlify.app/): fashion concept.
+- [SOLSTICE PARFUMS](https://solstice-parfums.netlify.app/): fragrance store concept.
+- [BioDermix](https://biodermix.netlify.app/): skincare concept.
+- [NACRE](/nacre/): fragrance concept.
+
+## FAQ
+
+### How much will my website cost?
+
+Brand websites from USD 1,200. Online stores from USD 2,500. You get the exact price in writing before you pay. Once accepted, that price won't change for the agreed work. We'll quote any extra requests before starting them.
+
+### How long will it take?
+
+We'll agree a realistic schedule after checking your scope and materials, before you pay. You'll review the work and approve it before launch.
+
+### Are there monthly fees?
+
+We'll list hosting, domain, maintenance and third-party costs separately in your quote. You'll see which recurring costs are required and which services are optional before you pay.
+
+### What if I need something extra?
+
+We quote extra pages, content, features or revisions separately for your approval before doing the additional work.
+
+### Who owns the site?
+
+You do. Once you pay the agreed project fee, the website design and code are yours. You can take your site with you.
+
+### How much does a skincare brand website cost?
+
+Brand websites from USD 1,200. Online stores from USD 2,500. You get the exact price in writing before you pay. Once accepted, that price won't change for the agreed work. We'll quote any extra requests before starting them. It's mostly down to the number of products, sets and routines, and whether the site needs a product film.
+
+### Can you show full ingredient lists and routines?
+
+Yes. Ingredient lists, key actives, how-to-use steps, sets and routines are all normal parts of a skincare store we build, each product with its own price and stock.
+
+### I already sell on Shopify. Do I have to leave it?
+
+No. If you want your orders, stock and customers to stay in Shopify, we check your plan and setup first and, where it fits, Shopify keeps handling checkout. If you'd rather not pay for Shopify, the store runs on Stripe instead and the money goes straight to your account.
+
+### Do I need professional photos first?
+
+It helps, but it's not a blocker. Send what you have and we'll work with it. When you have better ones later, send them and we swap them in, at a price you know before we start.
+
+### How much does a perfume brand website cost?
+
+Brand websites from USD 1,200. Online stores from USD 2,500. You get the exact price in writing before you pay. Once accepted, that price won't change for the agreed work. We'll quote any extra requests before starting them. It's mostly down to the number of scents and sizes, discovery sets, and how much of the bottle's animated.
+
+### Can I sell discovery sets and samples?
+
+Yes. Sets, samples and several sizes of the same scent are normal products in the store, each with its own price and stock.
+
+### Can I try a store before I decide?
+
+Yes. NACRE and SOLSTICE PARFUMS both have a working bag: pick a perfume or a size, add it and watch the bag update. They're concepts, so no order is placed and no card is charged.
+
+### How much does a clothing brand website cost?
+
+Brand websites from USD 1,200. Online stores from USD 2,500. You get the exact price in writing before you pay. Once accepted, that price won't change for the agreed work. We'll quote any extra requests before starting them. It's mostly down to the number of products, sizes and colorways, and the lookbook pages you'd like.
+
+### Can the store handle sizes, colors and stock?
+
+Yes. Every product can have sizes and colors, each combination with its own stock and, if you want, its own photos and price.
+
+### Can you build a launch page for a drop?
+
+Yes. A drop page with the date, the pieces, a numbered run and a sold-out state is a normal part of a clothing store we build.
+
+### How much does a watch or jewelry website cost?
+
+Brand websites from USD 1,200. Online stores from USD 2,500. You get the exact price in writing before you pay. Once accepted, that price won't change for the agreed work. We'll quote any extra requests before starting them. It's mostly down to the number of pieces, options like metal, size or engraving, and the close-up imagery.
+
+## Optional
+
+- [Full text of the site](/llms-full.txt)
+- [Terms of Service](/terms)
+- [Privacy Policy](/privacy)

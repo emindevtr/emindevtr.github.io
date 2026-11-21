@@ -1,0 +1,10 @@
+/* local copy: EminDev logo — larger and rounded */
+img[src*="emindev-logo"]{border-radius:22%!important;width:auto!important}
+.nav-brand img[src*="emindev-logo"],.bar-brand img[src*="emindev-logo"]{height:40px!important}
+.foot-brand img[src*="emindev-logo"]{height:56px!important}
+@media (max-width:640px){.nav-brand img[src*="emindev-logo"],.bar-brand img[src*="emindev-logo"]{height:34px!important}}
+/* footer contact: mail + Instagram icons, drawn in the link's own color */
+.foot-col a[href^="mailto:"],.foot-col a[href*="instagram.com/developedbyemin"]{display:inline-flex;align-items:center;gap:.55em}
+.foot-col a[href^="mailto:"]::before,.foot-col a[href*="instagram.com/developedbyemin"]::before{content:"";flex:none;width:1.15em;height:1.15em;background:currentColor;-webkit-mask:var(--ico) center/contain no-repeat;mask:var(--ico) center/contain no-repeat}
+.foot-col a[href^="mailto:"]{--ico:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='5' width='18' height='14' rx='2.5'/%3E%3Cpath d='m4 7 8 6 8-6'/%3E%3C/svg%3E")}
+.foot-col a[href*="instagram.com/developedbyemin"]{--ico:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='3' width='18' height='18' rx='5'/%3E%3Ccircle cx='12' cy='12' r='4'/%3E%3Ccircle cx='17.5' cy='6.5' r='.6' fill='%23000'/%3E%3C/svg%3E")}

@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head><link rel="icon" type="image/png" href="/assets/emindev-logo.png?v=2"><script src="/i18n/tr-studio.js"></script><script src="/i18n/i18n.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="google-site-verification" content="50LWdDyhU-q1if3Q7qNXfzoDrYqyk-2cvJ7lJL3R6lU">
+
+<!-- GENERADO por tools/build_brands.py desde tools/plantillas/portada_base.html. No se edita
+     a mano: se cambia el generador y se vuelve a correr. Portada: dice lo mismo que /brands (Alex, 24-sep), sin pixel de Meta.
+     Sin clientes, sin web gratis por adelantado (se paga el alta para empezar, Alex 6-oct), sin devolucion, plazo "4 days". -->
+<title>Request a Website Quote | Emin Dev</title>
+<meta name="description" content="Tell us about the website or online store you need. We reply by email with the scope and a project quote. No commitment to go ahead.">
+<link rel="canonical" href="/contact">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Emin Dev">
+<meta property="og:title" content="Request a Website Quote | Emin Dev">
+<meta property="og:description" content="Tell us about the website or online store you need. We reply by email with the scope and a project quote. No commitment to go ahead.">
+<meta property="og:url" content="/contact">
+<meta property="og:image" content="/assets/hero_poster_desktop_v2.webp">
+<meta name="twitter:card" content="summary_large_image">
+<!-- FUENTES PROPIAS, NO DE GOOGLE (2026-08-14). Aqui habia dos `preconnect` y una hoja de
+     estilos de `fonts.googleapis.com`, que bloquea el render y a su vez pide los .woff2 a
+     `fonts.gstatic.com`: DOS origenes de terceros, cada uno con su DNS + TCP + TLS, metidos
+     delante del primer pintado. Medido lo que costaba: la pagina descargaba TODO en 1,1 s y
+     no pintaba nada hasta los 3,3 s. No era peso, era el camino critico.
+     `fonts.css` lo genera `tools/fetch_fonts.py` y sale de esta misma conexion, ya abierta.
+     Son los MISMOS 198 KB de fuentes que servia Google (deduplicadas por contenido: las
+     variables comparten fichero), pero sin estrenar dos conexiones para conseguirlos. -->
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/Geist-a147f99cd5.woff2" crossorigin>
+<link rel="stylesheet" href="fonts.css?v=1">
+<!-- El manifest del pajaro, pedido durante el PARSEO. Va detras de los posters a
+     proposito: el poster es el LCP y no se le adelanta nadie. Pero `bird.js` es
+     `defer`, o sea que no ejecuta hasta que se ha parseado todo el HTML, y para
+     entonces `main.js` ya ha armado el hero: los 153 bytes que deciden si hay
+     pajaro salian a la cola detras de 7 MB de video. Medido el 16-ago en
+     produccion: llegaba en el segundo 367. Aqui sale antes de que exista el
+     primer <video> de la pagina. -->
+<link rel="stylesheet" href="styles.css?v=45">
+<link rel="stylesheet" href="brands.css?v=7">
+<link rel="stylesheet" href="conversion.css?v=3">
+<style>
+        #content-pricing { padding: 5rem max(5vw, 20px); }
+        #content-pricing table { width:100%; border-collapse:collapse; margin:1.2rem 0; }
+        #content-pricing th, #content-pricing td { padding: .8rem; text-align:left; border-bottom:1px solid #ddd; vertical-align:top; }
+        #content-pricing td:last-child { white-space:nowrap; }
+        #content-pricing p { max-width:65ch; line-height:1.6; margin-top:1rem; }
+        #content-pricing h3 { margin-top:1rem; }
+        @media(max-width:700px) { #content-pricing .pricing-grid { display:block; } #content-pricing .pricing-grid > div + div { margin-top:2rem; } }
+        </style><link rel="stylesheet" href="/quote.css?v=3"><link rel="stylesheet" href="/privacy-choices.css?v=2"><!-- seo-service --><script type="application/ld+json">{"@context": "https://schema.org", "@type": "ContactPage", "@id": "/contact#page", "url": "/contact", "name": "Request a Website Quote", "isPartOf": {"@id": "/#website"}, "about": {"@id": "/#org"}}</script><link rel="stylesheet" href="/island-nav.css?v=2"><link rel="stylesheet" href="/logo.css"></head>
+<body class="brands supporting-page">
+
+<div class="atmo" aria-hidden="true"><i class="g1"></i><i class="g2"></i><i class="g3"></i></div>
+
+<nav class="nav" aria-label="Main">
+  <a class="nav-brand" href="/" aria-label="Emin Dev — home">
+    <img src="assets/emindev-logo.png" alt="Emin Dev" width="454" height="454">
+  </a>
+  <div class="nav-links"><a href="/work">Portfolio</a><a href="/website-services">Services</a><a href="/about">About</a><a href="/#pricing">How it works</a></div>
+  <a class="btn btn-small" href="/contact">Request a quote</a>
+<details class="nav-menu"><summary>Menu <span aria-hidden="true">☰</span></summary><div class="nav-menu-panel"><a href="/">Home</a><a href="/work">Portfolio</a><a href="/website-services">Website services</a><a href="/content-services">Content updates</a><a href="/about">About</a><a href="/#pricing">How it works</a><a href="/contact">Contact</a></div></details></nav>
+
+<main class="supporting-main"><section class="contact" id="contact">
+    <div class="rail reveal"><span class="idx">07</span><span class="rail-l">Start</span><span class="rail-r">oeminsisman@gmail.com</span></div>
+    <h1 class="reveal">Tell us about your project</h1>
+    <p class="reveal d2">What do you need, and when do you need it? A few lines is enough to start. We reply by email. There is no commitment to go ahead.</p>
+    <p class="contact-ig reveal d2"><a class="btn" href="https://www.instagram.com/developedbyemin" target="_blank" rel="noopener">Message us on Instagram</a></p>
+    <form class="contact-form reveal d3" id="conceptForm" novalidate>
+      <div class="field">
+            <label for="cfBiz">Your name or business</label>
+            <input id="cfBiz" name="business" type="text" autocomplete="organization" required placeholder="Maison Lune">
+          </div>
+          <div class="field">
+            <label for="cfMail">Your email</label>
+            <input id="cfMail" name="email" type="email" autocomplete="email" required placeholder="you@yourbrand.com">
+          </div>
+          <div class="field">
+            <label for="cfPlan">Service <span class="opt">(optional)</span></label>
+            <select id="cfPlan" name="plan">
+<option value="unsure" selected>Not sure yet</option>
+              <option value="store">Online store</option>
+              <option value="brand">Business website</option>
+
+            <option value="hero">Animated hero section</option></select><p id="cfPlanHelp" class="field-help" data-unsure="You get the exact price in writing before you pay." data-store="You get the exact price in writing before you pay." data-brand="You get the exact price in writing before you pay." data-hero="A quote based on the animation, supplied assets and integration with your existing site." aria-live="polite"></p>
+          </div>
+          <div class="field">
+            <label for="cfMsg">What would you like us to build?</label>
+            <textarea id="cfMsg" name="message" rows="4" required placeholder="Tell us about your business and what you need. A link to your current site or Instagram is helpful, if you have one."></textarea>
+          </div>
+          <div class="field-hp" aria-hidden="true">
+        <label for="cfWeb">Website</label>
+        <input id="cfWeb" name="cf_hp" type="text" tabindex="-1" autocomplete="off">
+      </div>
+      <!-- DE QUE PAGINA SALIO (3-sep). Aqui es la portada, y decirlo es lo que permite
+           distinguirla de las paginas que compiten en Google. -->
+      <input type="hidden" name="origen" value="/contact">
+      <button class="btn btn-form" type="submit">Request my quote</button>
+      <p class="form-status" id="cfStatus" role="status" aria-live="polite"></p>
+      <p class="form-alt">Prefer email? <a href="mailto:oeminsisman@gmail.com?subject=Website%20project%20enquiry">oeminsisman@gmail.com</a></p>
+      <p class="form-alt">Emin Dev is run by La Factoria LLC, a company registered in Delaware, USA. 8 The Green, Ste B, Dover, DE 19901.</p>
+    </form>
+  </section></main><footer class="foot">
+  <div class="foot-grid">
+    <div class="foot-brand">
+          <img src="assets/emindev-logo.png" alt="Emin Dev" width="454" height="454">
+          <p>Custom websites and online stores for businesses of every kind. Design, technical maintenance and content services, with clear scope and project quotes.</p>
+    </div>
+    <nav class="foot-col" aria-label="Studio">
+          <h3 aria-level="2">Studio</h3><a href="/content-services">Content updates</a>
+          <a href="/work">Work</a>
+          <a href="/about">About</a>
+          <a href="/website-services#store">Online stores</a>
+          <a href="/#pricing">How it works</a>
+          <a href="/website-services#faq">FAQ</a>
+          <a href="/contact">Request a quote</a>
+        </nav>
+    <nav class="foot-col" aria-label="Legal">
+      <h3 aria-level="2">Legal</h3><a href="#cookies">Cookie settings</a>
+      <a href="/terms">Terms of Service</a>
+      <a href="/privacy">Privacy Policy</a>
+    </nav>
+    <div class="foot-col">
+      <h3 aria-level="2">Contact</h3>
+      <a href="mailto:oeminsisman@gmail.com?subject=Website%20project%20enquiry">oeminsisman@gmail.com</a>
+      <a href="https://www.instagram.com/developedbyemin" target="_blank" rel="noopener">developedbyemin</a>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <p>© 2026 Emin Dev — a service of La Factoria LLC. All rights reserved.</p>
+    <p>Independent studio. Working worldwide.</p>
+  </div>
+</footer>
+
+
+<!-- ⚠️ AL EDITAR main.js HAY QUE SUBIR ESTE NUMERO. El servidor manda
+     `Cache-Control: public, max-age=604800` (7 dias) para el .js, asi que la URL
+     la URL versionada se queda pegada una semana en el navegador del visitante Y en el borde
+     del CDN. Medido el 2026-08-14: se desplego un main.js nuevo, el origen servia el
+     correcto (md5 identico) y PageSpeed seguia ejecutando el viejo. index.html NO se
+     cachea (solo ETag), asi que cambiar este numero es lo unico que llega a todo el mundo
+     en el acto. Lo mismo vale para styles.css?v= y bird.js?v=. -->
+
+
+<!-- EL CONTADOR DE VISITAS, OTRA VEZ EN PIE (2026-09-06). Esta es la portada de la agencia:
+     por aqui entra quien viene de Instagram y de la firma del correo, y es el denominador de
+     la pregunta "de los que ven la portada, ¿cuantos abren una obra?".
+
+     Llevaba desde el 23-ago sin contar nada. El contador de antes escribia en un fichero del
+     disco de Hostinger y `automation/visitas.py` lo leia por FTP; las dos mitades murieron con
+     el alojamiento el 28-ago. Ahora la cuenta la lleva `functions/cnt.js`, que corre en el
+     propio Cloudflare Pages. Ni IP, ni cookie, ni nada de quien entra: solo se suma uno a un
+     numero del dia, con la etiqueta `k=s` para no mezclarse con la web de los correos. -->
+
+<script src="/contact-form.js?v=6" defer></script>
+<script src="/journey.js?v=1" defer></script>
+<script src="/consent.js?v=3" defer></script>
+
+
+<script src="/navigation.js?v=2" defer></script><script src="/portfolio.js?v=1" defer></script>
+</body>
+</html>

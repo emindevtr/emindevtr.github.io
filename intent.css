@@ -1,0 +1,253 @@
+@font-face{font-family:"Archivo";src:url(/assets/fonts/archivo-var.woff2) format("woff2-variations"),url(/assets/fonts/archivo-var.woff2) format("woff2");font-weight:100 900;font-stretch:62% 125%;font-display:swap}
+/* El & de Archivo parece una letra: el de Geist, como en la portada. */
+@font-face{font-family:"Archivo";src:url(/assets/fonts/Geist-a147f99cd5.woff2) format("woff2");font-weight:100 900;font-stretch:62% 125%;unicode-range:U+0026;font-display:swap}
+/* ═══ ASCENTA — hoja de las PAGINAS DE INTENCION (2026-09-02) ══════════════════
+   Que son: las paginas que compiten en Google por lo que teclea un dueño que
+   QUIERE comprar una web ("auto repair shop website design"), en vez de por
+   nuestro propio nombre. La portada no puede hacerlo: es una sola pagina y
+   habla de todos los oficios a la vez.
+
+   POR QUE NO REUSAN `styles.css`. Esa hoja son 31 KB escritos para la portada:
+   hero con video, pajaro con posaderos de selector fijo, atmosfera con
+   `animation-timeline: scroll()`. Colgar de ahi obligaria a copiar su
+   estructura entera para que no se viera rota, y ademas hereda su problema
+   medido: la portada tarda 8,2 s en pintar lo grande (LCP, `state/SEO.md` del
+   2-sep). Una pagina que aspira a rankear no puede nacer con eso.
+   Aqui: 0 imagenes por encima del pliegue salvo la del demo (con `width`/
+   `height` y `fetchpriority`), 0 JS de terceros, 0 video. La marca se mantiene
+   con las MISMAS variables de `styles.css` y las MISMAS familias de
+   `fonts.css`, que ya viajan cacheadas desde la portada. */
+
+:root{
+  --sky:#E9F1FB;
+  --mist:#F1FAF5;
+  --ink:#14211f;
+  --ink-soft:#4b5753;
+  --volt:#155ce0;
+  --iris:#7A5CFF;
+  --line:rgba(11,19,34,.10);
+  --serif:"Archivo","Geist",system-ui,sans-serif;
+  --sans:"Geist",system-ui,sans-serif;
+  --mono:"Geist Mono",ui-monospace,"SF Mono",Consolas,monospace;
+  --w:min(1120px,calc(100% - 2.4rem));
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:88px;-webkit-text-size-adjust:100%}
+body{
+  font-family:var(--sans);
+  color:var(--ink);
+  background:linear-gradient(178deg,var(--sky) 0%,#EDF4F9 46%,var(--mist) 100%);
+  background-attachment:fixed;
+  -webkit-font-smoothing:antialiased;
+  line-height:1.6;
+  overflow-x:clip;
+}
+img{max-width:100%;height:auto;display:block}
+a{color:inherit;text-decoration:none}
+.wrap{width:var(--w);margin-inline:auto}
+
+/* ── barra: solo marca y una salida. No hay menu porque no hay a donde ir:
+      esta pagina existe para una sola cosa. ─────────────────────────────── */
+.bar{
+  position:sticky;top:0;z-index:20;
+  backdrop-filter:blur(14px);background:rgba(233,241,251,.72);
+  border-bottom:1px solid var(--line);
+}
+.bar .wrap{display:flex;align-items:center;justify-content:space-between;
+  gap:1rem;padding:.7rem 0}
+.bar-brand{display:flex;align-items:center;gap:.55rem;font-weight:600;letter-spacing:-.01em}
+.bar-brand img{width:26px;height:22px}
+.bar-links{display:flex;align-items:center;gap:1.4rem;
+  font-size:.9rem;color:var(--ink-soft)}
+.bar-links a:hover{color:var(--ink)}
+
+/* ── botones ─────────────────────────────────────────────────────────────── */
+.btn{
+  display:inline-block;padding:.85rem 1.5rem;border-radius:999px;
+  background:var(--ink);color:#fff;font-weight:500;font-size:.97rem;
+  border:1px solid var(--ink);cursor:pointer;
+  transition:transform .25s cubic-bezier(.16,1,.3,1),box-shadow .25s;
+}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(11,19,34,.18)}
+.btn-ghost{background:transparent;color:var(--ink);border-color:rgba(11,19,34,.28)}
+.btn-ghost:hover{box-shadow:0 10px 24px rgba(11,19,34,.10)}
+
+/* ── hero de texto: lo grande que pinta primero es una LINEA, no un video ── */
+.top{padding:4.4rem 0 3rem}
+.eyebrow{
+  font-family:var(--mono);font-size:.74rem;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--volt);margin-bottom:1.1rem;
+}
+h1{
+  font-family:var(--serif);font-weight:700;font-stretch:106%;letter-spacing:-.03em;line-height:1.02;
+  font-size:clamp(2.3rem,5.4vw,4.05rem);max-width:16ch;
+}
+h1 em{font-style:normal;color:var(--volt)}
+.lede{
+  margin-top:1.35rem;max-width:52ch;font-size:clamp(1.03rem,1.5vw,1.2rem);
+  color:var(--ink-soft);
+}
+.cta-row{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:2rem;align-items:center}
+.cta-note{font-size:.88rem;color:var(--ink-soft)}
+
+/* ── seccion ─────────────────────────────────────────────────────────────── */
+section{padding:3.4rem 0}
+.rail{
+  display:flex;gap:1rem;align-items:baseline;
+  font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink-soft);
+  padding-bottom:.9rem;margin-bottom:1.8rem;border-bottom:1px solid var(--line);
+}
+.rail .idx{color:var(--volt)}
+h2{
+  font-family:var(--serif);font-weight:700;font-stretch:104%;letter-spacing:-.025em;line-height:1.08;
+  font-size:clamp(1.7rem,3.2vw,2.6rem);max-width:22ch;
+}
+h3{font-size:1.06rem;font-weight:600;letter-spacing:-.01em;margin-bottom:.35rem}
+.sec-copy{margin-top:1.1rem;max-width:60ch;color:var(--ink-soft)}
+.sec-copy p+p{margin-top:.9rem}
+
+/* ── el demo: es la prueba, asi que ocupa el ancho entero ────────────────── */
+figure.demo{
+  margin-top:1.6rem;border-radius:20px;overflow:hidden;
+  border:1px solid var(--line);background:#fff;
+  box-shadow:0 24px 60px rgba(11,19,34,.12);
+}
+figure.demo img{width:100%}
+figure.demo figcaption{
+  display:flex;flex-wrap:wrap;gap:.6rem 1.2rem;align-items:center;
+  justify-content:space-between;padding:1rem 1.25rem;
+  border-top:1px solid var(--line);font-size:.93rem;color:var(--ink-soft);
+}
+figure.demo figcaption strong{color:var(--ink);font-weight:600}
+/* 15-nov: una frase de lo que se ve al abrir el concepto, debajo del nombre y del enlace. */
+figure.demo figcaption .demo-what{order:3;flex-basis:100%;max-width:68ch;font-size:.9rem;line-height:1.5}
+.prose .updated{font-family:var(--mono);font-size:.78rem;letter-spacing:.06em;color:var(--ink-soft);margin-bottom:1.4rem}
+.open-live{
+  font-family:var(--mono);font-size:.8rem;letter-spacing:.06em;
+  color:var(--volt);border-bottom:1px solid rgba(61,77,255,.35);
+}
+
+/* ── rejilla de puntos ───────────────────────────────────────────────────── */
+.grid{display:grid;gap:1.6rem;margin-top:2rem;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.card{
+  padding:1.35rem;border-radius:16px;background:rgba(255,255,255,.62);
+  border:1px solid var(--line);
+}
+.card p{font-size:.95rem;color:var(--ink-soft)}
+
+/* ── precio ──────────────────────────────────────────────────────────────── */
+.prices{display:grid;gap:1.2rem;margin-top:2rem;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.price{padding:1.7rem;border-radius:20px;background:#fff;border:1px solid var(--line);
+  box-shadow:0 16px 40px rgba(11,19,34,.07)}
+.price-tag{font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink-soft)}
+.price-big{font-family:var(--serif);font-size:3rem;line-height:1;font-weight:340;
+  display:block;margin:.7rem 0 .2rem}
+.price-mo{color:var(--volt);font-weight:500}
+.price p.note{margin-top:.9rem;font-size:.94rem;color:var(--ink-soft)}
+.incl{list-style:none;margin-top:1.6rem;display:grid;gap:.6rem}
+.incl li{padding-left:1.5rem;position:relative;color:var(--ink-soft);font-size:.96rem}
+.incl li::before{content:"";position:absolute;left:0;top:.6em;width:.6rem;height:.6rem;
+  border-radius:50%;background:linear-gradient(140deg,var(--volt),var(--iris))}
+.incl strong{color:var(--ink);font-weight:600}
+
+/* ── pasos ───────────────────────────────────────────────────────────────── */
+ol.steps{list-style:none;display:grid;gap:1.2rem;margin-top:2rem;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+ol.steps li{padding:1.35rem;border-radius:16px;border:1px solid var(--line);
+  background:rgba(255,255,255,.62)}
+.step-n{font-family:var(--mono);font-size:.75rem;letter-spacing:.12em;color:var(--volt)}
+ol.steps p{font-size:.95rem;color:var(--ink-soft);margin-top:.3rem}
+.step-t{display:inline-block;margin-top:.8rem;font-family:var(--mono);
+  font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft)}
+
+/* ── preguntas ───────────────────────────────────────────────────────────── */
+.faq{margin-top:2rem;border-top:1px solid var(--line)}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{
+  cursor:pointer;list-style:none;padding:1.05rem 2.2rem 1.05rem 0;
+  font-weight:500;position:relative;
+}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";position:absolute;right:.4rem;top:.95rem;
+  font-family:var(--mono);color:var(--volt);font-size:1.2rem}
+.faq details[open] summary::after{content:"–"}
+.faq details p{padding:0 0 1.15rem;color:var(--ink-soft);max-width:66ch}
+
+/* ── formulario: mismo contrato que la portada (POST a /contact) ─────────── */
+.form{
+  margin-top:2rem;padding:1.9rem;border-radius:20px;background:#fff;
+  border:1px solid var(--line);max-width:640px;
+  box-shadow:0 16px 40px rgba(11,19,34,.07);
+}
+.field{margin-bottom:1.1rem}
+.field label{display:block;font-size:.86rem;font-weight:500;margin-bottom:.4rem}
+.field input,.field textarea{
+  width:100%;padding:.8rem .95rem;border-radius:12px;font:inherit;font-size:.97rem;
+  border:1px solid rgba(11,19,34,.18);background:var(--mist);color:var(--ink);
+}
+.field input:focus,.field textarea:focus{outline:2px solid var(--volt);outline-offset:1px}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.form-status{margin-top:.9rem;font-size:.92rem;min-height:1.3em;color:var(--ink-soft)}
+.form-status.ok{color:#0F7A4A}
+.form-status.err{color:#B2372A}
+
+/* ── pie ─────────────────────────────────────────────────────────────────── */
+footer{border-top:1px solid var(--line);padding:2.6rem 0 3.2rem;margin-top:2rem;
+  font-size:.9rem;color:var(--ink-soft)}
+.foot-row{display:flex;flex-wrap:wrap;gap:1.4rem 2.4rem;justify-content:space-between}
+.foot-row nav{display:flex;flex-wrap:wrap;gap:1.2rem}
+footer a:hover{color:var(--ink)}
+.foot-legal{margin-top:1.8rem;font-size:.83rem;opacity:.85}
+
+/* ── v2 (26-sep): las paginas de marcas de producto (automation/seo_paginas.py) ──
+      La RESPUESTA CORTA va arriba y en texto plano a proposito: es lo que un
+      buscador con IA copia literal cuando alguien pregunta a quien contratar. */
+.answer{
+  margin-top:1.8rem;max-width:62ch;padding:1.15rem 1.3rem;border-radius:16px;
+  background:rgba(255,255,255,.7);border:1px solid var(--line);
+  border-left:3px solid var(--volt);color:var(--ink);font-size:.98rem;
+}
+.answer-k{font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--volt);margin-bottom:.45rem}
+.prose{max-width:68ch}
+.prose h2{margin-top:2.4rem;font-size:clamp(1.45rem,2.6vw,2rem)}
+.prose h2:first-child{margin-top:0}
+.prose p{margin-top:1rem;color:var(--ink-soft)}
+.prose strong{color:var(--ink);font-weight:600}
+.prose a,.faq a,.sec-copy a{color:var(--volt);border-bottom:1px solid rgba(61,77,255,.35)}
+.table-wrap{margin-top:1.2rem;overflow-x:auto;border:1px solid var(--line);
+  border-radius:16px;background:#fff}
+.table-wrap table{border-collapse:collapse;width:100%;min-width:560px;font-size:.93rem}
+.table-wrap th,.table-wrap td{text-align:left;vertical-align:top;padding:.8rem 1rem;
+  border-bottom:1px solid var(--line)}
+.table-wrap thead th{font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink-soft);font-weight:500}
+.table-wrap tbody tr:last-child th,.table-wrap tbody tr:last-child td{border-bottom:0}
+.table-wrap tbody th{font-weight:600}
+.table-wrap td{color:var(--ink-soft)}
+figure.demo figcaption .open-live+.open-live{margin-left:auto}
+.foot-more{max-width:62ch}
+/* Las obras que solo se abren en pantalla grande: la MISMA condicion que brands.css y que la
+   verja de tools/deploy_gate.py, para esconderlas exactamente donde el enlace rebotaria. */
+@media (pointer:coarse) and (max-width:900px){
+  figure.demo.solo-pantalla-grande{display:none}
+}
+
+@media (max-width:620px){
+  .top{padding:3rem 0 2.2rem}
+  section{padding:2.6rem 0}
+  .bar-links{gap:1rem;font-size:.85rem}
+  h1{max-width:none}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .btn:hover{transform:none}
+}
+
+/* 29-sep: el chat de Instagram encima del formulario (automation/seo_paginas.py). */
+.form-ig{margin-top:1.4rem}
+.form-ig .btn{color:#fff}
