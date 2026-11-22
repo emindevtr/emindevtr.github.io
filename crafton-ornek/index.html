@@ -26,7 +26,7 @@
   .script { font-family:Parisienne,cursive; }
 
   header { position:fixed; inset:0 0 auto 0; z-index:20; display:flex; align-items:center; gap:28px; padding:14px 20px; }
-  .logo { font-weight:600; font-size:24px; letter-spacing:-.01em; line-height:1; display:flex; flex-direction:column; align-items:center; }
+  .logo { color:inherit; text-decoration:none; font-weight:600; font-size:24px; letter-spacing:-.01em; line-height:1; display:flex; flex-direction:column; align-items:center; }
   .logo span b { color:var(--gold); font-weight:600; }
   .logo small { font-size:9px; letter-spacing:.55em; color:var(--gold-2); font-weight:500; margin-top:3px; padding-left:.55em; }
   nav { display:flex; gap:20px; color:var(--mute); font-size:13px; }
@@ -122,7 +122,7 @@
 </head>
 <body>
 <header>
-  <div class="logo" aria-label="Crafton Tablo"><span>craft<b>o</b>n</span><small>TABLO</small></div>
+  <a class="logo" href="./" aria-label="Crafton Tablo, ana sayfa"><span>craft<b>o</b>n</span><small>TABLO</small></a>
   <nav><button data-go="0">Doğa &amp; Manzara</button><button data-go="1">Modern &amp; Minimal</button><button data-go="2">Soyut</button><button data-go="3">Kişiye Özel</button></nav>
   <button class="theme-btn" id="themeBtn" aria-pressed="false">☾ Karanlık</button>
   <button class="cart-btn" id="cartBtn">Sepet (0)</button>
@@ -331,7 +331,8 @@ function build(images){
 }
 
 // ---------- camera / navigation ----------
-let phi = 0.55, tphi = phi, focus = null, curCol = -1;
+const HOME = 0.55; // camera angle at the brand panel, where the gallery opens
+let phi = HOME, tphi = phi, focus = null, curCol = -1;
 // camera and its aim point move in polar coords (angle, radius, height) so they follow the curved corridor;
 // a straight xyz lerp cuts the chord on fast scrolls and passes through the inner wall
 const cam = { a:phi, r:RC, y:1.65 }, aim = { a:phi - LOOK, r:LOOKR, y:1.6 }, v = new THREE.Vector3();
@@ -390,6 +391,12 @@ document.querySelectorAll('[data-go]').forEach(b => b.onclick = () => {
   const go = +b.dataset.go, a = slots.find(s => s.ci === go).a + (go === 3 ? .75 : LOOK - .3);
   tphi = phi + Math.atan2(Math.sin(a - phi), Math.cos(a - phi)); // shortest way round
 });
+
+// logo: back to the start of the gallery without reloading (cart and uploaded photo stay)
+document.querySelector('.logo').onclick = e => {
+  e.preventDefault(); toggleCart(false); if (focus) closeProduct();
+  tphi = phi + Math.atan2(Math.sin(HOME - phi), Math.cos(HOME - phi));
+};
 
 const clock = new THREE.Clock();
 function frame(){
