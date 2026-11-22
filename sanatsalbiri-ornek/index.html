@@ -1,0 +1,514 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>sanatsallbiri · 3D Galeri</title>
+<meta name="description" content="sanatsallbiri için hazırlanmış 3D galeri ve mağaza konsepti: el yapımı hat ve tuval tabloları duvarda gezerek incele.">
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/png" href="/assets/emindev-logo.png?v=2">
+<link rel="canonical" href="https://emindevtr.github.io/sanatsalbiri-ornek/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="sanatsallbiri · 3D Galeri">
+<meta property="og:url" content="https://emindevtr.github.io/sanatsalbiri-ornek/">
+<meta property="og:image" content="https://emindevtr.github.io/sanatsalbiri-ornek/assets/tevhid.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<!-- fonts load without blocking the first paint -->
+<link id="fonts" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Parisienne&display=swap" media="print" onload="this.media='all'">
+<style>
+  :root { --bg:#f2f2f0; --ink:#111; --mute:#6b6b6b; --sub:#444; --line:#dcdcd8; --card:#fff; --gold:#b8913f; --gold-2:#8a6620; --glow-bg:#ffffff; --veil:rgba(240,240,238,.4); --shadow:0 18px 40px rgba(0,0,0,.15); --btn:linear-gradient(180deg,#e6c887,#c9a04e); }
+  :root[data-theme="dark"] { --bg:#100f0d; --ink:#f3eee4; --mute:#a59c8b; --sub:#cfc7b8; --line:#2e2a23; --card:#17150f; --gold:#d4a95a; --gold-2:#f0cf8a; --glow-bg:#231e15; --veil:rgba(10,9,7,.5); --shadow:0 20px 50px rgba(0,0,0,.6); --btn:linear-gradient(180deg,#f0cf8a,#d4a95a); }
+  * { box-sizing:border-box; margin:0; }
+  html,body { height:100%; background:var(--bg); color:var(--ink); font:14px/1.55 Poppins,system-ui,sans-serif; overflow:hidden; }
+  button { font:inherit; color:inherit; background:none; border:0; cursor:pointer; }
+  .script { font-family:Parisienne,cursive; }
+
+  header { position:fixed; inset:0 0 auto 0; z-index:20; display:flex; align-items:center; gap:28px; padding:14px 20px; }
+  .logo { color:inherit; text-decoration:none; font-weight:600; font-size:24px; letter-spacing:-.01em; line-height:1; display:flex; flex-direction:column; align-items:center; }
+  .logo span b { color:var(--gold); font-weight:600; }
+  .logo small { font-size:9px; letter-spacing:.55em; color:var(--gold-2); font-weight:500; margin-top:3px; padding-left:.55em; }
+  nav { display:flex; gap:20px; color:var(--mute); font-size:13px; }
+  nav button:hover { color:var(--gold-2); }
+  .theme-btn { margin-left:auto; border:1px solid var(--line); color:var(--sub); padding:6px 12px; border-radius:999px; font-size:12px; }
+  .theme-btn:hover { border-color:var(--gold); color:var(--gold-2); }
+  .cart-btn { border:1px solid var(--gold); color:var(--gold-2); padding:6px 14px; border-radius:999px; font-size:12px; font-weight:500; }
+  .cart-btn:hover { background:var(--gold); color:#111; }
+
+  #stage { position:fixed; inset:0; transition:opacity .45s; touch-action:none; }
+  #stage canvas { display:block; }
+  #stage.hide { opacity:0; pointer-events:none; }
+
+  #label { position:fixed; left:50%; bottom:52px; transform:translateX(-50%); text-align:center; pointer-events:none; transition:opacity .3s; width:min(92vw,560px); }
+  #label small { display:block; color:var(--gold-2); font-size:11px; letter-spacing:.3em; text-transform:uppercase; }
+  #label h2 { font-size:28px; font-weight:600; line-height:1.15; margin:4px 0; }
+  #label span { font-size:12px; color:var(--mute); }
+  #hint { position:fixed; right:20px; bottom:18px; color:var(--mute); font-size:12px; pointer-events:none; }
+  #credit { position:fixed; left:20px; bottom:18px; z-index:5; color:var(--mute); font-size:12px; text-decoration:none; }
+  #credit:hover { color:var(--gold-2); }
+
+  #pill { position:fixed; z-index:15; pointer-events:none; background:var(--gold); color:#111; font-size:11px; font-weight:600; padding:5px 11px; border-radius:999px; opacity:0; transform:translate(14px,14px); transition:opacity .15s; }
+  #pill.on { opacity:1; }
+
+  #product { position:fixed; inset:0; z-index:10; overflow:auto; background:radial-gradient(ellipse at 25% 40%, var(--glow-bg) 0%, var(--bg) 60%); opacity:0; pointer-events:none; transition:opacity .45s; padding:84px 20px 40px; }
+  #product.open { opacity:1; pointer-events:auto; }
+  .p-grid { max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1fr; gap:32px; align-items:start; }
+  @media (min-width:820px){ .p-grid { grid-template-columns:1.1fr 1fr; gap:56px; } .p-art { position:sticky; top:20px; } }
+  .p-art { display:grid; place-items:center; padding:24px; }
+  .p-img { width:auto; height:auto; max-width:min(480px,100%); max-height:72vh; box-shadow:var(--shadow); transform:translateX(-24px); opacity:0; transition:transform .6s cubic-bezier(.2,.8,.2,1), opacity .6s, box-shadow .5s; }
+  #product.open .p-img { transform:none; opacity:1; }
+  .p-art { position:relative; }
+  .back { color:var(--mute); font-size:13px; margin-bottom:16px; }
+  .back:hover { color:var(--gold-2); }
+  .p-code { color:var(--gold-2); font-size:12px; letter-spacing:.25em; text-transform:uppercase; }
+  .p-info h1 { font-size:clamp(32px,4.6vw,48px); font-weight:600; line-height:1.05; margin:6px 0 12px; }
+  .p-desc { color:var(--sub); max-width:48ch; }
+  .p-price { font-size:26px; font-weight:600; color:var(--gold-2); margin:18px 0 2px; }
+  .p-price small { font-size:13px; font-weight:400; color:var(--mute); }
+  .p-ed { font-size:12px; color:var(--mute); }
+  .opt { margin-top:18px; }
+  .opt b { display:block; font-size:11px; font-weight:500; letter-spacing:.14em; text-transform:uppercase; margin-bottom:7px; color:var(--mute); }
+  .opt div { display:flex; flex-wrap:wrap; gap:6px; }
+  .opt button { border:1px solid var(--line); padding:7px 12px; font-size:12px; background:var(--card); border-radius:2px; }
+  .opt button:hover { border-color:var(--mute); }
+  .opt button[aria-pressed=true] { border-color:var(--gold); color:var(--gold-2); box-shadow:inset 0 0 0 1px var(--gold); }
+  .upload { position:relative; display:flex; align-items:center; justify-content:center; gap:8px; margin-top:18px; border:1px dashed var(--gold); color:var(--gold-2); padding:14px; cursor:pointer; font-size:13px; }
+  .upload[hidden] { display:none; }
+  .upload:hover, .upload:focus-within { background:rgba(212,169,90,.08); }
+  .upload input { position:absolute; width:1px; height:1px; opacity:0; }
+  .buy { display:flex; gap:10px; margin-top:24px; }
+  .qty { display:flex; align-items:center; border:1px solid var(--line); background:var(--card); }
+  .qty button { width:38px; height:46px; font-size:16px; }
+  .qty output { width:28px; text-align:center; }
+  .add { flex:1; background:var(--btn); color:#15120c; font-weight:600; letter-spacing:.1em; text-transform:uppercase; font-size:12px; }
+  .add:hover { filter:brightness(1.08); }
+  .perks { list-style:none; padding:0; margin-top:22px; display:grid; grid-template-columns:1fr 1fr; gap:8px 16px; font-size:12px; color:var(--sub); }
+  .perks li::before { content:"◆"; color:var(--gold); font-size:8px; margin-right:8px; vertical-align:2px; }
+
+  #backdrop { position:fixed; inset:0; z-index:30; background:var(--veil); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); opacity:0; pointer-events:none; transition:opacity .3s; }
+  #drawer { position:fixed; top:0; right:0; bottom:0; z-index:31; width:min(390px,100%); background:var(--card); border-left:1px solid var(--line); transform:translateX(100%); transition:transform .4s cubic-bezier(.2,.8,.2,1); display:flex; flex-direction:column; }
+  body.cart-open #backdrop { opacity:1; pointer-events:auto; }
+  body.cart-open #drawer { transform:none; }
+  .d-head { display:flex; justify-content:space-between; align-items:center; padding:18px 20px; border-bottom:1px solid var(--line); }
+  .d-head h2 { font-size:18px; font-weight:600; }
+  #items { flex:1; overflow:auto; padding:8px 20px; }
+  .item { display:flex; gap:12px; padding:12px 0; border-bottom:1px solid var(--line); }
+  .item img { width:56px; height:72px; object-fit:cover; }
+  .item div { flex:1; font-size:12px; color:var(--sub); }
+  .item strong { font-size:13px; display:block; color:var(--ink); font-weight:500; }
+  .item .rm { color:var(--mute); text-decoration:underline; font-size:11px; }
+  .empty { color:var(--mute); padding:24px 0; }
+  .d-foot { padding:18px 20px; border-top:1px solid var(--line); }
+  .d-foot p { display:flex; justify-content:space-between; font-weight:600; margin-bottom:12px; }
+  .d-foot p span:last-child { color:var(--gold-2); }
+  .d-foot .add { width:100%; padding:14px; }
+  .d-foot small { display:block; color:var(--mute); margin-top:10px; text-align:center; }
+  .d-foot small a { color:var(--gold-2); }
+
+  #loading { position:fixed; inset:0; display:grid; place-items:center; align-content:center; gap:6px; z-index:50; background:var(--bg); transition:opacity .6s; text-align:center; padding:20px; }
+  #loading .script { font-size:30px; color:var(--gold-2); }
+  #loading span { color:var(--mute); font-size:12px; letter-spacing:.2em; text-transform:uppercase; }
+  @media (max-width:700px){ nav { display:none; } #label h2 { font-size:22px; } #hint { display:none; } #credit { font-size:11px; } .perks { grid-template-columns:1fr; } }
+</style>
+<script type="importmap">{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js" } }</script>
+</head>
+<body>
+<header>
+  <a class="logo" href="./" aria-label="sanatsallbiri, ana sayfa"><span>sanatsall<b>biri</b></span><small>EL YAPIMI TABLO</small></a>
+  <nav><button data-go="0">Hat Sanatı</button><button data-go="1">İstanbul</button><button data-go="2">Sana Özel</button></nav>
+  <button class="theme-btn" id="themeBtn" aria-pressed="false">☾ Karanlık</button>
+  <button class="cart-btn" id="cartBtn">Sepet (0)</button>
+</header>
+
+<div id="stage" role="application" aria-label="3D galeri: sürükleyerek ya da kaydırarak gezin, bir tabloya tıklayın"></div>
+<div id="label"><small>sanatsallbiri</small><h2>El emeği eserler</h2><span>Hat sanatı ve tuval tablolar</span></div>
+<div id="hint">Sürükle, kaydır ya da ← → tuşları</div>
+<a id="credit" href="/brands">sanatsallbiri için hazırlanmış konsept · Emin Dev ↗</a>
+<div id="pill">İncele</div>
+
+<section id="product" aria-hidden="true">
+  <div class="p-grid">
+    <div class="p-art"><img class="p-img" alt=""></div>
+    <div class="p-info">
+      <button class="back">← Galeriye dön</button>
+      <div class="p-code"></div>
+      <h1></h1>
+      <p class="p-desc"></p>
+      <label class="upload" hidden>＋ Fotoğrafını yükle<input type="file" accept="image/*"></label>
+      <div class="p-price"></div>
+      <div class="p-ed">Adet fiyatı · el yapımı, sipariş üzerine hazırlanır</div>
+      <div id="opts"></div>
+      <div class="buy">
+        <div class="qty"><button data-q="-1" aria-label="Azalt">−</button><output>1</output><button data-q="1" aria-label="Arttır">+</button></div>
+        <button class="add" id="addBtn">Sepete ekle</button>
+      </div>
+      <ul class="perks">
+        <li>Her eser tek tek elde işlenir</li>
+        <li>Çerçevesiyle birlikte gönderilir</li>
+        <li>Özenli paketleme ile kargo</li>
+        <li>Farklı ölçü ve yazı için mesaj atın</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div id="backdrop"></div>
+<aside id="drawer" aria-label="Sepet">
+  <div class="d-head"><h2>Sepetin</h2><button id="closeCart" aria-label="Kapat">✕</button></div>
+  <div id="items"></div>
+  <div class="d-foot"><p><span>Ara toplam</span><span id="total">0 TL</span></p><button class="add" id="checkout">Siparişi tamamla</button><small id="note"></small></div>
+</aside>
+<div id="loading"><div class="script">Her eser, el emeğiyle bir hikâye…</div><span>Galeri hazırlanıyor</span></div>
+<img src="/cnt?k=o-sanatsalbiri-ornek" alt="" width="1" height="1" style="display:none">
+
+<script type="module">
+import * as THREE from 'three';
+
+// ---------- data ----------
+// shortcut: prices are placeholders in their 4.000-7.000 TL range; swap in the brand's real list
+const COLLECTIONS = [
+  { title:'Hat Sanatı', sub:'Kabartma hat ve halı dokusu, el işçiliğiyle',
+    about:'kabartma hat ve halı dokusuyla elde işlenir, çerçevesiyle birlikte gönderilir.',
+    items:[['SB-01','Kelime-i Tevhid','tevhid',7000],['SB-02','Ve İlâ Rabbike Fergab · Gece','fergab-gece',5500],['SB-03','Besmele Tuğrası','besmele',6000],['SB-04','Ve İlâ Rabbike Fergab · Altın','fergab-altin',5500]] },
+  { title:'İstanbul', sub:'Tuval üzerine akrilik, el boyaması',
+    about:'tuval üzerine akrilikle elde boyanmış orijinal bir eser.',
+    items:[['SB-05','Boğaz\'da Bir Sabah','bogaz',6500]] },
+];
+const CUSTOM = { title:'Sana Özel', sub:'Fotoğrafını gönder, tuvale biz işleyelim' };
+const CI = COLLECTIONS.length; // the custom slot's index
+const LABELS = [...COLLECTIONS, CUSTOM];
+const priceOf = (l) => ITEMS[l.id].price;
+const tl = (n) => n.toLocaleString('tr-TR') + ' TL';
+
+// ---------- canvas helpers ----------
+function textCanvas(w, h, draw){ const c = document.createElement('canvas'); c.width = w; c.height = h; draw(c.getContext('2d'), w, h); return c; }
+function wrap(g, text, x, y, maxW, lh, center){
+  let line = '';
+  const put = (s) => g.fillText(s.trim(), center ? x - g.measureText(s.trim()).width / 2 : x, y);
+  for (const word of text.split(' ')) {
+    if (g.measureText(line + word).width > maxW && line) { put(line); y += lh; line = ''; }
+    line += word + ' ';
+  }
+  put(line);
+}
+const THEMES = {
+  light: { bg:'#f2f2f0', wall:'#fafaf8', floor:'#e4e4e0', ceil:'#ffffff', strip:'#e2bb6a', amb:1.7, ambC:'#ffffff', hemi:1.4, hemiC:'#ffffff', hemiG:'#d8d8d4', glow:[THREE.NormalBlending, 0],
+           panel:'#ffffff', ink:'#111111', mute:'#6b6b6b', sub:'#444444', gold:'#b8913f', gold2:'#9a7128', custom:'#fafaf8', rule:'184,145,63', btn:'☾ Karanlık' },
+  dark:  { bg:'#100f0d', wall:'#2a2620', floor:'#16140f', ceil:'#1c1a15', strip:'#f0cf8a', amb:1.1, ambC:'#fff4e0', hemi:1.3, hemiC:'#fff1d6', hemiG:'#1a1712', glow:[THREE.AdditiveBlending, 1],
+           panel:'#16140f', ink:'#f3eee4', mute:'#a59c8b', sub:'#cfc7b8', gold:'#d4a95a', gold2:'#f0cf8a', custom:'#1b1812', rule:'212,169,90', btn:'☀ Aydınlık' },
+};
+let T = THEMES.light; // opens light every time; dark is one click away
+function goldRule(g, x1, x2, y){ const gr = g.createLinearGradient(x1, 0, x2, 0); gr.addColorStop(0, `rgba(${T.rule},0)`); gr.addColorStop(.5, T.gold); gr.addColorStop(1, `rgba(${T.rule},0)`); g.fillStyle = gr; g.fillRect(x1, y, x2 - x1, 2); }
+const brandCanvas = () => textCanvas(600, 800, (g, w) => {
+  g.fillStyle = T.panel; g.fillRect(0, 0, w, 800);
+  g.strokeStyle = `rgba(${T.rule},.5)`; g.lineWidth = 2; g.strokeRect(24, 24, w - 48, 752);
+  g.font = '600 76px Poppins';
+  const parts = [['sanatsall', T.ink], ['biri', T.gold]];
+  let x = (w - parts.reduce((s, [t]) => s + g.measureText(t).width, 0)) / 2;
+  for (const [t, c] of parts) { g.fillStyle = c; g.fillText(t, x, 300); x += g.measureText(t).width; }
+  goldRule(g, 90, 510, 345);
+  g.fillStyle = T.gold; g.font = '500 34px Poppins'; const t = 'E L   Y A P I M I'; g.fillText(t, (w - g.measureText(t).width) / 2, 395);
+  g.fillStyle = T.gold2; g.font = '54px Parisienne'; wrap(g, 'Her eser,', w / 2, 500, 520, 60, true); wrap(g, 'el emeğiyle bir hikâye…', w / 2, 562, 520, 60, true);
+  g.fillStyle = T.mute; g.font = '500 22px Poppins'; wrap(g, 'Hat Sanatı · Tuval Tablo', w / 2, 690, 520, 30, true);
+});
+const introCanvas = (i, col) => textCanvas(600, 800, (g, w) => {
+  g.fillStyle = T.panel; g.fillRect(0, 0, w, 800);
+  g.strokeStyle = `rgba(${T.rule},.35)`; g.lineWidth = 2; g.strokeRect(24, 24, w - 48, 752);
+  g.fillStyle = T.gold; g.font = '500 22px Poppins'; g.fillText('KOLEKSİYON 0' + (i + 1), 60, 110);
+  goldRule(g, 60, 300, 135);
+  g.fillStyle = T.ink; g.font = '600 66px Poppins'; wrap(g, col.title, 60, 240, 480, 78);
+  g.fillStyle = T.sub; g.font = '26px Poppins'; wrap(g, col.sub, 60, 600, 480, 38);
+});
+const customCanvas = () => textCanvas(600, 800, (g, w) => {
+  g.fillStyle = T.custom; g.fillRect(0, 0, w, 800);
+  g.setLineDash([14, 10]); g.strokeStyle = T.gold; g.lineWidth = 3; g.strokeRect(30, 30, w - 60, 740); g.setLineDash([]);
+  g.fillStyle = T.gold2; g.font = '400 160px Poppins'; g.fillText('+', (w - g.measureText('+').width) / 2, 360);
+  g.fillStyle = T.ink; g.font = '600 44px Poppins'; wrap(g, 'Sana Özel', w / 2, 470, 500, 54, true);
+  g.fillStyle = T.sub; g.font = '24px Poppins'; wrap(g, 'Fotoğrafını yükle, tablo hâlini duvarda gör', w / 2, 540, 440, 36, true);
+});
+const glowCanvas = () => textCanvas(256, 256, (g) => {
+  const r = g.createRadialGradient(128, 128, 30, 128, 128, 128);
+  r.addColorStop(0, 'rgba(240,190,100,.75)'); r.addColorStop(.55, 'rgba(212,150,70,.28)'); r.addColorStop(1, 'rgba(212,150,70,0)');
+  g.fillStyle = r; g.fillRect(0, 0, 256, 256);
+});
+const sheenCanvas = () => textCanvas(256, 256, (g) => {
+  const l = g.createLinearGradient(0, 0, 256, 256);
+  l.addColorStop(0, 'rgba(255,255,255,0)'); l.addColorStop(.42, 'rgba(255,255,255,0)'); l.addColorStop(.5, 'rgba(255,255,255,.13)'); l.addColorStop(.58, 'rgba(255,255,255,0)');
+  g.fillStyle = l; g.fillRect(0, 0, 256, 256);
+});
+
+// ---------- scene ----------
+const RO = 9.5, RI = 4.5, RC = 6, H = 4.4, Y = 1.85, LOOK = 0.7, LOOKR = 7;
+const stage = document.getElementById('stage');
+const renderer = new THREE.WebGLRenderer({ antialias:true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+stage.appendChild(renderer.domElement);
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(T.bg);
+scene.fog = new THREE.Fog(T.bg, 5, 19);
+const camera = new THREE.PerspectiveCamera(55, 1, .1, 100);
+const amb = new THREE.AmbientLight(T.ambC, T.amb), hemi = new THREE.HemisphereLight(T.hemiC, T.hemiG, T.hemi);
+scene.add(amb, hemi);
+const wallMat = new THREE.MeshStandardMaterial({ color:T.wall, roughness:1 });
+const outer = new THREE.Mesh(new THREE.CylinderGeometry(RO, RO, H, 160, 1, true), wallMat.clone()); outer.material.side = THREE.BackSide;
+const inner = new THREE.Mesh(new THREE.CylinderGeometry(RI, RI, H, 120, 1, true), wallMat);
+outer.position.y = inner.position.y = H / 2;
+const floor = new THREE.Mesh(new THREE.RingGeometry(RI, RO, 160), new THREE.MeshStandardMaterial({ color:T.floor, roughness:.8 }));
+floor.rotation.x = -Math.PI / 2;
+const ceil = new THREE.Mesh(new THREE.RingGeometry(RI, RO, 160), new THREE.MeshStandardMaterial({ color:T.ceil }));
+ceil.rotation.x = Math.PI / 2; ceil.position.y = H;
+scene.add(outer, inner, floor, ceil);
+// thin warm LED strip along the top of the gallery wall, like their lit-wall photos
+const strip = new THREE.Mesh(new THREE.CylinderGeometry(RO - .02, RO - .02, .03, 160, 1, true), new THREE.MeshBasicMaterial({ color:T.strip, side:THREE.BackSide }));
+strip.position.y = H - .25; scene.add(strip);
+
+const tex = (src) => { const t = src instanceof HTMLCanvasElement ? new THREE.CanvasTexture(src) : new THREE.Texture(src); t.needsUpdate = true; t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8; return t; };
+const GLOW = tex(glowCanvas()), SHEEN = tex(sheenCanvas());
+const glowMat = new THREE.MeshBasicMaterial({ map:GLOW, transparent:true, blending:T.glow[0], opacity:T.glow[1], depthWrite:false });
+const themed = []; // wall canvases redrawn when the theme changes: { mesh, draw, keep? }
+function onWall(mesh, a, y, inset = .03){
+  const r = RO - inset; mesh.position.set(r * Math.cos(a), y, r * Math.sin(a)); mesh.lookAt(0, y, 0); scene.add(mesh); return mesh;
+}
+// a glass tablo: gold LED halo behind, the print, a faint glass sheen in front.
+// flat planes on a curved wall: the halo sits far enough off the wall that its edges don't sink into it
+function tablo(map, w, h, a){
+  onWall(new THREE.Mesh(new THREE.PlaneGeometry(w + 1.4, h + 1.4), glowMat), a, Y, .22);
+  const m = onWall(new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshBasicMaterial({ map })), a, Y, .25);
+  onWall(new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshBasicMaterial({ map:SHEEN, transparent:true, depthWrite:false })), a, Y, .26);
+  return m;
+}
+const size = (asp) => asp > 1 ? [2.3, 2.3 / asp] : [2.1 * asp, 2.1];
+
+const ITEMS = [], posters = [], slots = [];
+function caption(a, y, name, code, price){
+  const draw = () => textCanvas(512, 120, g => {
+    g.fillStyle = T.ink; g.font = '500 30px Poppins'; g.fillText(name, 4, 40);
+    g.fillStyle = T.mute; g.font = '24px Poppins'; g.fillText(code + ' · ' + (price ? tl(price) : 'fiyat teklifle'), 4, 82);
+  });
+  const mesh = onWall(new THREE.Mesh(new THREE.PlaneGeometry(1.3, .3), new THREE.MeshBasicMaterial({ map:tex(draw()), transparent:true })), a, y, .25);
+  mesh.translateX(.1); themed.push({ mesh, draw });
+}
+function build(images){
+  const total = 1 + COLLECTIONS.reduce((s, c) => s + c.items.length + 2, 0) + 2, step = Math.PI * 2 / total;
+  let slot = 0;
+  const panel = (draw, ci) => { const a = -(slot++) * step, mesh = onWall(new THREE.Mesh(new THREE.PlaneGeometry(1.5, 2), new THREE.MeshBasicMaterial({ map:tex(draw()) })), a, Y, .06); themed.push({ mesh, draw }); slots.push({ a, ci }); };
+  panel(brandCanvas, 0);
+  COLLECTIONS.forEach((col, ci) => {
+    panel(() => introCanvas(ci, col), ci);
+    col.items.forEach(([code, name, file, price]) => {
+      const a = -(slot++) * step, img = images[file], asp = img.naturalWidth / img.naturalHeight, [w, h] = size(asp);
+      const item = { id:ITEMS.length, code, name, ci, price, img:img.src, w:img.naturalWidth, h:img.naturalHeight };
+      ITEMS.push(item);
+      const m = tablo(tex(img), w, h, a); m.userData = { item, a }; posters.push(m);
+      caption(a, Y - h / 2 - .35, name, code, price);
+      slots.push({ a, ci });
+    });
+    slot++; // breathing room between collections
+  });
+  // custom slot: visitor uploads a photo and sees it on the wall
+  const a = -(slot++) * step, cc = customCanvas();
+  const item = { id:ITEMS.length, code:'ÖZEL', name:'Sana Özel Tablo', ci:CI, custom:true, price:5000, img:cc.toDataURL('image/jpeg', .9), w:600, h:800 };
+  ITEMS.push(item);
+  const m = tablo(tex(cc), 1.5, 2, a); m.userData = { item, a }; posters.push(m);
+  // placeholder follows the theme until the visitor uploads a photo
+  themed.push({ mesh:m, keep:() => item.uploaded, draw:() => { const c = customCanvas(); item.img = c.toDataURL('image/jpeg', .9); return c; } });
+  caption(a, Y - 1 - .35, 'Senin fotoğrafın', 'ÖZEL', 5000);
+  slots.push({ a, ci:CI });
+}
+
+// ---------- camera / navigation ----------
+const HOME = 0.55; // camera angle at the brand panel, where the gallery opens
+let phi = HOME, tphi = phi, focus = null, curCol = -1;
+// camera and its aim point move in polar coords (angle, radius, height) so they follow the curved corridor;
+// a straight xyz lerp cuts the chord on fast scrolls and passes through the inner wall
+const cam = { a:phi, r:RC, y:1.65 }, aim = { a:phi - LOOK, r:LOOKR, y:1.6 }, v = new THREE.Vector3();
+let focusA = 0;
+const want = () => focus
+  ? [{ a:focusA, r:RO - 2.6, y:Y }, { a:focusA, r:RO, y:Y }]
+  : [{ a:phi, r:RC, y:1.65 }, { a:phi - LOOK, r:LOOKR, y:1.6 }]; // look along the corridor, not at the wall
+const ease = (p, t, k) => { p.a += (t.a - p.a) * k; p.r += (t.r - p.r) * k; p.y += (t.y - p.y) * k; };
+const xyz = (p) => v.set(p.r * Math.cos(p.a), p.y, p.r * Math.sin(p.a));
+const angDiff = (a, b) => Math.abs(Math.atan2(Math.sin(a - b), Math.cos(a - b)));
+const label = document.getElementById('label');
+function updateLabel(){
+  const view = phi - LOOK;
+  const ci = slots.reduce((best, s) => angDiff(s.a, view) < angDiff(best.a, view) ? s : best).ci;
+  if (ci === curCol) return;
+  curCol = ci; const c = LABELS[ci];
+  label.querySelector('small').textContent = ci < CI ? 'Koleksiyon' : 'sanatsallbiri';
+  label.querySelector('h2').textContent = c.title;
+  label.querySelector('span').textContent = (c.items ? c.items.length + ' tablo · ' : '') + c.sub;
+}
+
+function resize(){ renderer.setSize(innerWidth, innerHeight); camera.aspect = innerWidth / innerHeight; camera.fov = innerWidth < 600 ? 72 : 55; camera.updateProjectionMatrix(); }
+addEventListener('resize', resize);
+
+const ray = new THREE.Raycaster(), ndc = new THREE.Vector2(), pill = document.getElementById('pill');
+let drag = null, hovered = null;
+function pick(e){
+  ndc.set(e.clientX / innerWidth * 2 - 1, -(e.clientY / innerHeight) * 2 + 1);
+  ray.setFromCamera(ndc, camera);
+  return ray.intersectObjects(posters)[0]?.object ?? null;
+}
+stage.addEventListener('pointerdown', e => { drag = { x:e.clientX, moved:0 }; stage.setPointerCapture(e.pointerId); });
+stage.addEventListener('pointermove', e => {
+  if (drag) { const dx = e.clientX - drag.x; drag.x = e.clientX; drag.moved += Math.abs(dx); tphi += dx * .004; }
+  if (focus) return;
+  hovered = e.pointerType === 'mouse' ? pick(e) : null;
+  pill.classList.toggle('on', !!hovered);
+  pill.textContent = hovered?.userData.item.custom ? 'Fotoğrafını yükle' : 'İncele';
+  pill.style.left = e.clientX + 'px'; pill.style.top = e.clientY + 'px';
+  stage.style.cursor = hovered ? 'pointer' : drag ? 'grabbing' : 'grab';
+});
+stage.addEventListener('pointerup', e => {
+  const wasClick = drag && drag.moved < 6; drag = null;
+  if (wasClick && !focus) { const hit = pick(e); if (hit) openProduct(hit); }
+});
+stage.addEventListener('wheel', e => { e.preventDefault(); if (!focus) tphi -= (e.deltaY + e.deltaX) * .0015; }, { passive:false });
+addEventListener('keydown', e => {
+  if (e.key === 'Escape') { if (document.body.classList.contains('cart-open')) toggleCart(false); else if (focus) closeProduct(); }
+  if (focus) return;
+  if (e.key === 'ArrowRight') tphi -= .3;
+  if (e.key === 'ArrowLeft') tphi += .3;
+});
+document.querySelectorAll('[data-go]').forEach(b => b.onclick = () => {
+  if (focus) closeProduct();
+  // collections: land just past the intro panel; the single custom tablo: stand back so it sits in view
+  const go = +b.dataset.go, a = slots.find(s => s.ci === go).a + (go === CI ? .75 : LOOK - .3);
+  tphi = phi + Math.atan2(Math.sin(a - phi), Math.cos(a - phi)); // shortest way round
+});
+
+// logo: back to the start of the gallery without reloading (cart and uploaded photo stay)
+document.querySelector('.logo').onclick = e => {
+  e.preventDefault(); toggleCart(false); if (focus) closeProduct();
+  tphi = phi + Math.atan2(Math.sin(HOME - phi), Math.cos(HOME - phi));
+};
+
+const clock = new THREE.Clock();
+function frame(){
+  const k = 1 - Math.exp(-clock.getDelta() * 5);
+  phi += (tphi - phi) * k;
+  const [tc, ta] = want(); ease(cam, tc, k); ease(aim, ta, k);
+  camera.position.copy(xyz(cam)); camera.lookAt(xyz(aim));
+  if (!focus) updateLabel();
+  renderer.render(scene, camera);
+  requestAnimationFrame(frame);
+}
+
+// ---------- product page ----------
+const product = document.getElementById('product'), qtyOut = product.querySelector('output'), pImg = product.querySelector('.p-img');
+const upload = product.querySelector('.upload'), fileIn = upload.querySelector('input');
+let cur = null, curMesh = null, sel = [0,0], qty = 1, openTimer;
+function openProduct(mesh){
+  // nearest way round to the tablo, since phi is unbounded
+  focusA = cam.a + Math.atan2(Math.sin(mesh.userData.a - cam.a), Math.cos(mesh.userData.a - cam.a));
+  focus = mesh; curMesh = mesh; cur = mesh.userData.item; sel = []; qty = 1;
+  pill.classList.remove('on'); label.style.opacity = 0;
+  const col = LABELS[cur.ci];
+  pImg.src = cur.img; pImg.width = cur.w; pImg.height = cur.h; pImg.alt = cur.name + ' tablo';
+  product.querySelector('.p-code').textContent = cur.code + ' · ' + col.title;
+  product.querySelector('h1').textContent = cur.name;
+  product.querySelector('.p-desc').textContent = cur.custom
+    ? 'Bir fotoğraf ya da fikir yükle; tuvale elde işleyelim. Yüklediğin fotoğraf galerideki duvarda da belirir. Ölçü ve fiyat mesajlaşarak netleşir.'
+    : `${cur.name}, ${col.title} koleksiyonundan; ${col.about}`;
+  upload.hidden = !cur.custom;
+  renderOpts();
+  clearTimeout(openTimer);
+  openTimer = setTimeout(() => { stage.classList.add('hide'); product.classList.add('open'); product.setAttribute('aria-hidden', 'false'); product.scrollTop = 0; product.querySelector('.back').focus(); }, 750);
+}
+function closeProduct(){
+  clearTimeout(openTimer);
+  product.classList.remove('open'); product.setAttribute('aria-hidden', 'true');
+  stage.classList.remove('hide'); label.style.opacity = 1; focus = null;
+}
+function renderOpts(){
+  const unit = cur.price; // shown price follows the quantity
+  product.querySelector('.p-price').innerHTML = (cur.custom ? 'Başlangıç ' : '') + tl(unit * qty) + (qty > 1 ? ` <small>${qty} × ${tl(unit)}</small>` : '');
+  qtyOut.textContent = qty;
+}
+product.querySelectorAll('[data-q]').forEach(b => b.onclick = () => { qty = Math.max(1, Math.min(20, qty + +b.dataset.q)); renderOpts(); });
+product.querySelector('.back').onclick = closeProduct;
+
+// custom photo: cover-crop to 3:4, show it on the product page and on the gallery wall
+fileIn.onchange = () => {
+  const f = fileIn.files[0]; if (!f || !f.type.startsWith('image/')) return;
+  const url = URL.createObjectURL(f), img = new Image();
+  img.onload = () => {
+    const c = textCanvas(900, 1200, (g, w, h) => {
+      const s = Math.max(w / img.width, h / img.height), dw = img.width * s, dh = img.height * s;
+      g.drawImage(img, (w - dw) / 2, (h - dh) / 2, dw, dh);
+    });
+    URL.revokeObjectURL(url);
+    cur.img = pImg.src = c.toDataURL('image/jpeg', .9); cur.w = pImg.width = 900; cur.h = pImg.height = 1200; cur.name = 'Senin fotoğrafın'; cur.uploaded = true;
+    product.querySelector('h1').textContent = cur.name;
+    curMesh.material.map.dispose(); curMesh.material.map = tex(c); curMesh.material.needsUpdate = true;
+  };
+  img.onerror = () => URL.revokeObjectURL(url);
+  img.src = url;
+};
+
+// ---------- theme switch ----------
+const themeBtn = document.getElementById('themeBtn');
+function applyTheme(name){
+  T = THEMES[name]; document.documentElement.dataset.theme = name;
+  scene.background.set(T.bg); scene.fog.color.set(T.bg);
+  outer.material.color.set(T.wall); wallMat.color.set(T.wall); floor.material.color.set(T.floor); ceil.material.color.set(T.ceil); strip.material.color.set(T.strip);
+  amb.color.set(T.ambC); amb.intensity = T.amb; hemi.color.set(T.hemiC); hemi.intensity = T.hemi; hemi.groundColor.set(T.hemiG);
+  glowMat.blending = T.glow[0]; glowMat.opacity = T.glow[1]; glowMat.needsUpdate = true;
+  for (const o of themed) { if (o.keep?.()) continue; o.mesh.material.map.dispose(); o.mesh.material.map = tex(o.draw()); }
+  themeBtn.textContent = T.btn; themeBtn.setAttribute('aria-pressed', name === 'dark');
+  renderCart(); // custom placeholder thumbnail follows the theme
+}
+themeBtn.onclick = () => applyTheme(T === THEMES.dark ? 'light' : 'dark');
+
+// ---------- cart (kept in this browser only) ----------
+let cart = [];
+try { cart = JSON.parse(localStorage.getItem('sanatsallbiri-cart')) || []; } catch {}
+const save = () => { try { localStorage.setItem('sanatsallbiri-cart', JSON.stringify(cart)); } catch {} };
+function toggleCart(on){ document.body.classList.toggle('cart-open', on); if (on) document.getElementById('closeCart').focus(); }
+function renderCart(){
+  cart = cart.filter(l => ITEMS[l.id]);
+  const n = cart.reduce((s, l) => s + l.qty, 0), sum = cart.reduce((s, l) => s + priceOf(l) * l.qty, 0);
+  document.getElementById('cartBtn').textContent = `Sepet (${n})`;
+  document.getElementById('total').textContent = tl(sum);
+  document.getElementById('items').innerHTML = cart.length ? cart.map((l, i) => `
+    <div class="item"><img src="${ITEMS[l.id].img}" alt="">
+      <div><strong>${ITEMS[l.id].name} · ${ITEMS[l.id].code}</strong><br>${l.qty} × ${tl(priceOf(l))}<br>
+      <button class="rm" data-rm="${i}">Kaldır</button></div></div>`).join('') : '<p class="empty">Sepetin boş.</p>';
+  save();
+}
+document.getElementById('addBtn').onclick = () => {
+  const same = cart.find(l => l.id === cur.id && l.sel.join() === sel.join());
+  same ? same.qty += qty : cart.push({ id:cur.id, sel:[...sel], qty });
+  renderCart(); toggleCart(true);
+};
+document.getElementById('items').onclick = e => { const b = e.target.closest('[data-rm]'); if (b) { cart.splice(+b.dataset.rm, 1); renderCart(); } };
+document.getElementById('cartBtn').onclick = () => toggleCart(true);
+document.getElementById('closeCart').onclick = document.getElementById('backdrop').onclick = () => toggleCart(false);
+// shortcut: concept only, no orders; wire to WhatsApp/iyzico checkout if the brand takes it live
+document.getElementById('checkout').onclick = () => {
+  document.getElementById('note').innerHTML = cart.length
+    ? 'Bu sayfa sanatsallbiri için hazırlanmış bir konsepttir, sipariş alınmaz. Sipariş için <a href="https://www.instagram.com/sanatsallbiri/" target="_blank" rel="noopener">@sanatsallbiri</a>'
+    : 'Önce bir tablo ekle.';
+};
+
+// ---------- start ----------
+const loadImg = (f) => new Promise((ok, no) => { const i = new Image(); i.onload = () => ok([f, i]); i.onerror = no; i.src = 'assets/' + f + '.jpg'; });
+const files = COLLECTIONS.flatMap(c => c.items.map(i => i[2]));
+const [imgs] = await Promise.all([
+  Promise.all(files.map(loadImg)).then(Object.fromEntries),
+  // wall text is drawn once into canvases, so wait for the (non-blocking) font stylesheet first; give up after 4 s
+  Promise.race([
+    new Promise(r => { const l = document.getElementById('fonts'); l.media === 'all' ? r() : l.addEventListener('load', r); })
+      .then(() => Promise.all(['600 112px Poppins', '500 30px Poppins', '24px Poppins', '54px Parisienne'].map(f => document.fonts.load(f)))),
+    new Promise(r => setTimeout(r, 4000)),
+  ]).catch(() => {}),
+]);
+build(imgs); resize(); renderCart();
+frame();
+const ld = document.getElementById('loading'); ld.style.opacity = 0; setTimeout(() => ld.remove(), 600);
+</script>
+</body>
+</html>
