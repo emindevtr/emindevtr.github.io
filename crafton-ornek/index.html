@@ -65,6 +65,7 @@
   .p-info h1 { font-size:clamp(32px,4.6vw,48px); font-weight:600; line-height:1.05; margin:6px 0 12px; }
   .p-desc { color:var(--sub); max-width:48ch; }
   .p-price { font-size:26px; font-weight:600; color:var(--gold-2); margin:18px 0 2px; }
+  .p-price small { font-size:13px; font-weight:400; color:var(--mute); }
   .p-ed { font-size:12px; color:var(--mute); }
   .opt { margin-top:18px; }
   .opt b { display:block; font-size:11px; font-weight:500; letter-spacing:.14em; text-transform:uppercase; margin-bottom:7px; color:var(--mute); }
@@ -421,12 +422,13 @@ function closeProduct(){
 function renderOpts(){
   document.getElementById('opts').innerHTML = OPTS.map(([n, o], gi) =>
     `<div class="opt"><b>${n}</b><div>${o.map((t, oi) => `<button data-g="${gi}" data-o="${oi}" aria-pressed="${sel[gi] === oi}">${t}</button>`).join('')}</div></div>`).join('');
-  product.querySelector('.p-price').textContent = tl(priceOf(sel));
+  const unit = priceOf(sel); // shown price follows the quantity
+  product.querySelector('.p-price').innerHTML = tl(unit * qty) + (qty > 1 ? ` <small>${qty} × ${tl(unit)}</small>` : '');
   pImg.classList.toggle('led', sel[1] === 1);
   qtyOut.textContent = qty;
 }
 document.getElementById('opts').onclick = e => { const b = e.target.closest('button'); if (b) { sel[+b.dataset.g] = +b.dataset.o; renderOpts(); } };
-product.querySelectorAll('[data-q]').forEach(b => b.onclick = () => { qty = Math.max(1, Math.min(20, qty + +b.dataset.q)); qtyOut.textContent = qty; });
+product.querySelectorAll('[data-q]').forEach(b => b.onclick = () => { qty = Math.max(1, Math.min(20, qty + +b.dataset.q)); renderOpts(); });
 product.querySelector('.back').onclick = closeProduct;
 
 // custom photo: cover-crop to 3:4, show it on the product page and on the gallery wall

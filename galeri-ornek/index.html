@@ -53,6 +53,7 @@
   .p-sub { font-family:Anton,sans-serif; text-transform:uppercase; font-size:16px; margin:6px 0 14px; }
   .p-desc { color:#444; max-width:46ch; }
   .p-price { font-size:22px; font-weight:600; margin:16px 0 4px; }
+  .p-price small { font-size:13px; font-weight:400; color:var(--mute); }
   .p-ed { font-size:12px; color:var(--mute); }
   .opt { margin-top:18px; }
   .opt b { display:block; font-size:11px; letter-spacing:.1em; text-transform:uppercase; margin-bottom:6px; }
@@ -341,11 +342,12 @@ function renderOpts(){
   document.getElementById('opts').innerHTML = OPTS.map(([n, o], gi) =>
     `<div class="opt"><b>${n}</b><div>${o.map(([t, p], oi) =>
       `<button data-g="${gi}" data-o="${oi}" aria-pressed="${sel[gi] === oi}">${t}${p ? ' +' + tl(p) : ''}</button>`).join('')}</div></div>`).join('');
-  product.querySelector('.p-price').textContent = tl(priceOf(sel));
+  const unit = priceOf(sel); // shown price follows the quantity
+  product.querySelector('.p-price').innerHTML = tl(unit * qty) + (qty > 1 ? ` <small>${qty} × ${tl(unit)}</small>` : '');
   qtyOut.textContent = qty;
 }
 document.getElementById('opts').onclick = e => { const b = e.target.closest('button'); if (b) { sel[+b.dataset.g] = +b.dataset.o; renderOpts(); } };
-product.querySelectorAll('[data-q]').forEach(b => b.onclick = () => { qty = Math.max(1, Math.min(10, qty + +b.dataset.q)); qtyOut.textContent = qty; });
+product.querySelectorAll('[data-q]').forEach(b => b.onclick = () => { qty = Math.max(1, Math.min(10, qty + +b.dataset.q)); renderOpts(); });
 product.querySelector('.back').onclick = closeProduct;
 
 // ---------- cart (kept in this browser only) ----------
