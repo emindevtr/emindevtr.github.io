@@ -59,6 +59,13 @@
   .p-img { width:auto; height:auto; max-width:min(480px,100%); max-height:72vh; box-shadow:var(--shadow); transform:translateX(-24px); opacity:0; transition:transform .6s cubic-bezier(.2,.8,.2,1), opacity .6s, box-shadow .5s; }
   .p-img.led { box-shadow:0 0 0 1px rgba(240,207,138,.35), 0 0 70px 14px rgba(212,169,90,.55), var(--shadow); }
   #product.open .p-img { transform:none; opacity:1; }
+  .p-img.round { width:min(420px,100%); max-height:none; aspect-ratio:1; object-fit:cover; border-radius:50%; }
+  .p-img.clock { height:min(68vh,620px); width:auto; max-width:100%; aspect-ratio:40/88; object-fit:cover; }
+  /* clock hands over the preview when the 40×88 wall clock is chosen */
+  .p-art { position:relative; }
+  .p-art.clock::before, .p-art.clock::after { content:''; position:absolute; left:50%; top:50%; width:6px; border-radius:3px; background:#fff; box-shadow:0 1px 4px rgba(0,0,0,.45); transform-origin:50% 100%; }
+  .p-art.clock::before { height:64px; margin:-64px 0 0 -3px; transform:rotate(-60deg); }
+  .p-art.clock::after { height:96px; margin:-96px 0 0 -3px; transform:rotate(25deg); }
   .back { color:var(--mute); font-size:13px; margin-bottom:16px; }
   .back:hover { color:var(--gold-2); }
   .p-code { color:var(--gold-2); font-size:12px; letter-spacing:.25em; text-transform:uppercase; }
@@ -177,11 +184,13 @@ const COLLECTIONS = [
 ];
 const CUSTOM = { title:'Kişiye Özel', sub:'Kendi fotoğrafın, 4 mm temperli camda' };
 const LABELS = [...COLLECTIONS, CUSTOM];
-const SIZES = [['30×40 cm',1400],['40×50 cm',1500],['40×60 cm',1600],['50×70 cm',2000],['60×90 cm',2800],['70×100 cm',3200],['70×110 cm',3800],['80×120 cm',5000]];
+const SIZES = [['30×40 cm',1400],['40×50 cm',1500],['40×60 cm',1600],['50×70 cm',2000],['60×90 cm',2800],['70×100 cm',3200],['70×110 cm',3800],['80×120 cm',5000],
+               ['Yuvarlak Ø40 cm',2000],['Yuvarlak Ø60 cm',3000],['Saat 40×88 cm',3500]];
+const shapeOf = (i) => i >= 10 ? 'clock' : i >= 8 ? 'round' : ''; // preview crop for round tablo / wall clock
 const LED = 1000;
 const OPTS = [['Ölçü', SIZES.map(([t]) => t)], ['Işık', ['Işıksız', 'LED ışık + adaptör (+1.000 TL)']]];
 const priceOf = (sel) => SIZES[sel[0]][1] + (sel[1] ? LED : 0);
-console.assert(priceOf([0,0]) === 1400 && priceOf([7,1]) === 6000, 'fiyat hesabı');
+console.assert(priceOf([0,0]) === 1400 && priceOf([7,1]) === 6000 && priceOf([8,0]) === 2000 && priceOf([10,1]) === 4500, 'fiyat hesabı');
 const tl = (n) => n.toLocaleString('tr-TR') + ' TL';
 
 // ---------- canvas helpers ----------
@@ -425,6 +434,7 @@ function renderOpts(){
   const unit = priceOf(sel); // shown price follows the quantity
   product.querySelector('.p-price').innerHTML = tl(unit * qty) + (qty > 1 ? ` <small>${qty} × ${tl(unit)}</small>` : '');
   pImg.classList.toggle('led', sel[1] === 1);
+  pImg.classList.toggle('round', shapeOf(sel[0]) === 'round'); pImg.classList.toggle('clock', shapeOf(sel[0]) === 'clock'); pImg.parentElement.classList.toggle('clock', shapeOf(sel[0]) === 'clock');
   qtyOut.textContent = qty;
 }
 document.getElementById('opts').onclick = e => { const b = e.target.closest('button'); if (b) { sel[+b.dataset.g] = +b.dataset.o; renderOpts(); } };
