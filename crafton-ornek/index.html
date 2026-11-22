@@ -80,6 +80,14 @@
   .opt button { border:1px solid var(--line); padding:7px 12px; font-size:12px; background:var(--card); border-radius:2px; }
   .opt button:hover { border-color:var(--mute); }
   .opt button[aria-pressed=true] { border-color:var(--gold); color:var(--gold-2); box-shadow:inset 0 0 0 1px var(--gold); }
+  .formats { display:grid !important; grid-template-columns:repeat(3,1fr); gap:8px !important; }
+  .formats button { display:flex; align-items:center; gap:12px; padding:12px 14px; text-align:left; font-size:13px; font-weight:500; }
+  .formats small { display:block; font-size:11px; font-weight:400; color:var(--mute); margin-top:1px; }
+  .fi { flex:none; width:16px; height:21px; border:1.5px solid currentColor; border-radius:2px; }
+  .fi-1 { width:20px; height:20px; border-radius:50%; }
+  .fi-2 { width:11px; height:24px; position:relative; }
+  .fi-2::after { content:''; position:absolute; left:50%; top:50%; width:5px; height:5px; border-left:1.5px solid currentColor; border-top:1.5px solid currentColor; transform:translate(-1px,-5px); }
+  @media (max-width:420px){ .formats button { flex-direction:column; align-items:flex-start; gap:8px; } }
   .upload { position:relative; display:flex; align-items:center; justify-content:center; gap:8px; margin-top:18px; border:1px dashed var(--gold); color:var(--gold-2); padding:14px; cursor:pointer; font-size:13px; }
   .upload[hidden] { display:none; }
   .upload:hover, .upload:focus-within { background:rgba(212,169,90,.08); }
@@ -186,6 +194,7 @@ const CUSTOM = { title:'Kişiye Özel', sub:'Kendi fotoğrafın, 4 mm temperli c
 const LABELS = [...COLLECTIONS, CUSTOM];
 const SIZES = [['30×40 cm',1400],['40×50 cm',1500],['40×60 cm',1600],['50×70 cm',2000],['60×90 cm',2800],['70×100 cm',3200],['70×110 cm',3800],['80×120 cm',5000],
                ['Yuvarlak Ø40 cm',2000],['Yuvarlak Ø60 cm',3000],['Saat 40×88 cm',3500]];
+const FORMATS = [['Dikdörtgen',[0,1,2,3,4,5,6,7]], ['Yuvarlak',[8,9]], ['Saat',[10]]]; // format first, then its sizes
 const shapeOf = (i) => i >= 10 ? 'clock' : i >= 8 ? 'round' : ''; // preview crop for round tablo / wall clock
 const LED = 1000;
 const OPTS = [['Ölçü', SIZES.map(([t]) => t)], ['Işık', ['Işıksız', 'LED ışık + adaptör (+1.000 TL)']]];
@@ -436,15 +445,25 @@ function closeProduct(){
   stage.classList.remove('hide'); label.style.opacity = 1; focus = null;
 }
 function renderOpts(){
-  document.getElementById('opts').innerHTML = OPTS.map(([n, o], gi) =>
-    `<div class="opt"><b>${n}</b><div>${o.map((t, oi) => `<button data-g="${gi}" data-o="${oi}" aria-pressed="${sel[gi] === oi}">${t}</button>`).join('')}</div></div>`).join('');
+  const fi = FORMATS.findIndex(([, ids]) => ids.includes(sel[0]));
+  const btn = (g, o, t) => `<button data-g="${g}" data-o="${o}" aria-pressed="${sel[g] === o}">${t}</button>`;
+  document.getElementById('opts').innerHTML =
+    `<div class="opt"><b>Format</b><div class="formats">${FORMATS.map(([n, ids], i) =>
+      `<button data-f="${i}" aria-pressed="${i === fi}"><i class="fi fi-${i}" aria-hidden="true"></i><span>${n}<small>${tl(SIZES[ids[0]][1])}'den</small></span></button>`).join('')}</div></div>` +
+    `<div class="opt"><b>Ölçü</b><div>${FORMATS[fi][1].map(id => btn(0, id, SIZES[id][0].replace(/^(Yuvarlak|Saat) /, ''))).join('')}</div></div>` +
+    `<div class="opt"><b>Işık</b><div>${OPTS[1][1].map((t, oi) => btn(1, oi, t)).join('')}</div></div>`;
   const unit = priceOf(sel); // shown price follows the quantity
   product.querySelector('.p-price').innerHTML = tl(unit * qty) + (qty > 1 ? ` <small>${qty} × ${tl(unit)}</small>` : '');
   pImg.classList.toggle('led', sel[1] === 1);
   pImg.classList.toggle('round', shapeOf(sel[0]) === 'round'); pImg.classList.toggle('clock', shapeOf(sel[0]) === 'clock'); pImg.parentElement.classList.toggle('clock', shapeOf(sel[0]) === 'clock');
   qtyOut.textContent = qty;
 }
-document.getElementById('opts').onclick = e => { const b = e.target.closest('button'); if (b) { sel[+b.dataset.g] = +b.dataset.o; renderOpts(); } };
+document.getElementById('opts').onclick = e => {
+  const b = e.target.closest('button'); if (!b) return;
+  if (b.dataset.f) sel[0] = FORMATS[+b.dataset.f][1][0]; // switching format picks its first size
+  else sel[+b.dataset.g] = +b.dataset.o;
+  renderOpts();
+};
 product.querySelectorAll('[data-q]').forEach(b => b.onclick = () => { qty = Math.max(1, Math.min(20, qty + +b.dataset.q)); renderOpts(); });
 product.querySelector('.back').onclick = closeProduct;
 
