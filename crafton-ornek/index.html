@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DUVAR: 3D sanat galerisi konsepti, Emin Dev</title>
+<meta name="description" content="Emin Dev'den 3D galeri e-ticaret konsepti: kavisli bir müze koridorunda gez, bir baskıya tıkla, seç ve sepete ekle.">
+<link rel="icon" type="image/png" href="/assets/emindev-logo.png?v=2">
+<link rel="canonical" href="/crafton-ornek/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Emin Dev">
+<meta property="og:title" content="DUVAR: 3D sanat galerisi konsepti, Emin Dev">
+<meta property="og:url" content="/crafton-ornek/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#f2f2f0; --ink:#111; --mute:#6b6b6b; --line:#dcdcd8; --card:#fff; }
+  * { box-sizing:border-box; margin:0; }
+  html,body { height:100%; background:var(--bg); color:var(--ink); font:14px/1.5 Inter,system-ui,sans-serif; overflow:hidden; }
+  button { font:inherit; color:inherit; background:none; border:0; cursor:pointer; }
+  h1,h2,.display { font-family:Anton,Impact,sans-serif; font-weight:400; letter-spacing:.02em; text-transform:uppercase; }
+
+  header { position:fixed; inset:0 0 auto 0; z-index:20; display:flex; align-items:center; gap:24px; padding:14px 20px; }
+  .logo { font-family:Anton,sans-serif; font-size:20px; letter-spacing:.08em; }
+  nav { display:flex; gap:18px; color:var(--mute); font-size:13px; }
+  nav button:hover { color:var(--ink); }
+  .cart-btn { margin-left:auto; background:var(--ink); color:#fff; padding:6px 14px; border-radius:999px; font-size:12px; font-weight:600; }
+
+  #stage { position:fixed; inset:0; transition:opacity .45s; touch-action:none; }
+  #stage canvas { display:block; }
+  #stage.hide { opacity:0; pointer-events:none; }
+
+  #label { position:fixed; left:50%; bottom:56px; transform:translateX(-50%); text-align:center; pointer-events:none; transition:opacity .3s; }
+  #label small { display:block; color:var(--mute); font-size:11px; letter-spacing:.14em; text-transform:uppercase; }
+  #label h2 { font-size:28px; line-height:1.1; margin:4px 0; }
+  #label span { font-size:12px; color:var(--mute); }
+  #hint { position:fixed; right:20px; bottom:20px; color:var(--mute); font-size:12px; pointer-events:none; }
+
+  #credit { position:fixed; left:20px; bottom:20px; z-index:5; color:var(--mute); font-size:12px; text-decoration:none; }
+  #credit:hover { color:var(--ink); }
+  #pill { position:fixed; z-index:15; pointer-events:none; background:var(--ink); color:#fff; font-size:11px; font-weight:600; padding:5px 10px; border-radius:999px; opacity:0; transform:translate(14px,14px); transition:opacity .15s; }
+  #pill.on { opacity:1; }
+
+  #product { position:fixed; inset:0; z-index:10; overflow:auto; background:var(--bg); opacity:0; pointer-events:none; transition:opacity .45s; padding:80px 20px 40px; }
+  #product.open { opacity:1; pointer-events:auto; }
+  .p-grid { max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1fr; gap:32px; }
+  @media (min-width:820px){ .p-grid { grid-template-columns:1.1fr 1fr; gap:56px; } }
+  .p-img { width:100%; max-width:520px; justify-self:center; box-shadow:0 18px 40px rgba(0,0,0,.15); transform:translateX(-24px); opacity:0; transition:transform .6s cubic-bezier(.2,.8,.2,1), opacity .6s; }
+  #product.open .p-img { transform:none; opacity:1; }
+  .back { color:var(--mute); font-size:13px; margin-bottom:16px; }
+  .back:hover { color:var(--ink); }
+  .p-info h1 { font-size:clamp(34px,5vw,52px); line-height:1; }
+  .p-sub { font-family:Anton,sans-serif; text-transform:uppercase; font-size:16px; margin:6px 0 14px; }
+  .p-desc { color:#444; max-width:46ch; }
+  .p-price { font-size:22px; font-weight:600; margin:16px 0 4px; }
+  .p-ed { font-size:12px; color:var(--mute); }
+  .opt { margin-top:18px; }
+  .opt b { display:block; font-size:11px; letter-spacing:.1em; text-transform:uppercase; margin-bottom:6px; }
+  .opt div { display:flex; flex-wrap:wrap; gap:6px; }
+  .opt button { border:1px solid var(--line); padding:7px 12px; font-size:12px; background:var(--card); }
+  .opt button[aria-pressed=true] { border-color:var(--ink); box-shadow:inset 0 0 0 1px var(--ink); }
+  .buy { display:flex; gap:10px; margin-top:24px; }
+  .qty { display:flex; align-items:center; border:1px solid var(--line); background:var(--card); }
+  .qty button { width:36px; height:44px; font-size:16px; }
+  .qty output { width:28px; text-align:center; }
+  .add { flex:1; background:var(--ink); color:#fff; font-weight:600; letter-spacing:.08em; text-transform:uppercase; font-size:12px; }
+  .add:hover { background:#333; }
+
+  #backdrop { position:fixed; inset:0; z-index:30; background:rgba(240,240,238,.4); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); opacity:0; pointer-events:none; transition:opacity .3s; }
+  #drawer { position:fixed; top:0; right:0; bottom:0; z-index:31; width:min(380px,100%); background:var(--card); box-shadow:-10px 0 40px rgba(0,0,0,.08); transform:translateX(100%); transition:transform .4s cubic-bezier(.2,.8,.2,1); display:flex; flex-direction:column; }
+  body.cart-open #backdrop { opacity:1; pointer-events:auto; }
+  body.cart-open #drawer { transform:none; }
+  .d-head { display:flex; justify-content:space-between; align-items:center; padding:18px 20px; border-bottom:1px solid var(--line); }
+  .d-head h2 { font-size:20px; }
+  #items { flex:1; overflow:auto; padding:8px 20px; }
+  .item { display:flex; gap:12px; padding:12px 0; border-bottom:1px solid var(--line); }
+  .item img { width:56px; height:75px; object-fit:cover; }
+  .item div { flex:1; font-size:12px; }
+  .item strong { font-size:13px; display:block; }
+  .item .rm { color:var(--mute); text-decoration:underline; font-size:11px; }
+  .empty { color:var(--mute); padding:24px 0; }
+  .d-foot { padding:18px 20px; border-top:1px solid var(--line); }
+  .d-foot p { display:flex; justify-content:space-between; font-weight:600; margin-bottom:12px; }
+  .d-foot .add { width:100%; padding:14px; }
+  .d-foot small { display:block; color:var(--mute); margin-top:8px; text-align:center; }
+
+  #loading { position:fixed; inset:0; display:grid; place-items:center; color:var(--mute); z-index:50; background:var(--bg); transition:opacity .5s; }
+  @media (max-width:600px){ nav { display:none; } #label h2 { font-size:22px; } #hint { display:none; } }
+</style>
+<script type="importmap">{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js" } }</script>
+</head>
+<body>
+<header>
+  <div class="logo">DUVAR</div>
+  <nav><button data-go="0">Maç Günü</button><button data-go="1">Kaset Yılları</button><button data-go="2">Güzel Oyun</button></nav>
+  <button class="cart-btn" id="cartBtn">Sepet (0)</button>
+</header>
+
+<div id="stage" aria-label="3D galeri: sürükleyerek ya da kaydırarak gezin, bir baskıya tıklayın"></div>
+<div id="label"><small>Koleksiyon</small><h2></h2><span></span></div>
+<div id="hint">Sürükle, kaydır ya da ← → tuşları</div>
+<a id="credit" href="/brands">Konsept · Made by Emin Dev ↗</a>
+<div id="pill">Görüntüle</div>
+
+<section id="product" aria-hidden="true">
+  <div class="p-grid">
+    <img class="p-img" alt="">
+    <div class="p-info">
+      <button class="back">← Galeriye dön</button>
+      <h1></h1>
+      <div class="p-sub"></div>
+      <p class="p-desc"></p>
+      <div class="p-price"></div>
+      <div class="p-ed">Sınırlı sayıda · numaralı ve imzalı baskı</div>
+      <div id="opts"></div>
+      <div class="buy">
+        <div class="qty"><button data-q="-1" aria-label="Azalt">−</button><output>1</output><button data-q="1" aria-label="Arttır">+</button></div>
+        <button class="add" id="addBtn">Sepete ekle</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="backdrop"></div>
+<aside id="drawer" aria-label="Sepet">
+  <div class="d-head"><h2>Sepetin</h2><button id="closeCart" aria-label="Kapat">✕</button></div>
+  <div id="items"></div>
+  <div class="d-foot"><p><span>Ara toplam</span><span id="total">₺0</span></p><button class="add" id="checkout">Ödemeye geç</button><small id="note"></small></div>
+</aside>
+<div id="loading">Galeri hazırlanıyor…</div>
+<img src="/cnt?k=o-crafton-ornek" alt="" width="1" height="1" style="display:none">
+
+<script type="module">
+import * as THREE from 'three';
+
+// ---------- data ----------
+const COLLECTIONS = [
+  { title:'Maç Günü', sub:'Tribün, çim ve projektör ışığı', pal:['#0f5132','#f4efe6','#d62828','#111111','#f7b801'],
+    names:['Derbi Gecesi','Kale Arkası','Son Düdük','Tribün 34','Uzatma','Kornerden'] },
+  { title:'Kaset Yılları', sub:'Gece kanalları ve sarılmış bantlar', pal:['#ff4fa3','#1d1d1b','#2ec4b6','#ffd23f','#3a86ff'],
+    names:['Walkman','Gece Kanalı','Sarı Kaset','Neon Pazar','Mixtape','Rewind'] },
+  { title:'Güzel Oyun', sub:'Sahadaki zarafete bir selam', pal:['#e9d8b4','#1b4332','#b23a48','#0b0b0b','#f2f2f2'],
+    names:['Rövaşata','Topuk Pası','Çalım','Tek Dokunuş','Ayak İçi','Frikik'] },
+];
+const BASE = 750;
+const OPTS = [
+  ['Kağıt',   [['Mat sanat kağıdı',0],['Fine art',250],['Hahnemühle',500]]],
+  ['Boyut',   [['30×40 cm',0],['50×70 cm',350],['70×100 cm',750]]],
+  ['Çerçeve', [['Çerçevesiz',0],['Siyah meşe',600],['Doğal meşe',600]]],
+];
+const priceOf = (sel) => BASE + OPTS.reduce((s,[,o],i) => s + o[sel[i]][1], 0);
+console.assert(priceOf([0,0,0]) === 750 && priceOf([2,2,2]) === 2600, 'fiyat hesabı');
+const tl = (n) => '₺' + n.toLocaleString('tr-TR');
+
+// ---------- poster art (procedural, no image files needed) ----------
+function rng(s){ return () => { s = s + 0x6D2B79F5 | 0; let t = Math.imul(s ^ s >>> 15, 1 | s); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+function drawPoster(seed, pal, name){
+  const c = document.createElement('canvas'); c.width = 600; c.height = 800;
+  const g = c.getContext('2d'), r = rng(seed), pick = () => pal[1 + Math.floor(r() * (pal.length - 1))];
+  g.fillStyle = pal[0]; g.fillRect(0, 0, 600, 800);
+  g.fillStyle = pick(); g.beginPath(); g.arc(150 + r()*300, 220 + r()*200, 120 + r()*80, 0, Math.PI*2); g.fill();
+  for (let i = 0; i < 12; i++) {
+    g.fillStyle = pick(); const x = r()*600, y = r()*680, s = 50 + r()*220; g.beginPath();
+    switch (Math.floor(r()*4)) {
+      case 0: g.arc(x, y, s/2, 0, Math.PI*2); break;
+      case 1: g.rect(x - s/2, y - s/4, s, s*(.2 + r()*.6)); break;
+      case 2: g.arc(x, y, s/2, Math.PI, 0); break;
+      default: g.moveTo(x, y - s/2); g.lineTo(x + s/2, y + s/2); g.lineTo(x - s/2, y + s/2); g.closePath();
+    }
+    g.fill();
+  }
+  g.fillStyle = pal[3]; g.fillRect(0, 700, 600, 100);
+  g.fillStyle = pal[0]; g.font = '44px Anton'; g.fillText(name.toUpperCase(), 32, 768);
+  return c;
+}
+function textCanvas(w, h, draw){ const c = document.createElement('canvas'); c.width = w; c.height = h; draw(c.getContext('2d')); return c; }
+function wrap(g, text, x, y, maxW, lh){
+  let line = '';
+  for (const word of text.split(' ')) {
+    if (g.measureText(line + word).width > maxW && line) { g.fillText(line.trim(), x, y); y += lh; line = ''; }
+    line += word + ' ';
+  }
+  g.fillText(line.trim(), x, y);
+}
+
+// ---------- scene ----------
+const RO = 12, RI = 5.5, RC = 7.4, H = 4.2, Y = 1.75, LOOK = 0.7;
+const stage = document.getElementById('stage');
+const renderer = new THREE.WebGLRenderer({ antialias:true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+stage.appendChild(renderer.domElement);
+const scene = new THREE.Scene();
+scene.background = new THREE.Color('#f2f2f0');
+scene.fog = new THREE.Fog('#f2f2f0', 7, 24);
+const camera = new THREE.PerspectiveCamera(55, 1, .1, 100);
+scene.add(new THREE.AmbientLight('#ffffff', 1.7), new THREE.HemisphereLight('#ffffff', '#d8d8d4', 1.4));
+const wallMat = new THREE.MeshStandardMaterial({ color:'#fafaf8', roughness:1 });
+const outer = new THREE.Mesh(new THREE.CylinderGeometry(RO, RO, H, 160, 1, true), wallMat.clone()); outer.material.side = THREE.BackSide;
+const inner = new THREE.Mesh(new THREE.CylinderGeometry(RI, RI, H, 120, 1, true), wallMat);
+outer.position.y = inner.position.y = H / 2;
+const floor = new THREE.Mesh(new THREE.RingGeometry(RI, RO, 160), new THREE.MeshStandardMaterial({ color:'#e4e4e0', roughness:.9 }));
+floor.rotation.x = -Math.PI / 2;
+const ceil = new THREE.Mesh(new THREE.RingGeometry(RI, RO, 160), new THREE.MeshStandardMaterial({ color:'#ffffff' }));
+ceil.rotation.x = Math.PI / 2; ceil.position.y = H;
+scene.add(outer, inner, floor, ceil);
+
+const tex = (canvas) => { const t = new THREE.CanvasTexture(canvas); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8; return t; };
+function onWall(mesh, a, y, inset = .03){
+  const r = RO - inset; mesh.position.set(r * Math.cos(a), y, r * Math.sin(a)); mesh.lookAt(0, y, 0); scene.add(mesh); return mesh;
+}
+
+const ITEMS = [], posters = [], slots = [];
+function build(){
+  const total = COLLECTIONS.length * 8, step = Math.PI * 2 / total;
+  let slot = 0, seed = 7;
+  COLLECTIONS.forEach((col, ci) => {
+    // intro panel
+    const a0 = -(slot++) * step;
+    const intro = textCanvas(600, 800, g => {
+      g.fillStyle = '#ffffff'; g.fillRect(0, 0, 600, 800);
+      g.fillStyle = '#6b6b6b'; g.font = '600 22px Inter'; g.fillText('KOLEKSİYON 0' + (ci + 1), 48, 90);
+      g.fillStyle = '#111'; g.font = '84px Anton'; wrap(g, col.title.toLocaleUpperCase('tr'), 48, 200, 500, 92);
+      g.fillStyle = '#444'; g.font = '26px Inter'; wrap(g, col.sub, 48, 560, 500, 38);
+    });
+    onWall(new THREE.Mesh(new THREE.PlaneGeometry(1.35, 1.8), new THREE.MeshBasicMaterial({ map:tex(intro) })), a0, Y);
+    slots.push({ a:a0, ci });
+    col.names.forEach((name) => {
+      const a = -(slot++) * step, id = ITEMS.length, pc = drawPoster(seed++ * 9973, col.pal, name);
+      const item = { id, name, ci, img: pc.toDataURL('image/jpeg', .88) };
+      ITEMS.push(item);
+      const shadow = onWall(new THREE.Mesh(new THREE.PlaneGeometry(1.62, 2.12), new THREE.MeshBasicMaterial({ color:'#000', transparent:true, opacity:.10 })), a + .004, Y - .05, .025);
+      const m = onWall(new THREE.Mesh(new THREE.PlaneGeometry(1.5, 2), new THREE.MeshBasicMaterial({ map:tex(pc) })), a, Y);
+      m.userData = { item, a }; posters.push(m);
+      const cap = textCanvas(512, 120, g => {
+        g.fillStyle = '#111'; g.font = '600 30px Inter'; g.fillText(name, 4, 40);
+        g.fillStyle = '#6b6b6b'; g.font = '26px Inter'; g.fillText(tl(BASE) + "'den başlayan", 4, 84);
+      });
+      const capMesh = onWall(new THREE.Mesh(new THREE.PlaneGeometry(1.3, .3), new THREE.MeshBasicMaterial({ map:tex(cap), transparent:true })), a, .5);
+      capMesh.translateX(.1);
+      slots.push({ a, ci });
+    });
+    slot++; // empty gap between collections
+  });
+}
+
+// ---------- camera / navigation ----------
+let phi = 0.35, tphi = phi, focus = null, curCol = -1;
+const look = new THREE.Vector3(), wantPos = new THREE.Vector3(), wantLook = new THREE.Vector3();
+function target(){
+  if (focus) {
+    const a = focus.userData.a, r = RO - 2.5;
+    wantPos.set(r * Math.cos(a), Y, r * Math.sin(a)); wantLook.copy(focus.position);
+  } else {
+    wantPos.set(RC * Math.cos(phi), 1.6, RC * Math.sin(phi));
+    wantLook.set(8.6 * Math.cos(phi - LOOK), 1.55, 8.6 * Math.sin(phi - LOOK)); // look along the corridor, not at the wall
+  }
+}
+const angDiff = (a, b) => Math.abs(Math.atan2(Math.sin(a - b), Math.cos(a - b)));
+const label = document.getElementById('label');
+function updateLabel(){
+  const view = phi - LOOK;
+  const ci = slots.reduce((best, s) => angDiff(s.a, view) < angDiff(best.a, view) ? s : best).ci;
+  if (ci === curCol) return;
+  curCol = ci; const c = COLLECTIONS[ci];
+  label.querySelector('h2').textContent = c.title;
+  label.querySelector('span').textContent = c.names.length + ' baskı · ' + c.sub;
+}
+
+function resize(){ renderer.setSize(innerWidth, innerHeight); camera.aspect = innerWidth / innerHeight; camera.fov = innerWidth < 600 ? 70 : 55; camera.updateProjectionMatrix(); }
+addEventListener('resize', resize);
+
+// pointer: drag to walk, click a poster to open it
+const ray = new THREE.Raycaster(), ndc = new THREE.Vector2(), pill = document.getElementById('pill');
+let drag = null, hovered = null;
+function pick(e){
+  ndc.set(e.clientX / innerWidth * 2 - 1, -(e.clientY / innerHeight) * 2 + 1);
+  ray.setFromCamera(ndc, camera);
+  return ray.intersectObjects(posters)[0]?.object ?? null;
+}
+stage.addEventListener('pointerdown', e => { drag = { x:e.clientX, moved:0 }; stage.setPointerCapture(e.pointerId); });
+stage.addEventListener('pointermove', e => {
+  if (drag) { const dx = e.clientX - drag.x; drag.x = e.clientX; drag.moved += Math.abs(dx); tphi += dx * .004; }
+  if (focus) return;
+  hovered = e.pointerType === 'mouse' ? pick(e) : null;
+  pill.classList.toggle('on', !!hovered);
+  pill.style.left = e.clientX + 'px'; pill.style.top = e.clientY + 'px';
+  stage.style.cursor = hovered ? 'pointer' : drag ? 'grabbing' : 'grab';
+});
+stage.addEventListener('pointerup', e => {
+  const wasClick = drag && drag.moved < 6; drag = null;
+  if (wasClick && !focus) { const hit = pick(e); if (hit) openProduct(hit); }
+});
+stage.addEventListener('wheel', e => { e.preventDefault(); if (!focus) tphi -= (e.deltaY + e.deltaX) * .0015; }, { passive:false });
+addEventListener('keydown', e => {
+  if (e.key === 'Escape') { if (document.body.classList.contains('cart-open')) toggleCart(false); else if (focus) closeProduct(); }
+  if (focus) return;
+  if (e.key === 'ArrowRight') tphi -= .26;
+  if (e.key === 'ArrowLeft') tphi += .26;
+});
+document.querySelectorAll('[data-go]').forEach(b => b.onclick = () => {
+  if (focus) closeProduct();
+  const a = slots.find(s => s.ci === +b.dataset.go).a + LOOK - .25;
+  tphi = phi + Math.atan2(Math.sin(a - phi), Math.cos(a - phi)); // shortest way round
+});
+
+const clock = new THREE.Clock();
+function frame(){
+  const k = 1 - Math.exp(-clock.getDelta() * 5);
+  phi += (tphi - phi) * k;
+  target();
+  camera.position.lerp(wantPos, k); look.lerp(wantLook, k); camera.lookAt(look);
+  if (!focus) updateLabel();
+  renderer.render(scene, camera);
+  requestAnimationFrame(frame);
+}
+
+// ---------- product page ----------
+const product = document.getElementById('product'), qtyOut = product.querySelector('output');
+let cur = null, sel = [0,0,0], qty = 1, openTimer;
+function openProduct(mesh){
+  focus = mesh; cur = mesh.userData.item; sel = [0,0,0]; qty = 1;
+  pill.classList.remove('on'); label.style.opacity = 0;
+  const col = COLLECTIONS[cur.ci];
+  product.querySelector('.p-img').src = cur.img;
+  product.querySelector('.p-img').alt = cur.name + ' baskısı';
+  product.querySelector('h1').textContent = cur.name;
+  product.querySelector('.p-sub').textContent = col.title;
+  product.querySelector('.p-desc').textContent = `“${cur.name}”, ${col.title} koleksiyonunun parçası: ${col.sub.toLocaleLowerCase('tr')}. Arşivsel pigment mürekkeple, asitsiz kağıda basılır ve rulo halinde ya da çerçeveli gönderilir.`;
+  renderOpts();
+  clearTimeout(openTimer);
+  openTimer = setTimeout(() => { stage.classList.add('hide'); product.classList.add('open'); product.setAttribute('aria-hidden', 'false'); product.scrollTop = 0; product.querySelector('.back').focus(); }, 750);
+}
+function closeProduct(){
+  clearTimeout(openTimer);
+  product.classList.remove('open'); product.setAttribute('aria-hidden', 'true');
+  stage.classList.remove('hide'); label.style.opacity = 1; focus = null;
+}
+function renderOpts(){
+  document.getElementById('opts').innerHTML = OPTS.map(([n, o], gi) =>
+    `<div class="opt"><b>${n}</b><div>${o.map(([t, p], oi) =>
+      `<button data-g="${gi}" data-o="${oi}" aria-pressed="${sel[gi] === oi}">${t}${p ? ' +' + tl(p) : ''}</button>`).join('')}</div></div>`).join('');
+  product.querySelector('.p-price').textContent = tl(priceOf(sel));
+  qtyOut.textContent = qty;
+}
+document.getElementById('opts').onclick = e => { const b = e.target.closest('button'); if (b) { sel[+b.dataset.g] = +b.dataset.o; renderOpts(); } };
+product.querySelectorAll('[data-q]').forEach(b => b.onclick = () => { qty = Math.max(1, Math.min(10, qty + +b.dataset.q)); qtyOut.textContent = qty; });
+product.querySelector('.back').onclick = closeProduct;
+
+// ---------- cart (kept in this browser only) ----------
+let cart = [];
+try { cart = JSON.parse(localStorage.getItem('duvar-cart')) || []; } catch {}
+const save = () => { try { localStorage.setItem('duvar-cart', JSON.stringify(cart)); } catch {} };
+function toggleCart(on){ document.body.classList.toggle('cart-open', on); if (on) document.getElementById('closeCart').focus(); }
+function renderCart(){
+  cart = cart.filter(l => ITEMS[l.id]);
+  const n = cart.reduce((s, l) => s + l.qty, 0), sum = cart.reduce((s, l) => s + priceOf(l.sel) * l.qty, 0);
+  document.getElementById('cartBtn').textContent = `Sepet (${n})`;
+  document.getElementById('total').textContent = tl(sum);
+  document.getElementById('items').innerHTML = cart.length ? cart.map((l, i) => `
+    <div class="item"><img src="${ITEMS[l.id].img}" alt="">
+      <div><strong>${ITEMS[l.id].name}</strong>${l.sel.map((o, g) => OPTS[g][1][o][0]).join(' · ')}<br>${l.qty} × ${tl(priceOf(l.sel))}<br>
+      <button class="rm" data-rm="${i}">Kaldır</button></div></div>`).join('') : '<p class="empty">Sepetin boş.</p>';
+  save();
+}
+document.getElementById('addBtn').onclick = () => {
+  const same = cart.find(l => l.id === cur.id && l.sel.join() === sel.join());
+  same ? same.qty += qty : cart.push({ id:cur.id, sel:[...sel], qty });
+  renderCart(); toggleCart(true);
+};
+document.getElementById('items').onclick = e => { const b = e.target.closest('[data-rm]'); if (b) { cart.splice(+b.dataset.rm, 1); renderCart(); } };
+document.getElementById('cartBtn').onclick = () => toggleCart(true);
+document.getElementById('closeCart').onclick = document.getElementById('backdrop').onclick = () => toggleCart(false);
+// shortcut: no real payment yet, connect Shopify/iyzico/Stripe checkout here when going live
+document.getElementById('checkout').onclick = () => { document.getElementById('note').textContent = cart.length ? 'Demo: ödeme henüz bağlı değil.' : 'Önce bir baskı ekle.'; };
+
+// ---------- start ----------
+try { await Promise.all([document.fonts.load('44px Anton'), document.fonts.load('600 30px Inter')]); } catch {}
+build(); resize(); renderCart(); target(); camera.position.copy(wantPos); look.copy(wantLook);
+frame();
+const ld = document.getElementById('loading'); ld.style.opacity = 0; setTimeout(() => ld.remove(), 500);
+</script>
+</body>
+</html>
