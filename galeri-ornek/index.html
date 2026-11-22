@@ -246,16 +246,15 @@ function build(){
 
 // ---------- camera / navigation ----------
 let phi = 0.35, tphi = phi, focus = null, curCol = -1;
-const look = new THREE.Vector3(), wantPos = new THREE.Vector3(), wantLook = new THREE.Vector3();
-function target(){
-  if (focus) {
-    const a = focus.userData.a, r = RO - 2.5;
-    wantPos.set(r * Math.cos(a), Y, r * Math.sin(a)); wantLook.copy(focus.position);
-  } else {
-    wantPos.set(RC * Math.cos(phi), 1.6, RC * Math.sin(phi));
-    wantLook.set(8.6 * Math.cos(phi - LOOK), 1.55, 8.6 * Math.sin(phi - LOOK)); // look along the corridor, not at the wall
-  }
-}
+// camera and its aim point move in polar coords (angle, radius, height) so they follow the curved corridor;
+// a straight xyz lerp cuts the chord on fast scrolls and passes through the inner wall
+const cam = { a:phi, r:RC, y:1.6 }, aim = { a:phi - LOOK, r:8.6, y:1.55 }, v = new THREE.Vector3();
+let focusA = 0;
+const want = () => focus
+  ? [{ a:focusA, r:RO - 2.5, y:Y }, { a:focusA, r:RO, y:Y }]
+  : [{ a:phi, r:RC, y:1.6 }, { a:phi - LOOK, r:8.6, y:1.55 }]; // look along the corridor, not at the wall
+const ease = (p, t, k) => { p.a += (t.a - p.a) * k; p.r += (t.r - p.r) * k; p.y += (t.y - p.y) * k; };
+const xyz = (p) => v.set(p.r * Math.cos(p.a), p.y, p.r * Math.sin(p.a));
 const angDiff = (a, b) => Math.abs(Math.atan2(Math.sin(a - b), Math.cos(a - b)));
 const label = document.getElementById('label');
 function updateLabel(){
@@ -308,8 +307,8 @@ const clock = new THREE.Clock();
 function frame(){
   const k = 1 - Math.exp(-clock.getDelta() * 5);
   phi += (tphi - phi) * k;
-  target();
-  camera.position.lerp(wantPos, k); look.lerp(wantLook, k); camera.lookAt(look);
+  const [tc, ta] = want(); ease(cam, tc, k); ease(aim, ta, k);
+  camera.position.copy(xyz(cam)); camera.lookAt(xyz(aim));
   if (!focus) updateLabel();
   renderer.render(scene, camera);
   requestAnimationFrame(frame);
@@ -319,6 +318,8 @@ function frame(){
 const product = document.getElementById('product'), qtyOut = product.querySelector('output');
 let cur = null, sel = [0,0,0], qty = 1, openTimer;
 function openProduct(mesh){
+  // nearest way round to the poster, since phi is unbounded
+  focusA = cam.a + Math.atan2(Math.sin(mesh.userData.a - cam.a), Math.cos(mesh.userData.a - cam.a));
   focus = mesh; cur = mesh.userData.item; sel = [0,0,0]; qty = 1;
   pill.classList.remove('on'); label.style.opacity = 0;
   const col = COLLECTIONS[cur.ci];
@@ -376,7 +377,7 @@ document.getElementById('checkout').onclick = () => { document.getElementById('n
 
 // ---------- start ----------
 try { await Promise.all([document.fonts.load('44px Anton'), document.fonts.load('600 30px Inter')]); } catch {}
-build(); resize(); renderCart(); target(); camera.position.copy(wantPos); look.copy(wantLook);
+build(); resize(); renderCart();
 frame();
 const ld = document.getElementById('loading'); ld.style.opacity = 0; setTimeout(() => ld.remove(), 500);
 </script>
