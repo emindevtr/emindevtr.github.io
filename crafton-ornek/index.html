@@ -18,7 +18,8 @@
 <!-- fonts load without blocking the first paint -->
 <link id="fonts" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Parisienne&display=swap" media="print" onload="this.media='all'">
 <style>
-  :root { --bg:#100f0d; --ink:#f3eee4; --mute:#a59c8b; --line:#2e2a23; --card:#17150f; --gold:#d4a95a; --gold-2:#f0cf8a; }
+  :root { --bg:#f2f2f0; --ink:#111; --mute:#6b6b6b; --sub:#444; --line:#dcdcd8; --card:#fff; --gold:#b8913f; --gold-2:#8a6620; --glow-bg:#ffffff; --veil:rgba(240,240,238,.4); --shadow:0 18px 40px rgba(0,0,0,.15); --btn:linear-gradient(180deg,#e6c887,#c9a04e); }
+  :root[data-theme="dark"] { --bg:#100f0d; --ink:#f3eee4; --mute:#a59c8b; --sub:#cfc7b8; --line:#2e2a23; --card:#17150f; --gold:#d4a95a; --gold-2:#f0cf8a; --glow-bg:#231e15; --veil:rgba(10,9,7,.5); --shadow:0 20px 50px rgba(0,0,0,.6); --btn:linear-gradient(180deg,#f0cf8a,#d4a95a); }
   * { box-sizing:border-box; margin:0; }
   html,body { height:100%; background:var(--bg); color:var(--ink); font:14px/1.55 Poppins,system-ui,sans-serif; overflow:hidden; }
   button { font:inherit; color:inherit; background:none; border:0; cursor:pointer; }
@@ -27,10 +28,12 @@
   header { position:fixed; inset:0 0 auto 0; z-index:20; display:flex; align-items:center; gap:28px; padding:14px 20px; }
   .logo { font-weight:600; font-size:24px; letter-spacing:-.01em; line-height:1; display:flex; flex-direction:column; align-items:center; }
   .logo span b { color:var(--gold); font-weight:600; }
-  .logo small { font-size:9px; letter-spacing:.55em; color:var(--gold); font-weight:500; margin-top:3px; padding-left:.55em; }
+  .logo small { font-size:9px; letter-spacing:.55em; color:var(--gold-2); font-weight:500; margin-top:3px; padding-left:.55em; }
   nav { display:flex; gap:20px; color:var(--mute); font-size:13px; }
   nav button:hover { color:var(--gold-2); }
-  .cart-btn { margin-left:auto; border:1px solid var(--gold); color:var(--gold-2); padding:6px 14px; border-radius:999px; font-size:12px; font-weight:500; }
+  .theme-btn { margin-left:auto; border:1px solid var(--line); color:var(--sub); padding:6px 12px; border-radius:999px; font-size:12px; }
+  .theme-btn:hover { border-color:var(--gold); color:var(--gold-2); }
+  .cart-btn { border:1px solid var(--gold); color:var(--gold-2); padding:6px 14px; border-radius:999px; font-size:12px; font-weight:500; }
   .cart-btn:hover { background:var(--gold); color:#111; }
 
   #stage { position:fixed; inset:0; transition:opacity .45s; touch-action:none; }
@@ -38,7 +41,7 @@
   #stage.hide { opacity:0; pointer-events:none; }
 
   #label { position:fixed; left:50%; bottom:52px; transform:translateX(-50%); text-align:center; pointer-events:none; transition:opacity .3s; width:min(92vw,560px); }
-  #label small { display:block; color:var(--gold); font-size:11px; letter-spacing:.3em; text-transform:uppercase; }
+  #label small { display:block; color:var(--gold-2); font-size:11px; letter-spacing:.3em; text-transform:uppercase; }
   #label h2 { font-size:28px; font-weight:600; line-height:1.15; margin:4px 0; }
   #label span { font-size:12px; color:var(--mute); }
   #hint { position:fixed; right:20px; bottom:18px; color:var(--mute); font-size:12px; pointer-events:none; }
@@ -48,26 +51,26 @@
   #pill { position:fixed; z-index:15; pointer-events:none; background:var(--gold); color:#111; font-size:11px; font-weight:600; padding:5px 11px; border-radius:999px; opacity:0; transform:translate(14px,14px); transition:opacity .15s; }
   #pill.on { opacity:1; }
 
-  #product { position:fixed; inset:0; z-index:10; overflow:auto; background:radial-gradient(ellipse at 25% 40%, #231e15 0%, var(--bg) 60%); opacity:0; pointer-events:none; transition:opacity .45s; padding:84px 20px 40px; }
+  #product { position:fixed; inset:0; z-index:10; overflow:auto; background:radial-gradient(ellipse at 25% 40%, var(--glow-bg) 0%, var(--bg) 60%); opacity:0; pointer-events:none; transition:opacity .45s; padding:84px 20px 40px; }
   #product.open { opacity:1; pointer-events:auto; }
   .p-grid { max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1fr; gap:32px; align-items:start; }
   @media (min-width:820px){ .p-grid { grid-template-columns:1.1fr 1fr; gap:56px; } .p-art { position:sticky; top:20px; } }
   .p-art { display:grid; place-items:center; padding:24px; }
-  .p-img { width:auto; height:auto; max-width:min(480px,100%); max-height:72vh; box-shadow:0 20px 50px rgba(0,0,0,.6); transform:translateX(-24px); opacity:0; transition:transform .6s cubic-bezier(.2,.8,.2,1), opacity .6s, box-shadow .5s; }
-  .p-img.led { box-shadow:0 0 0 1px rgba(240,207,138,.35), 0 0 70px 14px rgba(212,169,90,.55), 0 20px 50px rgba(0,0,0,.6); }
+  .p-img { width:auto; height:auto; max-width:min(480px,100%); max-height:72vh; box-shadow:var(--shadow); transform:translateX(-24px); opacity:0; transition:transform .6s cubic-bezier(.2,.8,.2,1), opacity .6s, box-shadow .5s; }
+  .p-img.led { box-shadow:0 0 0 1px rgba(240,207,138,.35), 0 0 70px 14px rgba(212,169,90,.55), var(--shadow); }
   #product.open .p-img { transform:none; opacity:1; }
   .back { color:var(--mute); font-size:13px; margin-bottom:16px; }
   .back:hover { color:var(--gold-2); }
-  .p-code { color:var(--gold); font-size:12px; letter-spacing:.25em; text-transform:uppercase; }
+  .p-code { color:var(--gold-2); font-size:12px; letter-spacing:.25em; text-transform:uppercase; }
   .p-info h1 { font-size:clamp(32px,4.6vw,48px); font-weight:600; line-height:1.05; margin:6px 0 12px; }
-  .p-desc { color:#cfc7b8; max-width:48ch; }
+  .p-desc { color:var(--sub); max-width:48ch; }
   .p-price { font-size:26px; font-weight:600; color:var(--gold-2); margin:18px 0 2px; }
   .p-ed { font-size:12px; color:var(--mute); }
   .opt { margin-top:18px; }
   .opt b { display:block; font-size:11px; font-weight:500; letter-spacing:.14em; text-transform:uppercase; margin-bottom:7px; color:var(--mute); }
   .opt div { display:flex; flex-wrap:wrap; gap:6px; }
   .opt button { border:1px solid var(--line); padding:7px 12px; font-size:12px; background:var(--card); border-radius:2px; }
-  .opt button:hover { border-color:#5a4f3c; }
+  .opt button:hover { border-color:var(--mute); }
   .opt button[aria-pressed=true] { border-color:var(--gold); color:var(--gold-2); box-shadow:inset 0 0 0 1px var(--gold); }
   .upload { position:relative; display:flex; align-items:center; justify-content:center; gap:8px; margin-top:18px; border:1px dashed var(--gold); color:var(--gold-2); padding:14px; cursor:pointer; font-size:13px; }
   .upload[hidden] { display:none; }
@@ -77,12 +80,12 @@
   .qty { display:flex; align-items:center; border:1px solid var(--line); background:var(--card); }
   .qty button { width:38px; height:46px; font-size:16px; }
   .qty output { width:28px; text-align:center; }
-  .add { flex:1; background:linear-gradient(180deg,var(--gold-2),var(--gold)); color:#15120c; font-weight:600; letter-spacing:.1em; text-transform:uppercase; font-size:12px; }
+  .add { flex:1; background:var(--btn); color:#15120c; font-weight:600; letter-spacing:.1em; text-transform:uppercase; font-size:12px; }
   .add:hover { filter:brightness(1.08); }
-  .perks { list-style:none; padding:0; margin-top:22px; display:grid; grid-template-columns:1fr 1fr; gap:8px 16px; font-size:12px; color:#cfc7b8; }
+  .perks { list-style:none; padding:0; margin-top:22px; display:grid; grid-template-columns:1fr 1fr; gap:8px 16px; font-size:12px; color:var(--sub); }
   .perks li::before { content:"◆"; color:var(--gold); font-size:8px; margin-right:8px; vertical-align:2px; }
 
-  #backdrop { position:fixed; inset:0; z-index:30; background:rgba(10,9,7,.5); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); opacity:0; pointer-events:none; transition:opacity .3s; }
+  #backdrop { position:fixed; inset:0; z-index:30; background:var(--veil); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); opacity:0; pointer-events:none; transition:opacity .3s; }
   #drawer { position:fixed; top:0; right:0; bottom:0; z-index:31; width:min(390px,100%); background:var(--card); border-left:1px solid var(--line); transform:translateX(100%); transition:transform .4s cubic-bezier(.2,.8,.2,1); display:flex; flex-direction:column; }
   body.cart-open #backdrop { opacity:1; pointer-events:auto; }
   body.cart-open #drawer { transform:none; }
@@ -91,7 +94,7 @@
   #items { flex:1; overflow:auto; padding:8px 20px; }
   .item { display:flex; gap:12px; padding:12px 0; border-bottom:1px solid var(--line); }
   .item img { width:56px; height:72px; object-fit:cover; }
-  .item div { flex:1; font-size:12px; color:#cfc7b8; }
+  .item div { flex:1; font-size:12px; color:var(--sub); }
   .item strong { font-size:13px; display:block; color:var(--ink); font-weight:500; }
   .item .rm { color:var(--mute); text-decoration:underline; font-size:11px; }
   .empty { color:var(--mute); padding:24px 0; }
@@ -113,6 +116,7 @@
 <header>
   <div class="logo" aria-label="Crafton Tablo"><span>craft<b>o</b>n</span><small>TABLO</small></div>
   <nav><button data-go="0">Doğa &amp; Manzara</button><button data-go="1">Modern &amp; Minimal</button><button data-go="2">Soyut</button><button data-go="3">Kişiye Özel</button></nav>
+  <button class="theme-btn" id="themeBtn" aria-pressed="false">☾ Karanlık</button>
   <button class="cart-btn" id="cartBtn">Sepet (0)</button>
 </header>
 
@@ -190,34 +194,40 @@ function wrap(g, text, x, y, maxW, lh, center){
   }
   put(line);
 }
-const GOLD = '#d4a95a', GOLD2 = '#f0cf8a', INK = '#f3eee4', MUTE = '#a59c8b', PANEL = '#16140f';
-function goldRule(g, x1, x2, y){ const gr = g.createLinearGradient(x1, 0, x2, 0); gr.addColorStop(0, 'rgba(212,169,90,0)'); gr.addColorStop(.5, GOLD); gr.addColorStop(1, 'rgba(212,169,90,0)'); g.fillStyle = gr; g.fillRect(x1, y, x2 - x1, 2); }
+const THEMES = {
+  light: { bg:'#f2f2f0', wall:'#fafaf8', floor:'#e4e4e0', ceil:'#ffffff', strip:'#e2bb6a', amb:1.7, ambC:'#ffffff', hemi:1.4, hemiC:'#ffffff', hemiG:'#d8d8d4', glow:[THREE.NormalBlending, 0],
+           panel:'#ffffff', ink:'#111111', mute:'#6b6b6b', sub:'#444444', gold:'#b8913f', gold2:'#9a7128', custom:'#fafaf8', rule:'184,145,63', btn:'☾ Karanlık' },
+  dark:  { bg:'#100f0d', wall:'#2a2620', floor:'#16140f', ceil:'#1c1a15', strip:'#f0cf8a', amb:1.1, ambC:'#fff4e0', hemi:1.3, hemiC:'#fff1d6', hemiG:'#1a1712', glow:[THREE.AdditiveBlending, 1],
+           panel:'#16140f', ink:'#f3eee4', mute:'#a59c8b', sub:'#cfc7b8', gold:'#d4a95a', gold2:'#f0cf8a', custom:'#1b1812', rule:'212,169,90', btn:'☀ Aydınlık' },
+};
+let T = THEMES.light; // opens light every time; dark is one click away
+function goldRule(g, x1, x2, y){ const gr = g.createLinearGradient(x1, 0, x2, 0); gr.addColorStop(0, `rgba(${T.rule},0)`); gr.addColorStop(.5, T.gold); gr.addColorStop(1, `rgba(${T.rule},0)`); g.fillStyle = gr; g.fillRect(x1, y, x2 - x1, 2); }
 const brandCanvas = () => textCanvas(600, 800, (g, w) => {
-  g.fillStyle = PANEL; g.fillRect(0, 0, w, 800);
-  g.strokeStyle = 'rgba(212,169,90,.5)'; g.lineWidth = 2; g.strokeRect(24, 24, w - 48, 752);
+  g.fillStyle = T.panel; g.fillRect(0, 0, w, 800);
+  g.strokeStyle = `rgba(${T.rule},.5)`; g.lineWidth = 2; g.strokeRect(24, 24, w - 48, 752);
   g.font = '600 112px Poppins';
-  const parts = [['craft', INK], ['o', GOLD], ['n', INK]];
+  const parts = [['craft', T.ink], ['o', T.gold], ['n', T.ink]];
   let x = (w - parts.reduce((s, [t]) => s + g.measureText(t).width, 0)) / 2;
   for (const [t, c] of parts) { g.fillStyle = c; g.fillText(t, x, 300); x += g.measureText(t).width; }
   goldRule(g, 90, 510, 345);
-  g.fillStyle = GOLD; g.font = '500 34px Poppins'; const t = 'T A B L O'; g.fillText(t, (w - g.measureText(t).width) / 2, 395);
-  g.fillStyle = GOLD2; g.font = '54px Parisienne'; wrap(g, 'Hayalinizdeki tasarım,', w / 2, 500, 520, 60, true); wrap(g, 'artık duvarlarınızda…', w / 2, 562, 520, 60, true);
-  g.fillStyle = MUTE; g.font = '500 22px Poppins'; wrap(g, '4 mm Temperli UV Baskılı Cam Tablolar', w / 2, 690, 520, 30, true);
+  g.fillStyle = T.gold; g.font = '500 34px Poppins'; const t = 'T A B L O'; g.fillText(t, (w - g.measureText(t).width) / 2, 395);
+  g.fillStyle = T.gold2; g.font = '54px Parisienne'; wrap(g, 'Hayalinizdeki tasarım,', w / 2, 500, 520, 60, true); wrap(g, 'artık duvarlarınızda…', w / 2, 562, 520, 60, true);
+  g.fillStyle = T.mute; g.font = '500 22px Poppins'; wrap(g, '4 mm Temperli UV Baskılı Cam Tablolar', w / 2, 690, 520, 30, true);
 });
 const introCanvas = (i, col) => textCanvas(600, 800, (g, w) => {
-  g.fillStyle = PANEL; g.fillRect(0, 0, w, 800);
-  g.strokeStyle = 'rgba(212,169,90,.35)'; g.lineWidth = 2; g.strokeRect(24, 24, w - 48, 752);
-  g.fillStyle = GOLD; g.font = '500 22px Poppins'; g.fillText('KOLEKSİYON 0' + (i + 1), 60, 110);
+  g.fillStyle = T.panel; g.fillRect(0, 0, w, 800);
+  g.strokeStyle = `rgba(${T.rule},.35)`; g.lineWidth = 2; g.strokeRect(24, 24, w - 48, 752);
+  g.fillStyle = T.gold; g.font = '500 22px Poppins'; g.fillText('KOLEKSİYON 0' + (i + 1), 60, 110);
   goldRule(g, 60, 300, 135);
-  g.fillStyle = INK; g.font = '600 66px Poppins'; wrap(g, col.title, 60, 240, 480, 78);
-  g.fillStyle = '#cfc7b8'; g.font = '26px Poppins'; wrap(g, col.sub, 60, 600, 480, 38);
+  g.fillStyle = T.ink; g.font = '600 66px Poppins'; wrap(g, col.title, 60, 240, 480, 78);
+  g.fillStyle = T.sub; g.font = '26px Poppins'; wrap(g, col.sub, 60, 600, 480, 38);
 });
 const customCanvas = () => textCanvas(600, 800, (g, w) => {
-  g.fillStyle = '#1b1812'; g.fillRect(0, 0, w, 800);
-  g.setLineDash([14, 10]); g.strokeStyle = GOLD; g.lineWidth = 3; g.strokeRect(30, 30, w - 60, 740); g.setLineDash([]);
-  g.fillStyle = GOLD2; g.font = '400 160px Poppins'; g.fillText('+', (w - g.measureText('+').width) / 2, 360);
-  g.fillStyle = INK; g.font = '600 44px Poppins'; wrap(g, 'Kişiye Özel', w / 2, 470, 500, 54, true);
-  g.fillStyle = '#cfc7b8'; g.font = '24px Poppins'; wrap(g, 'Fotoğrafını yükle, duvarında nasıl duracağını hemen gör', w / 2, 540, 440, 36, true);
+  g.fillStyle = T.custom; g.fillRect(0, 0, w, 800);
+  g.setLineDash([14, 10]); g.strokeStyle = T.gold; g.lineWidth = 3; g.strokeRect(30, 30, w - 60, 740); g.setLineDash([]);
+  g.fillStyle = T.gold2; g.font = '400 160px Poppins'; g.fillText('+', (w - g.measureText('+').width) / 2, 360);
+  g.fillStyle = T.ink; g.font = '600 44px Poppins'; wrap(g, 'Kişiye Özel', w / 2, 470, 500, 54, true);
+  g.fillStyle = T.sub; g.font = '24px Poppins'; wrap(g, 'Fotoğrafını yükle, duvarında nasıl duracağını hemen gör', w / 2, 540, 440, 36, true);
 });
 const glowCanvas = () => textCanvas(256, 256, (g) => {
   const r = g.createRadialGradient(128, 128, 30, 128, 128, 128);
@@ -238,32 +248,35 @@ renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 stage.appendChild(renderer.domElement);
 const scene = new THREE.Scene();
-scene.background = new THREE.Color('#100f0d');
-scene.fog = new THREE.Fog('#100f0d', 5, 19);
+scene.background = new THREE.Color(T.bg);
+scene.fog = new THREE.Fog(T.bg, 5, 19);
 const camera = new THREE.PerspectiveCamera(55, 1, .1, 100);
-scene.add(new THREE.AmbientLight('#fff4e0', 1.1), new THREE.HemisphereLight('#fff1d6', '#1a1712', 1.3));
-const wallMat = new THREE.MeshStandardMaterial({ color:'#2a2620', roughness:1 });
+const amb = new THREE.AmbientLight(T.ambC, T.amb), hemi = new THREE.HemisphereLight(T.hemiC, T.hemiG, T.hemi);
+scene.add(amb, hemi);
+const wallMat = new THREE.MeshStandardMaterial({ color:T.wall, roughness:1 });
 const outer = new THREE.Mesh(new THREE.CylinderGeometry(RO, RO, H, 160, 1, true), wallMat.clone()); outer.material.side = THREE.BackSide;
 const inner = new THREE.Mesh(new THREE.CylinderGeometry(RI, RI, H, 120, 1, true), wallMat);
 outer.position.y = inner.position.y = H / 2;
-const floor = new THREE.Mesh(new THREE.RingGeometry(RI, RO, 160), new THREE.MeshStandardMaterial({ color:'#16140f', roughness:.8 }));
+const floor = new THREE.Mesh(new THREE.RingGeometry(RI, RO, 160), new THREE.MeshStandardMaterial({ color:T.floor, roughness:.8 }));
 floor.rotation.x = -Math.PI / 2;
-const ceil = new THREE.Mesh(new THREE.RingGeometry(RI, RO, 160), new THREE.MeshStandardMaterial({ color:'#1c1a15' }));
+const ceil = new THREE.Mesh(new THREE.RingGeometry(RI, RO, 160), new THREE.MeshStandardMaterial({ color:T.ceil }));
 ceil.rotation.x = Math.PI / 2; ceil.position.y = H;
 scene.add(outer, inner, floor, ceil);
 // thin warm LED strip along the top of the gallery wall, like their lit-wall photos
-const strip = new THREE.Mesh(new THREE.CylinderGeometry(RO - .02, RO - .02, .03, 160, 1, true), new THREE.MeshBasicMaterial({ color:GOLD2, side:THREE.BackSide }));
+const strip = new THREE.Mesh(new THREE.CylinderGeometry(RO - .02, RO - .02, .03, 160, 1, true), new THREE.MeshBasicMaterial({ color:T.strip, side:THREE.BackSide }));
 strip.position.y = H - .25; scene.add(strip);
 
 const tex = (src) => { const t = src instanceof HTMLCanvasElement ? new THREE.CanvasTexture(src) : new THREE.Texture(src); t.needsUpdate = true; t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8; return t; };
 const GLOW = tex(glowCanvas()), SHEEN = tex(sheenCanvas());
+const glowMat = new THREE.MeshBasicMaterial({ map:GLOW, transparent:true, blending:T.glow[0], opacity:T.glow[1], depthWrite:false });
+const themed = []; // wall canvases redrawn when the theme changes: { mesh, draw, keep? }
 function onWall(mesh, a, y, inset = .03){
   const r = RO - inset; mesh.position.set(r * Math.cos(a), y, r * Math.sin(a)); mesh.lookAt(0, y, 0); scene.add(mesh); return mesh;
 }
 // a glass tablo: gold LED halo behind, the print, a faint glass sheen in front.
 // flat planes on a curved wall: the halo sits far enough off the wall that its edges don't sink into it
 function tablo(map, w, h, a){
-  onWall(new THREE.Mesh(new THREE.PlaneGeometry(w + 1.4, h + 1.4), new THREE.MeshBasicMaterial({ map:GLOW, transparent:true, blending:THREE.AdditiveBlending, depthWrite:false })), a, Y, .22);
+  onWall(new THREE.Mesh(new THREE.PlaneGeometry(w + 1.4, h + 1.4), glowMat), a, Y, .22);
   const m = onWall(new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshBasicMaterial({ map })), a, Y, .25);
   onWall(new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshBasicMaterial({ map:SHEEN, transparent:true, depthWrite:false })), a, Y, .26);
   return m;
@@ -272,19 +285,20 @@ const size = (asp) => asp > 1 ? [2.3, 2.3 / asp] : [2.1 * asp, 2.1];
 
 const ITEMS = [], posters = [], slots = [];
 function caption(a, y, name, code){
-  const c = textCanvas(512, 120, g => {
-    g.fillStyle = INK; g.font = '500 30px Poppins'; g.fillText(name, 4, 40);
-    g.fillStyle = MUTE; g.font = '24px Poppins'; g.fillText(code + ' · ' + tl(SIZES[0][1]) + "'den başlayan", 4, 82);
+  const draw = () => textCanvas(512, 120, g => {
+    g.fillStyle = T.ink; g.font = '500 30px Poppins'; g.fillText(name, 4, 40);
+    g.fillStyle = T.mute; g.font = '24px Poppins'; g.fillText(code + ' · ' + tl(SIZES[0][1]) + "'den başlayan", 4, 82);
   });
-  onWall(new THREE.Mesh(new THREE.PlaneGeometry(1.3, .3), new THREE.MeshBasicMaterial({ map:tex(c), transparent:true })), a, y, .25).translateX(.1);
+  const mesh = onWall(new THREE.Mesh(new THREE.PlaneGeometry(1.3, .3), new THREE.MeshBasicMaterial({ map:tex(draw()), transparent:true })), a, y, .25);
+  mesh.translateX(.1); themed.push({ mesh, draw });
 }
 function build(images){
   const total = 1 + COLLECTIONS.reduce((s, c) => s + c.items.length + 2, 0) + 2, step = Math.PI * 2 / total;
   let slot = 0;
-  const panel = (canvas, ci) => { const a = -(slot++) * step; onWall(new THREE.Mesh(new THREE.PlaneGeometry(1.5, 2), new THREE.MeshBasicMaterial({ map:tex(canvas) })), a, Y, .06); slots.push({ a, ci }); };
-  panel(brandCanvas(), 0);
+  const panel = (draw, ci) => { const a = -(slot++) * step, mesh = onWall(new THREE.Mesh(new THREE.PlaneGeometry(1.5, 2), new THREE.MeshBasicMaterial({ map:tex(draw()) })), a, Y, .06); themed.push({ mesh, draw }); slots.push({ a, ci }); };
+  panel(brandCanvas, 0);
   COLLECTIONS.forEach((col, ci) => {
-    panel(introCanvas(ci, col), ci);
+    panel(() => introCanvas(ci, col), ci);
     col.items.forEach(([code, name, file]) => {
       const a = -(slot++) * step, img = images[file], asp = img.naturalWidth / img.naturalHeight, [w, h] = size(asp);
       const item = { id:ITEMS.length, code, name, ci, img:img.src, w:img.naturalWidth, h:img.naturalHeight };
@@ -300,6 +314,8 @@ function build(images){
   const item = { id:ITEMS.length, code:'Crafton', name:'Kişiye Özel Tablo', ci:3, custom:true, img:cc.toDataURL('image/jpeg', .9), w:600, h:800 };
   ITEMS.push(item);
   const m = tablo(tex(cc), 1.5, 2, a); m.userData = { item, a }; posters.push(m);
+  // placeholder follows the theme until the visitor uploads a photo
+  themed.push({ mesh:m, keep:() => item.uploaded, draw:() => { const c = customCanvas(); item.img = c.toDataURL('image/jpeg', .9); return c; } });
   caption(a, Y - 1 - .35, 'Kendi tasarımın', 'ÖZEL');
   slots.push({ a, ci:3 });
 }
@@ -423,13 +439,27 @@ fileIn.onchange = () => {
       g.drawImage(img, (w - dw) / 2, (h - dh) / 2, dw, dh);
     });
     URL.revokeObjectURL(url);
-    cur.img = pImg.src = c.toDataURL('image/jpeg', .9); cur.w = pImg.width = 900; cur.h = pImg.height = 1200; cur.name = 'Senin tasarımın';
+    cur.img = pImg.src = c.toDataURL('image/jpeg', .9); cur.w = pImg.width = 900; cur.h = pImg.height = 1200; cur.name = 'Senin tasarımın'; cur.uploaded = true;
     product.querySelector('h1').textContent = cur.name;
     curMesh.material.map.dispose(); curMesh.material.map = tex(c); curMesh.material.needsUpdate = true;
   };
   img.onerror = () => URL.revokeObjectURL(url);
   img.src = url;
 };
+
+// ---------- theme switch ----------
+const themeBtn = document.getElementById('themeBtn');
+function applyTheme(name){
+  T = THEMES[name]; document.documentElement.dataset.theme = name;
+  scene.background.set(T.bg); scene.fog.color.set(T.bg);
+  outer.material.color.set(T.wall); wallMat.color.set(T.wall); floor.material.color.set(T.floor); ceil.material.color.set(T.ceil); strip.material.color.set(T.strip);
+  amb.color.set(T.ambC); amb.intensity = T.amb; hemi.color.set(T.hemiC); hemi.intensity = T.hemi; hemi.groundColor.set(T.hemiG);
+  glowMat.blending = T.glow[0]; glowMat.opacity = T.glow[1]; glowMat.needsUpdate = true;
+  for (const o of themed) { if (o.keep?.()) continue; o.mesh.material.map.dispose(); o.mesh.material.map = tex(o.draw()); }
+  themeBtn.textContent = T.btn; themeBtn.setAttribute('aria-pressed', name === 'dark');
+  renderCart(); // custom placeholder thumbnail follows the theme
+}
+themeBtn.onclick = () => applyTheme(T === THEMES.dark ? 'light' : 'dark');
 
 // ---------- cart (kept in this browser only) ----------
 let cart = [];
