@@ -20,7 +20,7 @@ window.I18N_TR={
 "Emin Dev, run by freelance developer Osman Emin, builds custom websites, online stores and animated web experiences.": "Serbest çalışan geliştirici Osman Emin'in yürüttüğü Emin Dev; özel web siteleri, online mağazalar ve animasyonlu web deneyimleri kodlar.",
 "Emin Dev hooded logo, developedbyemin": "Emin Dev kapüşonlu logosu, developedbyemin",
 "Osman Emin, founder of Emin Dev.": "Osman Emin, Emin Dev'in kurucusu.",
-"Osman Emin leads every Emin Dev project from the first conversation to launch day and works remotely with businesses in any country. Working with a focused studio means direct answers, quick decisions and one person accountable for the result.": "Osman Emin, her Emin Dev projesini ilk görüşmeden lansman gününe kadar bizzat yönetir ve her ülkeden işletmeyle uzaktan çalışır. Tek bir geliştiriciyle çalışmak; doğrudan yanıtlar, hızlı kararlar ve sonuçtan sorumlu tek bir kişi demektir.",
+"Osman Emin leads every Emin Dev project from the first conversation to launch day and works remotely with businesses in any country. Working with one developer means direct answers, quick decisions and one person accountable for the result.": "Osman Emin, her Emin Dev projesini ilk görüşmeden lansman gününe kadar bizzat yönetir ve her ülkeden işletmeyle uzaktan çalışır. Tek bir geliştiriciyle çalışmak; doğrudan yanıtlar, hızlı kararlar ve sonuçtan sorumlu tek bir kişi demektir.",
 "Working details": "Çalışma bilgileri",
 "An independent freelance developer.": "Bağımsız çalışan bir freelance geliştirici.",
 "Working model": "Çalışma şekli",
