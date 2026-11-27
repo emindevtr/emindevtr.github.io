@@ -22,8 +22,34 @@
     if (planHelp && plan) planHelp.textContent = planHelp.dataset[plan.value] || '';
   }
   if (plan) {
-    var requestedPlan = new URLSearchParams(location.search).get('plan');
-    if (['store', 'brand', 'hero'].includes(requestedPlan)) plan.value = requestedPlan;
+    var query = new URLSearchParams(location.search);
+    var requestedPlan = query.get('plan');
+    if (['store', 'brand', 'hero', 'branding', 'video', 'marketing', 'automation', 'several'].includes(requestedPlan)) plan.value = requestedPlan;
+    // /services (24-nov): the services picked there arrive as need=seo,logo and start the message.
+    var NEEDS = {website: 'Business website', store: 'Online store', motion: '3D or animated website',
+      features: 'Custom features', logo: 'Logo design', identity: 'Brand identity', copy: 'Website copywriting',
+      video: 'Product videos', render: '3D product renders', reels: 'Reels and social video', seo: 'SEO',
+      social: 'Social media management', ads: 'Ads management', email: 'Email marketing', crm: 'CRM setup',
+      chatbot: 'AI chat assistant', agents: 'AI agents and automation', maintenance: 'Technical maintenance',
+      updates: 'Content updates'};
+    var GROUP = {website: 'brand', store: 'store', motion: 'hero', features: 'brand', logo: 'branding',
+      identity: 'branding', copy: 'branding', video: 'video', render: 'video', reels: 'video', seo: 'marketing',
+      social: 'marketing', ads: 'marketing', email: 'marketing', crm: 'automation', chatbot: 'automation',
+      agents: 'automation', maintenance: 'brand', updates: 'brand'};
+    var needs = [];
+    query.getAll('need').join(',').split(',').forEach(function (n) {
+      n = n.trim();
+      if (NEEDS[n] && needs.indexOf(n) < 0) needs.push(n);
+    });
+    if (needs.length) {
+      var groups = needs.map(function (n) { return GROUP[n]; }).filter(function (g, i, a) { return a.indexOf(g) === i; });
+      plan.value = groups.length === 1 ? groups[0] : 'several';
+      var msg = form.querySelector('[name="message"]');
+      // the message is written by script, so i18n.js never sees it: pick the language here
+      var tr = document.documentElement.lang === 'tr', T = window.I18N_TR || {};
+      var names = needs.map(function (n) { return tr && T[NEEDS[n]] ? T[NEEDS[n]] : NEEDS[n]; });
+      if (msg && !msg.value) msg.value = (tr ? 'İhtiyacım olan hizmetler: ' : 'Services I need: ') + names.join(', ') + '.\n\n';
+    }
     plan.addEventListener('change', updatePlan);
     document.querySelectorAll('a[data-plan]').forEach(function (link) {
       link.addEventListener('click', function () { plan.value = link.dataset.plan; updatePlan(); });

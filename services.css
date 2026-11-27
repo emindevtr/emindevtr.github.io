@@ -1,0 +1,121 @@
+/* /services v3, "la vitrina" (25-nov-2026). Alex: "súper profesional y moderna, que no parezca IA,
+   que se entienda nada más abrirla", "inmersiva y en 3D", con los colores de la portada.
+   Seis objetos de cristal (4K, uno por servicio) sobre discos; el colibrí de la portada vuela al que
+   miras y al hacer clic se entra en el servicio. Todo el texto de cada servicio está en el HTML. */
+.services-page{background:var(--paper)}
+.vt{--ar:.7557;--tw:200px;--caph:190px;position:relative;width:100%;margin:0;min-height:100vh;min-height:100svh;padding:clamp(96px,12vh,128px) 0 24px;overflow:hidden;user-select:none;-webkit-user-select:none;
+  background:radial-gradient(60% 55% at 50% 42%,rgba(255,255,255,.75),transparent 70%),linear-gradient(180deg,#eef2fa 0%,#e8edf8 55%,#e4e9f5 82%,var(--paper) 100%)}
+.vt-title{position:relative;z-index:3;margin:0 auto;padding:0 var(--gutter);max-width:1640px;text-align:center;font-size:clamp(34px,4.2vw,78px);line-height:1;font-weight:700;letter-spacing:-.035em;font-stretch:96%;transition:opacity .45s,transform .6s cubic-bezier(.2,.7,.2,1)}
+.vt-row{position:relative;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));width:min(1880px,calc(100% - 2 * var(--gutter)));margin:clamp(18px,4vh,48px) auto 0}
+.vt-col{position:relative;display:flex;flex-direction:column;align-items:center;color:inherit;text-decoration:none;outline:none;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:opacity .35s}
+.vt-stage{position:relative;display:block;width:var(--tw);aspect-ratio:1364/1805;pointer-events:none}
+.vt-stage>span{position:absolute;display:block}
+.vt-floor{background:radial-gradient(closest-side,rgba(110,140,240,.22),rgba(110,140,240,.08) 55%,transparent);transition:opacity .4s}
+.vt-disc,.vt-n,.vt-g{background-repeat:no-repeat}
+.vt-lit{background:radial-gradient(closest-side,rgba(60,110,255,.55),rgba(90,90,255,.22) 55%,transparent);mix-blend-mode:multiply;opacity:0}
+.vt-obj{transform-origin:50% 50%}
+.vt-obj>span{position:absolute;inset:0;display:block;background-repeat:no-repeat}
+.vt-g{opacity:0}
+.vt-cap{display:block;width:100%;min-height:var(--caph);margin-top:6px;text-align:center;padding:0 6px}
+.vt-name{display:block;font-size:clamp(15px,1.2vw,21px);font-weight:650;letter-spacing:-.015em;transition:color .3s}
+.vt-more{display:block;margin-top:10px;opacity:0;transform:translateY(-6px);transition:opacity .3s,transform .45s cubic-bezier(.2,.7,.2,1);pointer-events:none}
+.vt-more ul{list-style:none;margin:0;padding:0;font-size:clamp(12.5px,.92vw,15px);line-height:1.6;color:var(--ink-soft)}
+.vt-from{display:block;margin-top:6px;font-size:clamp(12.5px,.9vw,14.5px);font-weight:600}
+.vt-see{display:inline-flex;align-items:center;gap:8px;margin-top:12px;height:36px;padding:0 16px;border-radius:999px;background:var(--volt);color:#fff;font-size:13px;font-weight:600;box-shadow:0 8px 20px -10px rgba(21,92,224,.7)}
+@media (min-width:761px){.vt-col.on .vt-name{color:var(--volt)}}
+.vt-col.on .vt-more{opacity:1;transform:none;transition-delay:.06s}
+.vt-col:focus-visible .vt-name{text-decoration:underline;text-underline-offset:5px}
+.vt-bird{position:absolute;left:0;top:0;z-index:36;pointer-events:none;will-change:transform;transform-origin:0 0}
+
+/* ── inside a service ── */
+html.vt-lock,html.vt-lock body{overflow:hidden}
+.vt-veil{position:fixed;inset:0;z-index:30;background:rgba(236,240,249,.5);-webkit-backdrop-filter:blur(16px) saturate(1.05);backdrop-filter:blur(16px) saturate(1.05);opacity:0;pointer-events:none;transition:opacity .6s cubic-bezier(.2,.7,.2,1)}
+.vt.open .vt-veil{opacity:1;pointer-events:auto}
+.vt.open .vt-title{opacity:0;transform:translateY(-24px)}
+.vt.open .vt-col{opacity:0;pointer-events:none}
+.vt.open .vt-col.is-open{opacity:1;z-index:35}
+.vt.open .vt-col.is-open .vt-cap,.vt.open .vt-col.is-open .vt-disc,.vt.open .vt-col.is-open .vt-floor,.vt.open .vt-col.is-open .vt-lit{opacity:0!important;transition:opacity .3s}
+.vt-dt{position:fixed;z-index:37;top:calc(50% + 40px);left:50%;width:min(580px,42vw);pointer-events:none}
+.vt-dt article{position:absolute;left:0;right:0;top:0;transform:translateY(-50%);visibility:hidden}
+.vt-dt article.show{visibility:visible;pointer-events:auto}
+.vt-dt article>*{opacity:0;transform:translateY(14px);transition:opacity .35s,transform .6s cubic-bezier(.2,.7,.2,1)}
+.vt-dt article.show>*{opacity:1;transform:none}
+.vt-dt article.show>*:nth-child(2){transition-delay:.05s}.vt-dt article.show>*:nth-child(3){transition-delay:.1s}
+.vt-dt article.show>*:nth-child(4){transition-delay:.15s}.vt-dt article.show>*:nth-child(5){transition-delay:.2s}
+.vt-dt article.show>*:nth-child(6){transition-delay:.25s}
+.vt-dt .num{margin:0;font-size:13px;font-weight:600;letter-spacing:.06em;color:var(--volt)}
+.vt-dt h2{margin:12px 0 0;font-size:clamp(40px,4vw,68px);line-height:.98;font-weight:700;letter-spacing:-.035em;font-stretch:96%}
+.vt-dt .lead{margin:14px 0 0;font-size:clamp(16px,1.2vw,19px);line-height:1.45;color:var(--ink-soft);max-width:30em}
+.vt-dt ul{list-style:none;margin:24px 0 0;padding:0;border-top:1px solid rgba(20,33,31,.14)}
+.vt-dt li{display:grid;grid-template-columns:1fr auto;gap:4px 20px;padding:14px 0;border-bottom:1px solid rgba(20,33,31,.14)}
+.vt-dt li b{font-size:clamp(16px,1.12vw,19px);font-weight:650;letter-spacing:-.01em}
+.vt-dt li span{grid-column:1;font-size:clamp(14px,.98vw,16px);line-height:1.45;color:var(--ink-soft)}
+.vt-dt li em{grid-column:2;grid-row:1;font-style:normal;font-size:14px;font-weight:600;white-space:nowrap}
+.vt-dt li a{grid-column:2;grid-row:1;font-size:14px;font-weight:600;color:var(--volt);text-decoration:none}
+.vt-dt .act{display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px;margin-top:24px}
+.vt-dt .quote{display:inline-flex;align-items:center;gap:10px;height:48px;padding:0 24px;border-radius:999px;background:var(--volt);color:#fff;font-size:15px;font-weight:600;text-decoration:none;box-shadow:0 12px 26px -12px rgba(21,92,224,.75);transition:background .2s,transform .2s}
+.vt-dt .quote:hover{background:#0f4cc0;transform:translateY(-1px)}
+.vt-dt .note{font-size:13.5px;color:var(--ink-soft)}
+/* short laptop screens: tighter spacing; services.js shrinks the sheet a little more if it still
+   doesn't fit, so the quote button and previous / next are always on screen */
+@media (min-width:761px) and (max-height:860px){
+  .vt-dt h2{font-size:clamp(36px,3.4vw,56px);margin-top:8px}
+  .vt-dt .lead{margin-top:10px}
+  .vt-dt ul{margin-top:16px}
+  .vt-dt li{padding:10px 0}
+  .vt-dt .act{margin-top:18px}
+  .vt-dt .pager{margin-top:16px}
+  .vt-pg{min-height:58px;padding:8px 12px}
+}
+/* previous / next: two real buttons, each with the next object in it */
+.vt-dt .pager{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:26px}
+.vt-pg{display:flex;align-items:center;gap:12px;min-height:68px;padding:10px 14px;border:1px solid rgba(21,92,224,.22);border-radius:16px;background:rgba(255,255,255,.72);color:var(--ink);font:inherit;text-align:left;cursor:pointer;box-shadow:0 10px 26px -18px rgba(20,33,31,.45);transition:border-color .2s,background .2s,transform .25s cubic-bezier(.2,.7,.2,1),box-shadow .25s}
+.vt-pg:hover,.vt-pg:focus-visible{border-color:var(--volt);background:#fff;transform:translateY(-2px);box-shadow:0 16px 30px -18px rgba(21,92,224,.6)}
+.vt-pg.next{justify-content:flex-end;text-align:right}
+.vt-pg .ar{flex:none;display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--volt);color:#fff;font-size:16px;line-height:1}
+.vt-pg .tx{display:flex;flex-direction:column;gap:2px;min-width:0}
+.vt-pg small{font-size:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-soft)}
+.vt-pg b{font-size:16px;font-weight:650;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.vt-pg .th{flex:none;width:40px;height:40px;background-repeat:no-repeat}
+.vt-back{position:fixed;z-index:38;top:96px;left:var(--gutter);display:inline-flex;align-items:center;gap:10px;height:46px;padding:0 20px 0 8px;border:1px solid rgba(21,92,224,.25);border-radius:999px;background:rgba(255,255,255,.85);color:var(--ink);font:inherit;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 10px 26px -16px rgba(20,33,31,.45);opacity:0;pointer-events:none;transform:translateY(-8px);transition:opacity .35s,transform .5s cubic-bezier(.2,.7,.2,1),border-color .2s}
+.vt-back .ar{display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--volt);color:#fff;font-size:15px}
+.vt-back:hover{border-color:var(--volt)}
+.vt.open .vt-back{opacity:1;pointer-events:auto;transform:none}
+
+/* ── phones and narrow screens: two columns of three (three of two from 560 px) ──
+   Each object is fitted to the same square, standing just above its disc (services.js, geo), so the six
+   read as one set; inside a service the object sits between the back button and the sheet, with room
+   for the bird on top. */
+.vt-sub{display:none}
+@media (max-width:760px){
+  .vt{padding-top:96px;padding-bottom:56px}
+  .vt-title{font-size:clamp(30px,9vw,48px);line-height:1.04}
+  .vt-row{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:22px;column-gap:10px;width:calc(100% - 32px);margin-top:26px}
+  .vt-stage{aspect-ratio:1/1}
+  .vt-cap{min-height:0;margin-top:4px}
+  .vt-name{font-size:16.5px;line-height:1.2}
+  .vt-sub{display:block;margin-top:3px;font-size:12.5px;line-height:1.35;color:var(--ink-soft)}
+  .vt-more{display:none}
+  .vt-dt{top:auto;bottom:0;left:0;width:100%;height:58%;height:58svh;transform:none;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;padding:0 20px;
+    -webkit-mask-image:linear-gradient(to bottom,transparent,#000 22px);mask-image:linear-gradient(to bottom,transparent,#000 22px)}
+  .vt-dt article{position:relative;top:auto;transform:none;display:none;padding:20px 0 calc(24px + env(safe-area-inset-bottom))}
+  .vt-dt article.show{display:block}
+  .vt-dt h2{font-size:36px}
+  .vt-dt .lead{font-size:16px}
+  .vt-dt li{padding:12px 0}
+  .vt.open .vt-dt{pointer-events:auto}
+  /* the quote button stays at the bottom of the screen until its own place scrolls into view */
+  .vt-dt .act{position:sticky;bottom:0;z-index:2;gap:6px 16px;margin:12px -20px 0;padding:24px 20px calc(14px + env(safe-area-inset-bottom));
+    background:linear-gradient(to bottom,rgba(233,237,248,0),#e9edf8 26px)}
+  .vt-dt .pager{grid-template-columns:1fr 1fr;gap:10px;margin-top:22px}
+  .vt-pg{min-height:60px;padding:8px 12px;gap:10px}
+  .vt-pg .th{display:none}
+  .vt-pg b{font-size:15px}
+  .vt-back{top:80px;left:16px;height:42px;font-size:14px;padding-right:16px}
+  .services-page .foot-col:last-child{grid-column:1/-1}
+  .services-page .foot-col:last-child a{overflow-wrap:normal}
+}
+@media (min-width:560px) and (max-width:760px){.vt-row{grid-template-columns:repeat(3,minmax(0,1fr))}}
+/* a tap leaves :hover stuck on the button that appears under the finger */
+@media (hover:none){.vt-pg:hover{border-color:rgba(21,92,224,.22);background:rgba(255,255,255,.72);transform:none;box-shadow:0 10px 26px -18px rgba(20,33,31,.45)}}
+@media (prefers-reduced-motion:reduce){.vt-more,.vt-dt article>*,.vt-veil,.vt-title{transition:none}}

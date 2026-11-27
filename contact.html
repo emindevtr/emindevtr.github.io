@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="google-site-verification" content="50LWdDyhU-q1if3Q7qNXfzoDrYqyk-2cvJ7lJL3R6lU">
 
-<!-- GENERADO por tools/build_brands.py desde tools/plantillas/portada_base.html. No se edita
+<!-- /about (1-nov-2026): hecha a mano sobre /work; no la genera ningun script. Antes ponia: GENERADO por tools/build_brands.py desde tools/plantillas/portada_base.html. No se edita
      a mano: se cambia el generador y se vuelve a correr. Portada: dice lo mismo que /brands (Alex, 24-sep), sin pixel de Meta.
      Sin clientes, sin web gratis por adelantado (se paga el alta para empezar, Alex 6-oct), sin devolucion, plazo "4 days". -->
 <title>Request a Website Quote | Emin Dev</title>
@@ -45,26 +45,31 @@
         #content-pricing td:last-child { white-space:nowrap; }
         #content-pricing p { max-width:65ch; line-height:1.6; margin-top:1rem; }
         #content-pricing h3 { margin-top:1rem; }
+        /* 18-nov, Alex: la foto un 25 % mas pequena (420 -> 315 px; en el movil, 75 % del ancho). */
+        .studio-home.about-page .ab-photo { max-width:315px; background:#fff; justify-self:center; }
+        @media(max-width:700px) { .studio-home.about-page .ab-photo { max-width:75%; justify-self:center; } }
         @media(max-width:700px) { #content-pricing .pricing-grid { display:block; } #content-pricing .pricing-grid > div + div { margin-top:2rem; } }
-        </style><link rel="stylesheet" href="/quote.css?v=3"><link rel="stylesheet" href="/privacy-choices.css?v=2"><!-- seo-service --><script type="application/ld+json">{"@context": "https://schema.org", "@type": "ContactPage", "@id": "/contact#page", "url": "/contact", "name": "Request a Website Quote", "isPartOf": {"@id": "/#website"}, "about": {"@id": "/#org"}}</script><link rel="stylesheet" href="/island-nav.css?v=2"><link rel="stylesheet" href="/logo.css?v=2"></head>
-<body class="brands supporting-page">
+        </style><link rel="stylesheet" href="/quote.css?v=3"><link rel="preload" href="/assets/fonts/archivo-var.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="/studio-editorial.css?v=13"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "ContactPage", "@id": "/contact#page", "url": "/contact", "name": "Request a Website Quote", "isPartOf": {"@id": "/#website"}, "about": {"@id": "/#org"}}</script>
+<link rel="stylesheet" href="/privacy-choices.css?v=2"><link rel="stylesheet" href="/island-nav.css?v=2"><link rel="stylesheet" href="/logo.css?v=2"><link rel="stylesheet" href="/pages.css?v=3"></head>
+<body class="brands studio-home contact-page pg-page">
 
-<div class="atmo" aria-hidden="true"><i class="g1"></i><i class="g2"></i><i class="g3"></i></div>
+
 
 <nav class="nav" aria-label="Main">
-  <a class="nav-brand" href="/" aria-label="Emin Dev — home">
-    <img src="assets/emindev-logo.png" alt="Emin Dev" width="454" height="454">
-  </a>
-  <div class="nav-links"><a href="/work">Portfolio</a><a href="/website-services">Services</a><a href="/about">About</a><a href="/#pricing">How it works</a></div>
-  <a class="btn btn-small" href="/contact">Request a quote</a>
-<details class="nav-menu"><summary>Menu <span aria-hidden="true">☰</span></summary><div class="nav-menu-panel"><a href="/">Home</a><a href="/work">Portfolio</a><a href="/website-services">Website services</a><a href="/content-services">Content updates</a><a href="/about">About</a><a href="/#pricing">How it works</a><a href="/contact">Contact</a></div></details></nav>
+      <a class="nav-brand" href="/" aria-label="Emin Dev home"><img src="assets/emindev-logo.png" alt="Emin Dev" width="91" height="91"></a>
+      <div class="nav-links"><a href="/work">Portfolio</a><a href="/services">Services</a><a href="/about">About</a><a href="/contact" aria-current="page">Contact</a></div>
+      <a class="nav-contact" href="/contact">Request a quote <span aria-hidden="true">↗</span></a>
+      <details class="nav-menu"><summary>Menu <span aria-hidden="true">+</span></summary><div class="nav-menu-panel"><a href="/#work">Selected work</a><a href="/services">Services</a><a href="/work">Portfolio</a><a href="/about">About</a><a href="/contact">Contact</a></div></details>
+    </nav>
 
-<main class="supporting-main"><section class="contact" id="contact">
-    <div class="rail reveal"><span class="idx">07</span><span class="rail-l">Start</span><span class="rail-r">oeminsisman@gmail.com</span></div>
-    <h1 class="reveal">Tell us about your project</h1>
-    <p class="reveal d2">What do you need, and when do you need it? A few lines is enough to start. We reply by email. There is no commitment to go ahead.</p>
-    <p class="contact-ig reveal d2"><a class="btn" href="https://www.instagram.com/developedbyemin" target="_blank" rel="noopener">Message us on Instagram</a></p>
-    <form class="contact-form reveal d3" id="conceptForm" novalidate>
+<a class="skip-link" href="#main">Skip to content</a><main id="main" class="pg">
+    <section class="pg-hero pg-hero-form" aria-labelledby="ct-title">
+      <span class="pg-obj pg-k-envelope pg-obj-solo" aria-hidden="true"><span class="pg-tilt"><span class="pg-glow"></span><span class="pg-d"></span><span class="pg-o"></span></span></span>
+      <h1 id="ct-title">Tell us about your project.</h1>
+      <p class="pg-lede">A few lines is enough. We reply by email.</p>
+    </section>
+    <section class="contact pg-form" id="contact" aria-label="Project form">
+      <form class="contact-form" id="conceptForm" novalidate>
       <div class="field">
             <label for="cfBiz">Your name or business</label>
             <input id="cfBiz" name="business" type="text" autocomplete="organization" required placeholder="Maison Lune">
@@ -77,10 +82,14 @@
             <label for="cfPlan">Service <span class="opt">(optional)</span></label>
             <select id="cfPlan" name="plan">
 <option value="unsure" selected>Not sure yet</option>
-              <option value="store">Online store</option>
               <option value="brand">Business website</option>
-
-            <option value="hero">Animated hero section</option></select><p id="cfPlanHelp" class="field-help" data-unsure="You get the exact price in writing before you pay." data-store="You get the exact price in writing before you pay." data-brand="You get the exact price in writing before you pay." data-hero="A quote based on the animation, supplied assets and integration with your existing site." aria-live="polite"></p>
+              <option value="store">Online store</option>
+              <option value="hero">3D or animated website</option>
+              <option value="branding">Logo or brand identity</option>
+              <option value="video">Product video or 3D renders</option>
+              <option value="marketing">SEO, ads, social media or email</option>
+              <option value="automation">CRM, AI or automation</option>
+              <option value="several">Several services</option></select><p id="cfPlanHelp" class="field-help" data-unsure="You get the exact price in writing before you pay." data-store="You get the exact price in writing before you pay." data-brand="You get the exact price in writing before you pay." data-hero="A quote based on the animation, supplied assets and integration with your existing site." data-branding="Quoted with your project. You get the exact price in writing before you pay." data-video="Quoted with your project. You get the exact price in writing before you pay." data-marketing="Quoted with your project. You get the exact price in writing before you pay." data-automation="Quoted with your project. You get the exact price in writing before you pay." data-several="One written quote for everything." aria-live="polite"></p>
           </div>
           <div class="field">
             <label for="cfMsg">What would you like us to build?</label>
@@ -90,36 +99,46 @@
         <label for="cfWeb">Website</label>
         <input id="cfWeb" name="cf_hp" type="text" tabindex="-1" autocomplete="off">
       </div>
-      <!-- DE QUE PAGINA SALIO (3-sep). Aqui es la portada, y decirlo es lo que permite
-           distinguirla de las paginas que compiten en Google. -->
       <input type="hidden" name="origen" value="/contact">
       <button class="btn btn-form" type="submit">Request my quote</button>
       <p class="form-status" id="cfStatus" role="status" aria-live="polite"></p>
       <p class="form-alt">Prefer email? <a href="mailto:oeminsisman@gmail.com?subject=Website%20project%20enquiry">oeminsisman@gmail.com</a></p>
       <p class="form-alt">Emin Dev is run by Osman Emin, a freelance web developer.</p>
     </form>
-  </section></main><footer class="foot">
+      <p class="form-alt pg-ig">Or message us on <a href="https://ig.me/m/developedbyemin" target="_blank" rel="noopener">Instagram</a></p>
+    </section>
+  </main>
+<footer class="foot">
+  <section class="newsletter" id="newsletter" aria-labelledby="newsletterTitle">
+    <div class="newsletter-copy"><h2 id="newsletterTitle">Newsletter</h2>
+      <p>New websites, project news and occasional offers. No more than once a month.</p></div>
+    <form class="newsletter-form" action="/newsletter" method="post">
+      <div class="newsletter-row"><label class="sr-only" for="newsletterEmail">Email address</label><input id="newsletterEmail" name="email" type="email" autocomplete="email" inputmode="email" placeholder="you@example.com" required maxlength="254"><button type="submit">Subscribe</button></div>
+      <div class="newsletter-trap" aria-hidden="true"><label for="newsletterCompany">Company</label><input id="newsletterCompany" name="company" type="text" tabindex="-1" autocomplete="off"></div>
+      <p class="newsletter-legal">We'll email you to confirm. Unsubscribe anytime. <a href="/privacy#newsletter">Privacy policy</a></p>
+      <p class="newsletter-status" role="status" aria-live="polite"></p>
+    </form>
+  </section>
   <div class="foot-grid">
     <div class="foot-brand">
-          <img src="assets/emindev-logo.png" alt="Emin Dev" width="454" height="454">
+          <img src="assets/emindev-logo.png" alt="Emin Dev" width="91" height="91">
           <p>Custom websites and online stores for businesses of every kind. Design, technical maintenance and content services, with clear scope and project quotes.</p>
     </div>
     <nav class="foot-col" aria-label="Emin Dev">
-          <h3 aria-level="2">Emin Dev</h3><a href="/content-services">Content updates</a>
-          <a href="/work">Work</a>
+          <h3>Emin Dev</h3><a href="/services">Services</a>
+          <a href="/work">Portfolio</a>
           <a href="/about">About</a>
-          <a href="/website-services#store">Online stores</a>
-          <a href="/#pricing">How it works</a>
+          <a href="/website-services">Website design</a>
           <a href="/website-services#faq">FAQ</a>
           <a href="/contact">Request a quote</a>
         </nav>
     <nav class="foot-col" aria-label="Legal">
-      <h3 aria-level="2">Legal</h3><a href="#cookies">Cookie settings</a>
+      <h3>Legal</h3><a href="#cookies">Cookie settings</a>
       <a href="/terms">Terms of Service</a>
       <a href="/privacy">Privacy Policy</a>
     </nav>
     <div class="foot-col">
-      <h3 aria-level="2">Contact</h3>
+      <h3>Contact</h3>
       <a href="mailto:oeminsisman@gmail.com?subject=Website%20project%20enquiry">oeminsisman@gmail.com</a>
       <a href="https://www.instagram.com/developedbyemin" target="_blank" rel="noopener">developedbyemin</a>
     </div>
@@ -150,11 +169,12 @@
      propio Cloudflare Pages. Ni IP, ni cookie, ni nada de quien entra: solo se suma uno a un
      numero del dia, con la etiqueta `k=s` para no mezclarse con la web de los correos. -->
 
-<script src="/contact-form.js?v=6" defer></script>
+<script src="/contact-form.js?v=7" defer></script>
 <script src="/journey.js?v=1" defer></script>
 <script src="/consent.js?v=3" defer></script>
 
 
-<script src="/navigation.js?v=2" defer></script><script src="/portfolio.js?v=1" defer></script>
+<script src="/navigation.js?v=2" defer></script><script src="/studio-editorial.js?v=8" defer></script><script src="/newsletter-form.js?v=1" defer></script><script src="/pages.js?v=1" defer></script>
+
 </body>
 </html>

@@ -1,0 +1,176 @@
+/* Pages v2 (26-nov-2026): About, Contact, Website services and Content updates in the same language as
+   the home, /services and the menu. Alex: "hay que hacer el mismo estilo para las demas paginas ...
+   generar cosas con nano banana 2.1 y hacer ui guapisimo. No me convencen las demas paginas estan muy
+   sosas con demasiado texto". So: the icy sky of /services, short headlines, one line under each, and
+   glass objects from the same family as the services (assets/pg-objects.webp, one atlas because Pages
+   is at its file limit). Only transform and opacity animate. */
+.pg-page{background:var(--paper)}
+.pg-page main{display:block}
+
+/* ── the sky at the top ── */
+.pg-hero{position:relative;margin:0;max-width:none;width:100%;padding:clamp(112px,15vh,160px) var(--gutter) clamp(48px,7vh,88px);text-align:center;overflow:hidden;
+  background:radial-gradient(60% 55% at 50% 40%,rgba(255,255,255,.8),transparent 70%),linear-gradient(180deg,#eef2fa 0%,#e8edf8 58%,var(--paper) 100%)}
+.pg-hero h1{margin:0 auto;max-width:14ch;font-size:clamp(38px,5.4vw,86px);line-height:.98;font-weight:700;letter-spacing:-.035em;font-stretch:96%;color:var(--ink)}
+.pg-lede{margin:20px auto 0;max-width:30ch;font-size:clamp(17px,1.35vw,20px);line-height:1.5;color:var(--ink-soft)}
+.pg-actions{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:14px 28px;margin-top:32px}
+.pg-hero .pg-obj-solo{margin:0 auto clamp(6px,2vh,18px);width:clamp(150px,19vw,230px)}
+
+/* ── buttons: the ink pill; on hover the studio blue sweeps in and the arrow leaves and comes back ── */
+.pg-btn{position:relative;display:inline-flex;align-items:center;gap:12px;min-height:54px;padding:0 10px 0 26px;border-radius:999px;background:var(--ink);color:#fff;font-size:15.5px;font-weight:600;letter-spacing:-.01em;text-decoration:none;overflow:hidden;isolation:isolate;-webkit-tap-highlight-color:transparent;transition:transform .2s}
+.pg-btn::before{content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;background:var(--volt);transform:translateX(-101%);transition:transform .5s cubic-bezier(.16,1,.3,1)}
+.pg-btn:hover::before,.pg-btn:focus-visible::before{transform:none}
+.pg-btn:active{transform:scale(.97)}
+.pg-btn:focus-visible{outline:2px solid var(--volt);outline-offset:3px}
+.pg-btn i{position:relative;display:block;flex:none;width:36px;height:36px;border-radius:50%;background:#fff;color:var(--ink);overflow:hidden;transition:color .25s}
+.pg-btn i svg{position:absolute;left:50%;top:50%;width:15px;height:15px;margin:-7.5px 0 0 -7.5px;transition:transform .45s cubic-bezier(.16,1,.3,1)}
+.pg-btn i svg+svg{transform:translate(-26px,26px)}
+.pg-btn:hover i,.pg-btn:focus-visible i{color:var(--volt)}
+.pg-btn:hover i svg:first-child,.pg-btn:focus-visible i svg:first-child{transform:translate(26px,-26px)}
+.pg-btn:hover i svg+svg,.pg-btn:focus-visible i svg+svg{transform:none}
+.pg-link{display:inline-flex;align-items:center;gap:8px;font-size:16px;font-weight:600;color:var(--ink);text-decoration:none;border-bottom:1.5px solid currentColor;padding-bottom:3px;transition:color .2s}
+.pg-link span{display:inline-block;transition:transform .3s cubic-bezier(.16,1,.3,1)}
+.pg-link:hover{color:var(--volt)}
+.pg-link:hover span{transform:translate(2px,-2px)}
+
+/* ── glass objects (sprites from one atlas) ── */
+.pg-obj{position:relative;display:block;width:100%;aspect-ratio:480/715;pointer-events:none;perspective:700px}
+.pg-tilt{position:absolute;inset:0;display:block;transform:translate3d(0,var(--lift,0px),0) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .6s cubic-bezier(.16,1,.3,1)}
+.pg-tilt>span{position:absolute;inset:0;display:block}
+.pg-o,.pg-d{background:url(/assets/pg-objects.webp?v=2) no-repeat;background-size:805.83% 100%;background-position:calc(var(--i) * 100% / 7) 0}
+.pg-o{clip-path:inset(0 0 28.5% 0);animation:pg-float 5.6s ease-in-out infinite;animation-delay:calc(var(--i) * -.9s)}
+.pg-d{clip-path:inset(71.5% 0 0 0)}
+.pg-tilt>.pg-glow{top:80%;bottom:1%;left:12%;right:12%;background:radial-gradient(closest-side,rgba(60,110,255,.42),rgba(90,90,255,.14) 60%,transparent);opacity:0;transition:opacity .45s}
+.pg-k-pencil .pg-o{clip-path:none}
+.pg-k-pencil .pg-d{display:none}
+@keyframes pg-float{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(0,-7px,0)}}
+.pg-k-chat{--i:0}.pg-k-document{--i:1}.pg-k-check{--i:2}.pg-k-key{--i:3}.pg-k-envelope{--i:4}.pg-k-bag{--i:5}.pg-k-pencil{--i:6}.pg-k-play{--i:7}
+
+/* ── a row of promises: object, two or three words, one line ── */
+.pg-sec{margin:0;max-width:none;width:100%;padding:clamp(64px,9vh,110px) var(--gutter)}
+.pg-sec>h2{margin:0 auto;max-width:18ch;text-align:center;font-size:clamp(30px,3.4vw,56px);line-height:1.02;font-weight:700;letter-spacing:-.03em;font-stretch:96%;color:var(--ink)}
+.pg-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(18px,2.4vw,40px);max-width:1240px;margin:clamp(28px,5vh,56px) auto 0;padding:0;list-style:none}
+.pg-grid.n2{grid-template-columns:repeat(2,minmax(0,1fr));max-width:760px}
+.pg-grid.n3{grid-template-columns:repeat(3,minmax(0,1fr));max-width:980px}
+.pg-item{position:relative;text-align:center;cursor:default;-webkit-tap-highlight-color:transparent}
+.pg-item .pg-obj{max-width:210px;margin:0 auto}
+.pg-item h3{margin:4px 0 0;font-size:clamp(17px,1.3vw,21px);font-weight:650;letter-spacing:-.015em;color:var(--ink);transition:color .3s}
+.pg-item p{margin:6px auto 0;max-width:24ch;font-size:14.5px;line-height:1.5;color:var(--ink-soft)}
+.pg-item.on h3{color:var(--volt)}
+.pg-item.on .pg-tilt{--lift:-12px}
+.pg-item.on .pg-glow{opacity:1}
+@media (hover:hover){.pg-item:hover h3{color:var(--volt)}.pg-item:hover .pg-glow{opacity:1}.pg-item:hover .pg-tilt{--lift:-12px}}
+
+/* ── founder ── */
+.pg-founder{display:grid;grid-template-columns:auto minmax(0,auto);align-items:center;gap:clamp(24px,4vw,64px);width:fit-content;max-width:980px;margin:0 auto}
+.pg-founder figure{margin:0;width:clamp(150px,20vw,260px);aspect-ratio:4/5;border-radius:14px;overflow:hidden;background:#fff;box-shadow:0 24px 50px -28px rgba(20,33,31,.35)}
+.pg-founder img{display:block;width:100%;height:100%;object-fit:cover}
+.pg-founder h2{margin:0;font-size:clamp(28px,3vw,48px);line-height:1.02;font-weight:700;letter-spacing:-.03em;font-stretch:96%}
+.pg-founder p{margin:14px 0 22px;max-width:32ch;font-size:clamp(16px,1.2vw,18px);line-height:1.55;color:var(--ink-soft)}
+
+/* ── company facts: one quiet row ── */
+.pg-facts{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;max-width:980px;margin:0 auto;padding:0;list-style:none}
+.pg-facts li{padding:10px 16px;border:1px solid var(--line);border-radius:999px;font-size:14px;line-height:1.3;color:var(--ink-soft);background:rgba(255,255,255,.5)}
+.pg-facts b{font-weight:600;color:var(--ink)}
+
+/* ── the closing band: the hero sky again, not a black slab ── */
+.pg-close{margin:0;max-width:none;width:100%;padding:clamp(72px,11vh,130px) var(--gutter);text-align:center;background:linear-gradient(180deg,var(--paper) 0%,#e8edf8 45%,#eef2fa 100%)}
+.pg-close h2{margin:0 auto;max-width:16ch;font-size:clamp(32px,3.8vw,62px);line-height:1;font-weight:700;letter-spacing:-.035em;font-stretch:96%;color:var(--ink)}
+.pg-close .pg-actions{margin-top:28px}
+
+/* ── lists of links (guides) as quiet pills ── */
+.pg-pills{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;max-width:980px;margin:clamp(24px,4vh,40px) auto 0;padding:0;list-style:none}
+.pg-pills a{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 18px;border:1px solid var(--line);border-radius:999px;background:#fff;color:var(--ink);font-size:15px;font-weight:500;text-decoration:none;transition:border-color .25s,color .25s,transform .25s}
+.pg-pills a span{transition:transform .3s cubic-bezier(.16,1,.3,1);color:var(--ink-soft)}
+.pg-pills a:hover{border-color:var(--volt);color:var(--volt)}
+.pg-pills a:hover span{transform:translateX(3px);color:var(--volt)}
+
+/* ── FAQ ── */
+.pg-faq{max-width:760px;margin:clamp(24px,4vh,40px) auto 0;border-top:1px solid var(--line)}
+.pg-faq details{border-bottom:1px solid var(--line)}
+.pg-faq summary{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:62px;cursor:pointer;list-style:none;font-size:clamp(16px,1.2vw,18px);font-weight:600;color:var(--ink)}
+.pg-faq summary::-webkit-details-marker{display:none}
+.pg-faq summary::after{content:"";flex:none;width:12px;height:12px;border-right:1.6px solid currentColor;border-bottom:1.6px solid currentColor;transform:translateY(-3px) rotate(45deg);transition:transform .35s cubic-bezier(.16,1,.3,1)}
+.pg-faq details[open] summary::after{transform:translateY(2px) rotate(-135deg)}
+.pg-faq summary:hover{color:var(--volt)}
+.pg-faq p{margin:0 0 20px;max-width:60ch;font-size:15.5px;line-height:1.6;color:var(--ink-soft)}
+
+/* ── contact: the form on paper, no box ── */
+.pg-page .contact.pg-form{margin:0 auto;max-width:640px;width:100%;padding:0 var(--gutter) clamp(64px,9vh,110px);background:none}
+.pg-page .pg-form .contact-form{margin:0}
+.pg-page .pg-form .form-alt{text-align:center;font-size:14px;color:var(--ink-soft)}
+.pg-page .pg-form .form-alt a{color:var(--ink)}
+
+/* footer: the email used to break as ".co / m" on phones */
+@media (max-width:700px){.pg-page .foot-col:last-child{grid-column:1/-1}.pg-page .foot-col:last-child a{overflow-wrap:normal}}
+
+@media (max-width:900px){.pg-grid{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:28px}.pg-grid.n3{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){
+  .pg-founder{grid-template-columns:1fr;justify-items:center;text-align:center}
+  .pg-founder p{margin-left:auto;margin-right:auto}
+  .pg-item .pg-obj{max-width:150px}
+  .pg-item p{font-size:14px}
+  .pg-facts li{font-size:13px}
+}
+@media (prefers-reduced-motion:reduce){.pg-obj .pg-o{animation:none}.pg-tilt,.pg-btn::before,.pg-btn i svg{transition:none}}
+.pg-sec-facts{padding-top:0}
+.pg-sec-tight{padding-top:0}
+.pg-more{margin-top:12px}
+.pg-hero-form{padding-bottom:clamp(20px,4vh,40px)}
+.pg-page .pg-ig{margin-top:18px}
+@media (max-width:640px){
+  .pg-rows{grid-template-columns:1fr!important;row-gap:18px;max-width:420px}
+  .pg-rows .pg-item{display:grid;grid-template-columns:104px minmax(0,1fr);grid-template-rows:auto auto 1fr;column-gap:16px;align-items:start;text-align:left}
+  .pg-rows .pg-item .pg-obj{grid-row:1/4;max-width:104px}
+  .pg-rows .pg-item h3{margin-top:18px}
+  .pg-rows .pg-item p{margin-left:0;max-width:none}
+  .pg-rows .pg-more{margin-top:10px}
+}
+.pg-page .pg-form .form-alt{margin-top:14px}
+/* the bird stands on the first button: room for its head above it (same as the home hero) */
+.pg-hero .pg-actions{margin-top:60px}
+@media (max-width:700px){.pg-hero .pg-actions{margin-top:48px}}
+/* the home's contact section is a two-column grid; here the form stands alone */
+.pg-page .contact.pg-form{display:block;grid-template-columns:none}
+.pg-page .pg-form .contact-form{width:100%;max-width:none;grid-column:auto}
+
+/* ── 26-nov, second pass. Alex: "demasiado espacio libre entre request a quote y online stores. Tienes
+   que cuidar el layout". The hero's bottom padding + the next section's top padding + the grid's own
+   margin stacked to ~200 px on a phone. A section that follows the hero starts close to it. ── */
+.pg-hero + .pg-sec{padding-top:clamp(12px,3vh,40px)}
+.pg-sec>.pg-grid:first-child,.pg-sec>.pg-work:first-child{margin-top:0}
+
+/* ── sector pages (skincare, fragrance...): the same studio page, with the examples big ── */
+.pg-sub{margin:14px auto 0;max-width:52ch;text-align:center;font-size:15.5px;line-height:1.5;color:var(--ink-soft)}
+.pg-work{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(18px,2.2vw,32px);max-width:1240px;margin:clamp(28px,5vh,52px) auto 0;padding:0;list-style:none}
+.pg-work.n2{grid-template-columns:repeat(2,minmax(0,1fr));max-width:1000px}
+.pg-work.n1{grid-template-columns:minmax(0,1fr);max-width:720px}
+.pg-shot{display:block;color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent}
+.pg-shot img{display:block;width:100%;height:auto;aspect-ratio:2264/1415;object-fit:cover;border-radius:14px;background:#e9ecf3;
+  box-shadow:0 1px 0 rgba(20,33,31,.05),0 28px 56px -32px rgba(20,33,31,.45);transition:transform .6s cubic-bezier(.16,1,.3,1),box-shadow .6s cubic-bezier(.16,1,.3,1)}
+.pg-ex-cap{display:flex;align-items:baseline;gap:8px;margin-top:14px;font-size:15px;color:var(--ink-soft)}
+.pg-ex-cap b{font-weight:650;color:var(--ink)}
+.pg-ex-cap em{margin-left:auto;font-style:normal;font-size:14.5px;font-weight:600;color:var(--ink);transition:color .25s}
+.pg-ex-cap em span{display:inline-block;transition:transform .3s cubic-bezier(.16,1,.3,1)}
+.pg-shot:active img{transform:scale(.985)}
+@media (hover:hover){
+  .pg-shot:hover img{transform:translateY(-6px);box-shadow:0 1px 0 rgba(20,33,31,.05),0 40px 70px -34px rgba(40,60,160,.5)}
+  .pg-shot:hover em{color:var(--volt)}
+  .pg-shot:hover em span{transform:translate(2px,-2px)}
+}
+.pg-center{text-align:center;margin-top:clamp(24px,4vh,40px)}
+.pg-grid.n5{grid-template-columns:repeat(5,minmax(0,1fr));max-width:1240px}
+.pg-costs{max-width:760px;margin:clamp(24px,4vh,40px) auto 0;border-top:1px solid var(--line)}
+.pg-costs div{display:grid;grid-template-columns:170px minmax(0,1fr);gap:16px;padding:18px 0;border-bottom:1px solid var(--line)}
+.pg-costs dt{font-size:16px;font-weight:650;color:var(--ink)}
+.pg-costs dd{margin:0;font-size:15px;line-height:1.5;color:var(--ink-soft)}
+.pg-updated{margin-top:28px;text-align:center;font-size:13px;color:var(--ink-soft)}
+.pg-start{padding-bottom:clamp(20px,4vh,36px);background:linear-gradient(180deg,var(--paper) 0%,#eef2fa 100%)}
+.pg-start .pg-lede{margin-top:14px}
+.pg-sector .contact.pg-form{background:linear-gradient(180deg,#eef2fa 0%,var(--paper) 60%)!important;max-width:none;padding-left:max(var(--gutter),calc(50% - 300px));padding-right:max(var(--gutter),calc(50% - 300px))}
+@media (max-width:900px){.pg-grid.n5{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:700px){
+  .pg-work{grid-template-columns:minmax(0,1fr)!important;gap:30px;max-width:520px}
+  .pg-costs div{grid-template-columns:1fr;gap:4px;padding:16px 0}
+}
+@media (max-width:700px){.pg-sec{padding-top:56px;padding-bottom:56px}.pg-hero + .pg-sec{padding-top:12px}.pg-sec-tight{padding-top:0}.pg-start{padding-top:56px}}
+.pg-start{padding-top:clamp(56px,8vh,96px)}

@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+<head><link rel="icon" type="image/png" href="/assets/emindev-logo.png?v=2"><script src="/i18n/tr-studio.js"></script><script src="/i18n/i18n.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="google-site-verification" content="50LWdDyhU-q1if3Q7qNXfzoDrYqyk-2cvJ7lJL3R6lU">
+
+<title>Website Design, Branding, SEO and AI Services | Emin Dev</title>
+<meta name="description" content="Websites, online stores, 3D animation, logos, product video, SEO, ads, CRM and AI automation from one developer. Written quote before anything starts.">
+<link rel="canonical" href="/services">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Emin Dev">
+<meta property="og:title" content="Services | Emin Dev">
+<meta property="og:description" content="Websites, online stores, 3D animation, logos, product video, SEO, ads, CRM and AI automation from one developer. Written quote before anything starts.">
+<meta property="og:url" content="/services">
+<meta property="og:image" content="/assets/hero_poster_desktop_v2.webp">
+<meta name="twitter:card" content="summary_large_image">
+<!-- FUENTES PROPIAS, NO DE GOOGLE (2026-08-14). Aqui habia dos `preconnect` y una hoja de
+     estilos de `fonts.googleapis.com`, que bloquea el render y a su vez pide los .woff2 a
+     `fonts.gstatic.com`: DOS origenes de terceros, cada uno con su DNS + TCP + TLS, metidos
+     delante del primer pintado. Medido lo que costaba: la pagina descargaba TODO en 1,1 s y
+     no pintaba nada hasta los 3,3 s. No era peso, era el camino critico.
+     `fonts.css` lo genera `tools/fetch_fonts.py` y sale de esta misma conexion, ya abierta.
+     Son los MISMOS 198 KB de fuentes que servia Google (deduplicadas por contenido: las
+     variables comparten fichero), pero sin estrenar dos conexiones para conseguirlos. -->
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/Geist-a147f99cd5.woff2" crossorigin>
+<link rel="stylesheet" href="fonts.css?v=1">
+<!-- El manifest del pajaro, pedido durante el PARSEO. Va detras de los posters a
+     proposito: el poster es el LCP y no se le adelanta nadie. Pero `bird.js` es
+     `defer`, o sea que no ejecuta hasta que se ha parseado todo el HTML, y para
+     entonces `main.js` ya ha armado el hero: los 153 bytes que deciden si hay
+     pajaro salian a la cola detras de 7 MB de video. Medido el 16-ago en
+     produccion: llegaba en el segundo 367. Aqui sale antes de que exista el
+     primer <video> de la pagina. -->
+<link rel="stylesheet" href="styles.css?v=46">
+<link rel="stylesheet" href="brands.css?v=7">
+<link rel="stylesheet" href="conversion.css?v=3">
+<style>
+        #content-pricing { padding: 5rem max(5vw, 20px); }
+        #content-pricing table { width:100%; border-collapse:collapse; margin:1.2rem 0; }
+        #content-pricing th, #content-pricing td { padding: .8rem; text-align:left; border-bottom:1px solid #ddd; vertical-align:top; }
+        #content-pricing td:last-child { white-space:nowrap; }
+        #content-pricing p { max-width:65ch; line-height:1.6; margin-top:1rem; }
+        #content-pricing h3 { margin-top:1rem; }
+        @media(max-width:700px) { #content-pricing .pricing-grid { display:block; } #content-pricing .pricing-grid > div + div { margin-top:2rem; } }
+        </style><link rel="stylesheet" href="/quote.css?v=3"><link rel="preload" href="/assets/fonts/archivo-var.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="/studio-editorial.css?v=14"><link rel="stylesheet" href="/privacy-choices.css?v=2"><link rel="stylesheet" href="/island-nav.css?v=2"><link rel="preload" href="/assets/sv-objects.webp?v=1" as="image" fetchpriority="high"><link rel="stylesheet" href="/services.css?v=7"><script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebPage", "@id": "/services#page", "url": "/services", "name": "Services | Emin Dev", "description": "Websites, online stores, 3D animation, logos, product video, SEO, ads, CRM and AI automation from one developer. Written quote before anything starts.", "isPartOf": {"@id": "/#website"}, "about": {"@id": "/#org"}, "breadcrumb": {"@id": "/services#crumbs"}, "mainEntity": {"@id": "/services#list"}}, {"@type": "BreadcrumbList", "@id": "/services#crumbs", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "/"}, {"@type": "ListItem", "position": 2, "name": "Services", "item": "/services"}]}, {"@type": "OfferCatalog", "@id": "/services#list", "name": "Emin Dev services", "itemListElement": [{"@type": "OfferCatalog", "name": "Websites", "itemListElement": [{"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Business website design", "url": "/website-services", "provider": {"@id": "/#org"}, "areaServed": "Worldwide"}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Ecommerce website design", "url": "/ecommerce-website-design", "provider": {"@id": "/#org"}, "areaServed": "Worldwide"}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "3D and animated website design", "provider": {"@id": "/#org"}}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Custom website features and booking systems", "provider": {"@id": "/#org"}}}]}, {"@type": "OfferCatalog", "name": "Brand", "itemListElement": [{"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Logo design", "provider": {"@id": "/#org"}}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Brand identity design", "provider": {"@id": "/#org"}}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Website copywriting", "provider": {"@id": "/#org"}}}]}, {"@type": "OfferCatalog", "name": "Video and 3D", "itemListElement": [{"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Product video production", "provider": {"@id": "/#org"}}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "3D product rendering", "provider": {"@id": "/#org"}}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Reels and social video", "provider": {"@id": "/#org"}}}]}, {"@type": "OfferCatalog", "name": "Marketing", "itemListElement": [{"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Search engine optimization (SEO)", "provider": {"@id": "/#org"}}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Social media management", "provider": {"@id": "/#org"}}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Meta and Google ads management", "provider": {"@id": "/#org"}}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Email marketing setup", "provider": {"@id": "/#org"}}}]}, {"@type": "OfferCatalog", "name": "CRM and AI", "itemListElement": [{"@type": "Offer", "itemOffered": {"@type": "Service", "name": "CRM setup", "provider": {"@id": "/#org"}}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "AI chat assistant for websites", "provider": {"@id": "/#org"}}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "AI agents and business automation", "provider": {"@id": "/#org"}}}]}, {"@type": "OfferCatalog", "name": "After launch", "itemListElement": [{"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Website technical maintenance", "provider": {"@id": "/#org"}}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Website content updates", "url": "/content-services", "provider": {"@id": "/#org"}}}]}]}]}</script><link rel="stylesheet" href="/logo.css?v=2"></head>
+<body class="brands studio-home services-page">
+
+
+
+<nav class="nav" aria-label="Main">
+      <a class="nav-brand" href="/" aria-label="Emin Dev home"><img src="assets/emindev-logo.png" alt="Emin Dev" width="91" height="91"></a>
+      <div class="nav-links"><a href="/work">Portfolio</a><a href="/services" aria-current="page">Services</a><a href="/about">About</a><a href="/contact">Contact</a></div>
+      <a class="nav-contact" href="/contact">Request a quote <span aria-hidden="true">↗</span></a>
+      <details class="nav-menu"><summary>Menu <span aria-hidden="true">+</span></summary><div class="nav-menu-panel"><a href="/#work">Selected work</a><a href="/services" aria-current="page">Services</a><a href="/work">Portfolio</a><a href="/about">About</a><a href="/contact">Contact</a></div></details>
+    </nav>
+
+<a class="skip-link" href="#main">Skip to content</a><main id="main">
+<section class="vt" id="vt" aria-labelledby="vt-title">
+  <h1 class="vt-title" id="vt-title">Everything your brand needs online.</h1>
+  <div class="vt-row" id="vt-row">
+    <a class="vt-col" href="#websites" data-i="0"><span class="vt-stage"></span><span class="vt-cap"><span class="vt-name">Websites</span><span class="vt-sub">Sites and online stores</span><span class="vt-more">
+      <ul><li>Business websites</li><li>Online stores</li><li>3D and animated websites</li><li>Custom features</li></ul><span class="vt-see">See details</span></span></span></a>
+    <a class="vt-col" href="#brand" data-i="1"><span class="vt-stage"></span><span class="vt-cap"><span class="vt-name">Brand</span><span class="vt-sub">Logo, identity and copy</span><span class="vt-more">
+      <ul><li>Logo design</li><li>Brand identity</li><li>Website copywriting</li></ul><span class="vt-see">See details</span></span></span></a>
+    <a class="vt-col" href="#video" data-i="2"><span class="vt-stage"></span><span class="vt-cap"><span class="vt-name">Video &amp; 3D</span><span class="vt-sub">Product video and 3D</span><span class="vt-more">
+      <ul><li>Product videos</li><li>3D product renders</li><li>Reels and social video</li></ul><span class="vt-see">See details</span></span></span></a>
+    <a class="vt-col" href="#marketing" data-i="3"><span class="vt-stage"></span><span class="vt-cap"><span class="vt-name">Marketing</span><span class="vt-sub">SEO, social, ads and email</span><span class="vt-more">
+      <ul><li>SEO</li><li>Social media management</li><li>Ads management</li><li>Email marketing</li></ul><span class="vt-see">See details</span></span></span></a>
+    <a class="vt-col" href="#ai" data-i="4"><span class="vt-stage"></span><span class="vt-cap"><span class="vt-name">AI &amp; CRM</span><span class="vt-sub">Chat, CRM and automation</span><span class="vt-more">
+      <ul><li>CRM setup</li><li>AI chat assistant</li><li>AI agents and automation</li></ul><span class="vt-see">See details</span></span></span></a>
+    <a class="vt-col" href="#care" data-i="5"><span class="vt-stage"></span><span class="vt-cap"><span class="vt-name">Care</span><span class="vt-sub">Maintenance and updates</span><span class="vt-more">
+      <ul><li>Technical maintenance</li><li>Content updates</li></ul><span class="vt-see">See details</span></span></span></a>
+  </div>
+
+  <div class="vt-veil" aria-hidden="true"></div>
+  <button class="vt-back" id="vt-back" type="button"><span class="ar" aria-hidden="true">&larr;</span>All services</button>
+
+  <div class="vt-dt" id="vt-dt" aria-live="polite">
+    <article id="d-websites" aria-hidden="true">
+      <p class="num">01 / 06</p>
+      <h2>Websites</h2>
+      <p class="lead">Built by hand for your brand, from a one-page site to a full online store. Fast on phones and easy to update.</p>
+      <ul>
+        <li><b>Business websites</b><a href="/website-services">Details</a><span>Your pages, words and contact form, designed around what you sell and built to load fast on every phone.</span></li>
+        <li><b>Online stores</b><span>Product pages, cart and secure checkout, set up so you can take orders and manage stock yourself.</span></li>
+        <li><b>3D and animated websites</b><a href="/website-services#hero-service">Details</a><span>Scroll-driven 3D scenes and motion that put your product at the centre of the page.</span></li>
+        <li><b>Custom features</b><span>Bookings, calculators, member areas or a link to the tools you already use. Scoped and quoted per project.</span></li>
+      </ul>
+      <div class="act"><a class="quote" href="/contact?need=website">Get a quote for a website <span aria-hidden="true">&#8599;</span></a><span class="note">Written quote before anything starts.</span></div>
+      <nav class="pager" aria-label="Other services"><button class="vt-pg prev" type="button" data-go="5"><span class="ar" aria-hidden="true">&larr;</span><i class="th" data-th="care" aria-hidden="true"></i><span class="tx"><small>Previous</small><b>Care</b></span></button><button class="vt-pg next" type="button" data-go="1"><span class="tx"><small>Next</small><b>Brand</b></span><i class="th" data-th="brand" aria-hidden="true"></i><span class="ar" aria-hidden="true">&rarr;</span></button></nav>
+    </article>
+    <article id="d-brand" aria-hidden="true">
+      <p class="num">02 / 06</p>
+      <h2>Brand</h2>
+      <p class="lead">How your brand looks and sounds, so everything you publish feels like the same company.</p>
+      <ul>
+        <li><b>Logo design</b><span>A logo that reads small on a phone and large on a sign, delivered in every file format you need.</span></li>
+        <li><b>Brand identity</b><span>Colours, type and a short guide, so your site, posts and packaging all match.</span></li>
+        <li><b>Website copywriting</b><span>Clear words for every page that explain what you sell and why someone should buy it.</span></li>
+      </ul>
+      <div class="act"><a class="quote" href="/contact?need=logo,identity">Get a quote for branding <span aria-hidden="true">&#8599;</span></a><span class="note">Written quote before anything starts.</span></div>
+      <nav class="pager" aria-label="Other services"><button class="vt-pg prev" type="button" data-go="0"><span class="ar" aria-hidden="true">&larr;</span><i class="th" data-th="websites" aria-hidden="true"></i><span class="tx"><small>Previous</small><b>Websites</b></span></button><button class="vt-pg next" type="button" data-go="2"><span class="tx"><small>Next</small><b>Video &amp; 3D</b></span><i class="th" data-th="video" aria-hidden="true"></i><span class="ar" aria-hidden="true">&rarr;</span></button></nav>
+    </article>
+    <article id="d-video" aria-hidden="true">
+      <p class="num">03 / 06</p>
+      <h2>Video &amp; 3D</h2>
+      <p class="lead">Video and 3D of your product, made for your website, your ads and your social accounts.</p>
+      <ul>
+        <li><b>Product videos</b><span>Short films that show your product in use, for your homepage, product pages and ads.</span></li>
+        <li><b>3D product renders</b><span>Your product rebuilt in 3D, so it can be shown from any angle, in any colour and any setting.</span></li>
+        <li><b>Reels and social video</b><span>Vertical edits sized for Instagram, TikTok and YouTube Shorts.</span></li>
+      </ul>
+      <div class="act"><a class="quote" href="/contact?need=video,render">Get a quote for video <span aria-hidden="true">&#8599;</span></a><span class="note">Written quote before anything starts.</span></div>
+      <nav class="pager" aria-label="Other services"><button class="vt-pg prev" type="button" data-go="1"><span class="ar" aria-hidden="true">&larr;</span><i class="th" data-th="brand" aria-hidden="true"></i><span class="tx"><small>Previous</small><b>Brand</b></span></button><button class="vt-pg next" type="button" data-go="3"><span class="tx"><small>Next</small><b>Marketing</b></span><i class="th" data-th="marketing" aria-hidden="true"></i><span class="ar" aria-hidden="true">&rarr;</span></button></nav>
+    </article>
+    <article id="d-marketing" aria-hidden="true">
+      <p class="num">04 / 06</p>
+      <h2>Marketing</h2>
+      <p class="lead">Getting the right people to your website, and bringing them back.</p>
+      <ul>
+        <li><b>SEO</b><span>Page structure, speed and content set up so Google can find you and understand what you offer.</span></li>
+        <li><b>Social media management</b><span>Planned posts and captions, published on a regular schedule.</span></li>
+        <li><b>Ads management</b><span>Meta and Google campaigns set up, watched and adjusted against what you spend.</span></li>
+        <li><b>Email marketing</b><span>Welcome emails and newsletters that bring people back to your site.</span></li>
+      </ul>
+      <div class="act"><a class="quote" href="/contact?need=seo,ads">Get a quote for marketing <span aria-hidden="true">&#8599;</span></a><span class="note">Written quote before anything starts.</span></div>
+      <nav class="pager" aria-label="Other services"><button class="vt-pg prev" type="button" data-go="2"><span class="ar" aria-hidden="true">&larr;</span><i class="th" data-th="video" aria-hidden="true"></i><span class="tx"><small>Previous</small><b>Video &amp; 3D</b></span></button><button class="vt-pg next" type="button" data-go="4"><span class="tx"><small>Next</small><b>AI &amp; CRM</b></span><i class="th" data-th="ai" aria-hidden="true"></i><span class="ar" aria-hidden="true">&rarr;</span></button></nav>
+    </article>
+    <article id="d-ai" aria-hidden="true">
+      <p class="num">05 / 06</p>
+      <h2>AI &amp; CRM</h2>
+      <p class="lead">Software that answers questions, keeps track of customers and does the repetitive work for you.</p>
+      <ul>
+        <li><b>CRM setup</b><span>All your leads and customers in a single list, with reminders so no follow-up gets missed.</span></li>
+        <li><b>AI chat assistant</b><span>An assistant on your site that answers product and order questions using your own information.</span></li>
+        <li><b>AI agents and automation</b><span>Replies, reports and data passed between your tools without anyone copying and pasting.</span></li>
+      </ul>
+      <div class="act"><a class="quote" href="/contact?need=crm,chatbot">Get a quote for AI &amp; CRM <span aria-hidden="true">&#8599;</span></a><span class="note">Written quote before anything starts.</span></div>
+      <nav class="pager" aria-label="Other services"><button class="vt-pg prev" type="button" data-go="3"><span class="ar" aria-hidden="true">&larr;</span><i class="th" data-th="marketing" aria-hidden="true"></i><span class="tx"><small>Previous</small><b>Marketing</b></span></button><button class="vt-pg next" type="button" data-go="5"><span class="tx"><small>Next</small><b>Care</b></span><i class="th" data-th="care" aria-hidden="true"></i><span class="ar" aria-hidden="true">&rarr;</span></button></nav>
+    </article>
+    <article id="d-care" aria-hidden="true">
+      <p class="num">06 / 06</p>
+      <h2>Care</h2>
+      <p class="lead">After launch, I keep your website running, safe and up to date.</p>
+      <ul>
+        <li><b>Technical maintenance</b><span>Updates, backups, monitoring and fixes, so the site keeps working without you thinking about it.</span></li>
+        <li><b>Content updates</b><a href="/content-services">Details</a><span>New products, photos, text and pages added whenever you need them.</span></li>
+      </ul>
+      <div class="act"><a class="quote" href="/contact?need=maintenance,updates">Get a quote for care <span aria-hidden="true">&#8599;</span></a><span class="note">Written quote before anything starts.</span></div>
+      <nav class="pager" aria-label="Other services"><button class="vt-pg prev" type="button" data-go="4"><span class="ar" aria-hidden="true">&larr;</span><i class="th" data-th="ai" aria-hidden="true"></i><span class="tx"><small>Previous</small><b>AI &amp; CRM</b></span></button><button class="vt-pg next" type="button" data-go="0"><span class="tx"><small>Next</small><b>Websites</b></span><i class="th" data-th="websites" aria-hidden="true"></i><span class="ar" aria-hidden="true">&rarr;</span></button></nav>
+    </article>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <section class="newsletter" id="newsletter" aria-labelledby="newsletterTitle">
+    <div class="newsletter-copy"><h2 id="newsletterTitle">Newsletter</h2>
+      <p>New websites, project news and occasional offers. No more than once a month.</p></div>
+    <form class="newsletter-form" action="/newsletter" method="post">
+      <div class="newsletter-row"><label class="sr-only" for="newsletterEmail">Email address</label><input id="newsletterEmail" name="email" type="email" autocomplete="email" inputmode="email" placeholder="you@example.com" required maxlength="254"><button type="submit">Subscribe</button></div>
+      <div class="newsletter-trap" aria-hidden="true"><label for="newsletterCompany">Company</label><input id="newsletterCompany" name="company" type="text" tabindex="-1" autocomplete="off"></div>
+      <p class="newsletter-legal">We'll email you to confirm. Unsubscribe anytime. <a href="/privacy#newsletter">Privacy policy</a></p>
+      <p class="newsletter-status" role="status" aria-live="polite"></p>
+    </form>
+  </section>
+  <div class="foot-grid">
+    <div class="foot-brand">
+          <img src="assets/emindev-logo.png" alt="Emin Dev" width="91" height="91">
+          <p>Custom websites and online stores for businesses of every kind. Design, technical maintenance and content services, with clear scope and project quotes.</p>
+    </div>
+    <nav class="foot-col" aria-label="Emin Dev">
+          <h3>Emin Dev</h3><a href="/services">Services</a>
+          <a href="/work">Portfolio</a>
+          <a href="/about">About</a>
+          <a href="/website-services">Website design</a>
+          <a href="/website-services#faq">FAQ</a>
+          <a href="/contact">Request a quote</a>
+        </nav>
+    <nav class="foot-col" aria-label="Legal">
+      <h3>Legal</h3><a href="#cookies">Cookie settings</a>
+      <a href="/terms">Terms of Service</a>
+      <a href="/privacy">Privacy Policy</a>
+    </nav>
+    <div class="foot-col">
+      <h3>Contact</h3>
+      <a href="mailto:oeminsisman@gmail.com?subject=Website%20project%20enquiry">oeminsisman@gmail.com</a>
+      <a href="https://www.instagram.com/developedbyemin" target="_blank" rel="noopener">developedbyemin</a>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <p>© 2026 Emin Dev. All rights reserved.</p>
+    <p>Freelance developer. Working worldwide.</p>
+  </div>
+</footer>
+
+
+
+<!-- ⚠️ AL EDITAR main.js HAY QUE SUBIR ESTE NUMERO. El servidor manda
+     `Cache-Control: public, max-age=604800` (7 dias) para el .js, asi que la URL
+     la URL versionada se queda pegada una semana en el navegador del visitante Y en el borde
+     del CDN. Medido el 2026-08-14: se desplego un main.js nuevo, el origen servia el
+     correcto (md5 identico) y PageSpeed seguia ejecutando el viejo. index.html NO se
+     cachea (solo ETag), asi que cambiar este numero es lo unico que llega a todo el mundo
+     en el acto. Lo mismo vale para styles.css?v= y bird.js?v=. -->
+
+
+<!-- EL CONTADOR DE VISITAS, OTRA VEZ EN PIE (2026-09-06). Esta es la portada de la agencia:
+     por aqui entra quien viene de Instagram y de la firma del correo, y es el denominador de
+     la pregunta "de los que ven la portada, ¿cuantos abren una obra?".
+
+     Llevaba desde el 23-ago sin contar nada. El contador de antes escribia en un fichero del
+     disco de Hostinger y `automation/visitas.py` lo leia por FTP; las dos mitades murieron con
+     el alojamiento el 28-ago. Ahora la cuenta la lleva `functions/cnt.js`, que corre en el
+     propio Cloudflare Pages. Ni IP, ni cookie, ni nada de quien entra: solo se suma uno a un
+     numero del dia, con la etiqueta `k=s` para no mezclarse con la web de los correos. -->
+
+<script src="/contact-form.js?v=7" defer></script>
+<script src="/journey.js?v=1" defer></script>
+<script src="/consent.js?v=3" defer></script>
+
+
+<script src="/navigation.js?v=2" defer></script><script src="/newsletter-form.js?v=1" defer></script>
+<script src="/studio-editorial.js?v=12" defer></script><script src="/services.js?v=8" defer></script>
+</body>
+</html>
